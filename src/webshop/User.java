@@ -72,6 +72,12 @@ public abstract class User {
         shoppingBasket.changeQuantity(item, quantity);
     }
     
+    public void removeItem(Item item){
+        Order shoppingBasket = this.findShoppingBasket();
+        
+        shoppingBasket.removeItem(item);
+    }
+    
     public Order findShoppingBasket(){
         
         for(Order order : orderMap.values()){
