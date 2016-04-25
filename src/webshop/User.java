@@ -83,14 +83,17 @@ public abstract class User
 
         shoppingBasket.changeQuantity(item, quantity);
     }
-
-    public Order findShoppingBasket()
-    {
-
-        for (Order order : orderMap.values())
-        {
-            if (order.getStatus() == Status.ShoppingBasket)
-            {
+    
+    public void removeItem(Item item){
+        Order shoppingBasket = this.findShoppingBasket();
+        
+        shoppingBasket.removeItem(item);
+    }
+    
+    public Order findShoppingBasket(){
+        
+        for(Order order : orderMap.values()){
+            if(order.getStatus() == Status.ShoppingBasket){
                 return order;
             }
 

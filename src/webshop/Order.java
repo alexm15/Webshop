@@ -35,6 +35,7 @@ public class Order {
     
     public void removeItem(Item item) {
         
+        itemList.remove(item);
     }
     
     public void changeQuantity(Item item, int quantity) {

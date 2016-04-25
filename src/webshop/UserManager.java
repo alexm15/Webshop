@@ -54,10 +54,14 @@ public class UserManager {
     
     public void changeQuantity(String username, Item item, int quantity) {
         Customer c = this.findCustomer(username);
+        
+        c.changeQuantity(quantity, item);
     }
     
     public void removeItem(String username, Item item) {
+        Customer c = this.findCustomer(username);
         
+        c.removeItem(item);
     }
     
     public String getFirstName(String username) {
