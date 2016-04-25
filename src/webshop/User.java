@@ -65,6 +65,24 @@ public abstract class User {
     public Rights getRight() {
         return right;
     }
+    
+    public void changeQuantity(int quantity, Item item){
+        Order shoppingBasket = this.findShoppingBasket();
+        
+        shoppingBasket.changeQuantity(item, quantity);
+    }
+    
+    public Order findShoppingBasket(){
+        
+        for(Order order : orderMap.values()){
+            if(order.getStatus() == Status.ShoppingBasket){
+                return order;
+            }
+            
+        }
+        
+        return null;
+    }
 
     public void createOrder(int orderID)
     {

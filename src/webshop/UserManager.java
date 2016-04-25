@@ -49,7 +49,7 @@ public class UserManager {
     }
     
     public void changeQuantity(String username, Item item, int quantity) {
-        
+        Customer c = this.findCustomer(username);
     }
     
     public void removeItem(String username, Item item) {
@@ -60,8 +60,8 @@ public class UserManager {
         return findCustomer(username).getName().getFirstName();
     }
     
-    private User findCustomer(String username) {
-        return customersMap.get(username);
+    private Customer findCustomer(String username) {
+        return (Customer) customersMap.get(username);
     }
     
 }
