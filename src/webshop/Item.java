@@ -21,6 +21,11 @@ public class Item {
     {
         this.quantity = quantity;
     }
+
+    public double getSumPrice()
+    {
+        return sumPrice;
+    }
     
             
 }

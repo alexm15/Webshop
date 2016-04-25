@@ -12,35 +12,34 @@ import util.*;
 public class Order {
     
     private Date orderDate;
-    private double tax, shippingCharge, finalPrice;
+    private double shippingCharge;
     private int orderID;
     private Status status;
     private Address shippingAddress;
-    private Set<Item> itemList;
+    private Set<Item> itemSet;
+    private final double TAX = 1.2;
     
-    public Order(Date orderDate, double tax, double shippingCharge, double finalPrice, int orderID, Status status, Address shippingAddress) {
+    public Order(Date orderDate, double shippingCharge, int orderID, Status status, Address shippingAddress) {
         this.orderDate = orderDate;
-        this.tax = tax;
         this.shippingCharge = shippingCharge;
-        this.finalPrice = finalPrice;
         this.orderID = orderID;
         this.status = status;
         this.shippingAddress = shippingAddress;
-        itemList = new HashSet<>();
+        itemSet = new HashSet<>();
     }
     
     public void addItem(Product product, int quantity) {
-        itemList.add(new Item(product, quantity, product.getPrice()*quantity));
+        itemSet.add(new Item(product, quantity, product.getPrice()*quantity));
     }
     
     public void removeItem(Item item) {
         
-        itemList.remove(item);
+        itemSet.remove(item);
     }
     
     public void changeQuantity(Item item, int quantity) {
         
-        for (Item i : itemList) {
+        for (Item i : itemSet) {
             if (item.equals(i)) {
                 item.changeQuantity(quantity);
             }
@@ -60,13 +59,6 @@ public class Order {
         this.orderDate = orderDate;
     }
     
-    public double getTax() {
-        return tax;
-    }
-    
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
     
     public double getShippingCharge() {
         return shippingCharge;
@@ -77,11 +69,12 @@ public class Order {
     }
     
     public double getFinalPrice() {
-        return finalPrice;
-    }
-    
-    public void setFinalPrice(double finalPrice) {
-        this.finalPrice = finalPrice;
+        double sum = 0;
+        for (Item item : itemSet)
+        {
+            sum += item.getSumPrice();
+        }
+        return sum * TAX;
     }
     
     public int getOrderID() {
