@@ -164,7 +164,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         sizes = new CheckBox[] {sBox, mBox, lBox};
         WebshopDriver.getInstance().fillProducts();
         createProductButtons(WebshopDriver.getInstance().getProducts());
-        priceTxt.textProperty().bind(priceSlider.valueProperty().asString());
+        priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            priceTxt.setText(newValue.intValue() + "");
+        });
         usernameField.setOnKeyReleased((e) -> {
             if(e.getCode() == KeyCode.ENTER) {
                 login();
