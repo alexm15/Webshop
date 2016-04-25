@@ -44,8 +44,12 @@ public class UserManager {
         
     }
     
+    public boolean hasBasket(String username) {
+        return findCustomer(username).findShoppingBasket() != null;
+    }
+    
     public void addItem(String username, Product product, int quantity) {
-        
+        findCustomer(username).addItem(product, quantity);
     }
     
     public void changeQuantity(String username, Item item, int quantity) {

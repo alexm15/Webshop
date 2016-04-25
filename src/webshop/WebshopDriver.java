@@ -161,8 +161,16 @@ public class WebshopDriver {
         userManager.changeQuantity(username, item, quantity);
     }
     
-    public void makeNewBasket(String username)
+    private void makeNewBasket(String username)
     {
         userManager.createOrder(username, orderID++);
+    }
+    
+    public void addItem(Product product, int quantity, String username)
+    {
+        if(!userManager.hasBasket(username)) {
+            makeNewBasket(username);
+        }
+        userManager.addItem(username, product, quantity);
     }
 }
