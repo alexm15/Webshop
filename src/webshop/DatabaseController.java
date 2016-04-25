@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  * @author Niels
  */
-public class DatabaseController {
+public abstract class DatabaseController {
     
     private Connection con = null;
     

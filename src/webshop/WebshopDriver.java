@@ -10,18 +10,18 @@ import java.util.Set;
 public class WebshopDriver {
     
     private static WebshopDriver webshopDriver = null;
-    private DatabaseController database;
+    //private DatabaseController database;
     private UserManager userManager;
     private Set<Product> products;
     private Product selectedProduct;
     
     private WebshopDriver() {
-        database = new DatabaseController();
+        //database = new DatabaseController();
         userManager = new UserManager();
         products = new HashSet<>();
     }
     
-    public void connect() {
+    /*public void connect() {
         database.connect();
     }
     
@@ -31,7 +31,7 @@ public class WebshopDriver {
     
     public boolean isConnected() {
         return database.isConnected();
-    }
+    }*/
     
     public boolean login(String username, String password) {
         return userManager.validate(username, password);
