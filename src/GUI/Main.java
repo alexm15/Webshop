@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import webshop.Product;
 import webshop.WebshopDriver;
 
 /**
@@ -32,6 +33,7 @@ public class Main extends Application {
             }*/
         });
         stage.show();
+        
     }
     
     public static void main(String[] args) {
