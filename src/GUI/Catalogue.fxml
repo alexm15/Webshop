@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CatalogueController">
+   <children>
+      <Region prefHeight="800.0" prefWidth="190.0" />
+      <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
+      <VBox alignment="CENTER" layoutX="190.0" layoutY="30.0" prefHeight="768.0" prefWidth="171.0" spacing="5.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="919.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="48.0" prefWidth="171.0" spacing="5.0">
+               <children>
+                  <Label text="Søg">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchTxt" onKeyReleased="#updateProductsShown" promptText="Indtast søgeord..." />
+               </children>
+            </VBox>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="51.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="73.0" layoutY="3.0" text="Køn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="womenBox" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Dame" />
+                  <CheckBox fx:id="menBox" layoutX="62.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Herre" />
+                  <CheckBox fx:id="unisexBox" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Unisex" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <Label text="Kategori">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ScrollPane focusTraversable="false" prefHeight="130.0" prefWidth="148.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="150.0">
+                     <children>
+                        <CheckBox fx:id="dressBox" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Kjoler" />
+                        <CheckBox fx:id="shirtBox" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Skjorter" />
+                        <CheckBox fx:id="blouseBox" layoutX="6.0" layoutY="46.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Bluser" />
+                        <CheckBox fx:id="pantsBox" layoutX="6.0" layoutY="66.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Bukser" />
+                        <CheckBox layoutX="6.0" layoutY="86.0" mnemonicParsing="false" text="Trøjer" />
+                        <CheckBox layoutX="6.0" layoutY="106.0" mnemonicParsing="false" text="T-shirts" />
+                        <CheckBox layoutX="6.0" layoutY="126.0" mnemonicParsing="false" text="1" />
+                        <CheckBox layoutX="6.0" layoutY="146.0" mnemonicParsing="false" text="2" />
+                        <CheckBox layoutX="6.0" layoutY="166.0" mnemonicParsing="false" text="3" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="76.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="70.0" layoutY="3.0" text="Farve">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="blackBox" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Sort" />
+                  <CheckBox fx:id="whiteBox" layoutX="57.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Hvid" />
+                  <CheckBox fx:id="redBox" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Rød" />
+                  <CheckBox fx:id="blueBox" layoutX="6.0" layoutY="52.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Blå" />
+                  <CheckBox fx:id="greenBox" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Grøn" />
+                  <CheckBox fx:id="yellowBox" layoutX="116.0" layoutY="52.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Gul" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="54.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="62.0" layoutY="3.0" text="Størrelse">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="sBox" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="S" />
+                  <CheckBox fx:id="mBox" layoutX="57.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="M" />
+                  <CheckBox fx:id="lBox" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="L" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="164.0" />
+            <AnchorPane prefHeight="87.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="72.0" layoutY="4.0" text="Pris">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="priceSlider" layoutX="16.0" layoutY="31.0" max="1500.0" onMouseDragged="#updateProductsShown" value="1500.0" />
+                  <HBox alignment="CENTER" layoutY="55.0" prefHeight="37.0" prefWidth="171.0" spacing="5.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+                     <children>
+                        <Label text="Maks pris" />
+                        <TextField fx:id="priceTxt" prefHeight="25.0" prefWidth="68.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <HBox fx:id="logoutContainer" alignment="CENTER_RIGHT" layoutX="753.0" layoutY="30.0" prefHeight="39.0" prefWidth="275.0" spacing="5.0" visible="false">
+         <children>
+            <Label fx:id="usernameTxt" text="Label" />
+            <Button mnemonicParsing="false" onAction="#logout" text="Log ud" />
+         </children>
+      </HBox>
+      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="753.0" layoutY="30.0" prefHeight="39.0" prefWidth="275.0" spacing="5.0">
+         <children>
+            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Brugernavn" />
+            <PasswordField fx:id="passwordField" prefWidth="100.0" promptText="Kodeord" />
+            <Button mnemonicParsing="false" onAction="#login" text="Log ind" />
+         </children>
+      </HBox>
+      <ScrollPane layoutX="417.0" layoutY="103.0" prefHeight="593.0" prefWidth="643.0" style="-fx-focus-color: #F4F4F4;">
+        <content>
+          <AnchorPane fx:id="productButtonContainer" style="-fx-focus-color: #F4F4F4;" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
