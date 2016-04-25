@@ -153,4 +153,10 @@ public class WebshopDriver {
         }
         return webshopDriver;
     }
+    
+    public void changeQuantity(String username, int quantity, Item item)
+    {
+        userManager.changeQuantity(username, item, quantity);
+    }
+    
 }
