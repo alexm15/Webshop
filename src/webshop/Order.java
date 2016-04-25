@@ -17,7 +17,7 @@ public class Order {
     private Status status;
     private Address shippingAddress;
     private Set<Item> itemList;
-
+    
     public Order(Date orderDate, double tax, double shippingCharge, double finalPrice, int orderID, Status status, Address shippingAddress) {
         this.orderDate = orderDate;
         this.tax = tax;
@@ -30,91 +30,82 @@ public class Order {
     }
     
     public void addItem(Product product, int quantity) {
-        
+        itemList.add(new Item(product, quantity, product.getPrice()*quantity));
     }
     
     public void removeItem(Item item) {
         
+        itemList.remove(item);
     }
     
     public void changeQuantity(Item item, int quantity) {
+        
+        for (Item i : itemList) {
+            if (item.equals(i)) {
+                item.changeQuantity(quantity);
+            }
+        }
         
     }
     
     public void returnItems() {
         
     }
-
-    public Date getOrderDate()
-    {
+    
+    public Date getOrderDate() {
         return orderDate;
     }
-
-    public void setOrderDate(Date orderDate)
-    {
+    
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
-
-    public double getTax()
-    {
+    
+    public double getTax() {
         return tax;
     }
-
-    public void setTax(double tax)
-    {
+    
+    public void setTax(double tax) {
         this.tax = tax;
     }
-
-    public double getShippingCharge()
-    {
+    
+    public double getShippingCharge() {
         return shippingCharge;
     }
-
-    public void setShippingCharge(double shippingCharge)
-    {
+    
+    public void setShippingCharge(double shippingCharge) {
         this.shippingCharge = shippingCharge;
     }
-
-    public double getFinalPrice()
-    {
+    
+    public double getFinalPrice() {
         return finalPrice;
     }
-
-    public void setFinalPrice(double finalPrice)
-    {
+    
+    public void setFinalPrice(double finalPrice) {
         this.finalPrice = finalPrice;
     }
-
-    public int getOrderID()
-    {
+    
+    public int getOrderID() {
         return orderID;
     }
-
-    public void setOrderID(int orderID)
-    {
+    
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
-
-    public Status getStatus()
-    {
+    
+    public Status getStatus() {
         return status;
     }
-
-    public void setStatus(Status status)
-    {
+    
+    public void setStatus(Status status) {
         this.status = status;
     }
-
-    public Address getShippingAddress()
-    {
+    
+    public Address getShippingAddress() {
         return shippingAddress;
     }
-
-    public void setShippingAddress(Address shippingAddress)
-    {
+    
+    public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-    
-    
     
 }

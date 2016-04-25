@@ -44,24 +44,32 @@ public class UserManager {
         
     }
     
+    public boolean hasBasket(String username) {
+        return findCustomer(username).findShoppingBasket() != null;
+    }
+    
     public void addItem(String username, Product product, int quantity) {
-        
+        findCustomer(username).addItem(product, quantity);
     }
     
     public void changeQuantity(String username, Item item, int quantity) {
+        Customer c = this.findCustomer(username);
         
+        c.changeQuantity(quantity, item);
     }
     
     public void removeItem(String username, Item item) {
+        Customer c = this.findCustomer(username);
         
+        c.removeItem(item);
     }
     
     public String getFirstName(String username) {
         return findCustomer(username).getName().getFirstName();
     }
     
-    private User findCustomer(String username) {
-        return customersMap.get(username);
+    private Customer findCustomer(String username) {
+        return (Customer) customersMap.get(username);
     }
     
 }
