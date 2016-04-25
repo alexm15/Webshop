@@ -76,6 +76,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private CheckBox pantsBox;
     @FXML
     private AnchorPane productButtonContainer;
+    @FXML
+    private Label errorTxt;
     
     /**
      * Loader og viser produktskærmen.
@@ -92,13 +94,14 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     public void login() {
         if(WebshopDriver.getInstance().login(usernameField.getText(), passwordField.getText())) {
+            errorTxt.setVisible(false);
             loginContainer.setVisible(false);
             logoutContainer.setVisible(true);
             String[] msg = {"Hej", "Goddag", "Velkommen"};
             usernameTxt.setText(msg[new Random().nextInt(msg.length)] + " " + WebshopDriver.getInstance().getName(usernameField.getText()));
         }
         else {
-            // tekst ved siden af(rød?) med fejlbesked, eller pop-up?
+            errorTxt.setVisible(true);
         }
     }
     
@@ -162,6 +165,11 @@ public class CatalogueController implements Initializable, ControlledScreen {
         WebshopDriver.getInstance().fillProducts();
         createProductButtons(WebshopDriver.getInstance().getProducts());
         priceTxt.textProperty().bind(priceSlider.valueProperty().asString());
+        usernameField.setOnKeyReleased((e) -> {
+            if(e.getCode() == KeyCode.ENTER) {
+                login();
+            }
+        });
         passwordField.setOnKeyReleased((e) -> {
             if(e.getCode() == KeyCode.ENTER) {
                 login();
