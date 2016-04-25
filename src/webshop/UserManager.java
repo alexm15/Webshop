@@ -38,7 +38,9 @@ public class UserManager {
         findCustomer(username).setLoggedIn(false);
     }
     
-    public void createOrder(String username) {
+    public void createOrder(String username, int orderID) {
+        //Kaldes på user klassen
+        this.findCustomer(username).createOrder(orderID);
         
     }
     

@@ -40,5 +40,77 @@ public class Order {
     public void returnItems() {
         
     }
+
+    public Date getOrderDate()
+    {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate)
+    {
+        this.orderDate = orderDate;
+    }
+
+    public double getTax()
+    {
+        return tax;
+    }
+
+    public void setTax(double tax)
+    {
+        this.tax = tax;
+    }
+
+    public double getShippingCharge()
+    {
+        return shippingCharge;
+    }
+
+    public void setShippingCharge(double shippingCharge)
+    {
+        this.shippingCharge = shippingCharge;
+    }
+
+    public double getFinalPrice()
+    {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice)
+    {
+        this.finalPrice = finalPrice;
+    }
+
+    public int getOrderID()
+    {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID)
+    {
+        this.orderID = orderID;
+    }
+
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Status status)
+    {
+        this.status = status;
+    }
+
+    public Address getShippingAddress()
+    {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress)
+    {
+        this.shippingAddress = shippingAddress;
+    }
+    
+    
     
 }

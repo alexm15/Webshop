@@ -14,11 +14,13 @@ public class WebshopDriver {
     private UserManager userManager;
     private Set<Product> products;
     private Product selectedProduct;
+    private static int orderID;
     
     private WebshopDriver() {
         //database = new DatabaseController();
         userManager = new UserManager();
         products = new HashSet<>();
+        orderID = 0;
     }
     
     /*public void connect() {
@@ -159,4 +161,8 @@ public class WebshopDriver {
         userManager.changeQuantity(username, item, quantity);
     }
     
+    public void makeNewBasket(String username)
+    {
+        userManager.createOrder(username, orderID++);
+    }
 }

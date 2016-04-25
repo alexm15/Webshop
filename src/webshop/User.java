@@ -1,5 +1,8 @@
 package webshop;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import util.*;
 
 /**
@@ -13,7 +16,8 @@ public abstract class User {
     private Name name;
     private Address address;
     private Rights right;
-
+    private Map<Integer, Order> orderMap;
+    
     public User(String username, String password, String phoneNumber, String email, Name name, Address address, Rights right) {
         this.username = username;
         this.password = password;
@@ -23,6 +27,7 @@ public abstract class User {
         this.name = name;
         this.address = address;
         this.right = right;
+        orderMap = new HashMap<>();
     }
     
     public void setLoggedIn(boolean loggedIn) {
@@ -60,5 +65,12 @@ public abstract class User {
     public Rights getRight() {
         return right;
     }
+
+    public void createOrder(int orderID)
+    {
+         orderMap.put(orderID, new Order(new Date(), (orderMap.get(this).getFinalPrice() * 0.2), orderID, orderID, orderID, Status.Shipped, address));
+    }
+
+    
     
 }
