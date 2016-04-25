@@ -107,7 +107,7 @@
                   <HBox alignment="CENTER" layoutY="55.0" prefHeight="37.0" prefWidth="171.0" spacing="5.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
                      <children>
                         <Label text="Maks pris" />
-                        <TextField fx:id="priceTxt" prefHeight="25.0" prefWidth="68.0" text="1500" />
+                        <TextField fx:id="priceTxt" editable="false" prefHeight="25.0" prefWidth="68.0" text="1500" />
                      </children>
                   </HBox>
                </children>
