@@ -38,9 +38,7 @@ public class UserManager {
     }
     
     public void createOrder(String username, int orderID) {
-        //Kaldes på user klassen
-        this.findUser(username).createOrder(orderID);
-        
+        findUser(username).createOrder(orderID);
     }
     
     public boolean hasBasket(String username) {
@@ -52,15 +50,11 @@ public class UserManager {
     }
     
     public void changeQuantity(String username, Item item, int quantity) {
-        User c = this.findUser(username);
-        
-        c.changeQuantity(quantity, item);
+        findUser(username).changeQuantity(quantity, item);
     }
     
     public void removeItem(String username, Item item) {
-        User c = this.findUser(username);
-        
-        c.removeItem(item);
+        findUser(username).removeItem(item);
     }
     
     public String getFirstName(String username) {

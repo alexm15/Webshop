@@ -9,8 +9,7 @@ import util.*;
  *
  * @author Niels
  */
-public abstract class User
-{
+public abstract class User {
 
     private String username, password, phoneNumber, email;
     private boolean loggedIn;
@@ -19,8 +18,7 @@ public abstract class User
     private Rights right;
     private Map<Integer, Order> orderMap;
 
-    public User(String username, String password, String phoneNumber, String email, Name name, Address address, Rights right)
-    {
+    public User(String username, String password, String phoneNumber, String email, Name name, Address address, Rights right) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -32,83 +30,68 @@ public abstract class User
         orderMap = new HashMap<>();
     }
 
-    public void setLoggedIn(boolean loggedIn)
-    {
+    public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public String getPhoneNumber()
-    {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public boolean isLoggedIn()
-    {
+    public boolean isLoggedIn() {
         return loggedIn;
     }
 
-    public Name getName()
-    {
+    public Name getName() {
         return name;
     }
 
-    public Address getAddress()
-    {
+    public Address getAddress() {
         return address;
     }
 
-    public Rights getRight()
-    {
+    public Rights getRight() {
         return right;
     }
 
-    public void changeQuantity(int quantity, Item item)
-    {
+    public void changeQuantity(int quantity, Item item) {
         Order shoppingBasket = this.findShoppingBasket();
 
         shoppingBasket.changeQuantity(item, quantity);
     }
-    
-    public void removeItem(Item item){
+
+    public void removeItem(Item item) {
         Order shoppingBasket = this.findShoppingBasket();
-        
+
         shoppingBasket.removeItem(item);
     }
-    
-    public Order findShoppingBasket(){
-        
-        for(Order order : orderMap.values()){
-            if(order.getStatus() == Status.ShoppingBasket){
+
+    public Order findShoppingBasket() {
+        for (Order order : orderMap.values()) {
+            if (order.getStatus() == Status.ShoppingBasket) {
                 return order;
             }
-
         }
-
         return null;
     }
 
-    public void createOrder(int orderID)
-    {
+    public void createOrder(int orderID) {
         orderMap.put(orderID, new Order(new Date(), 25.0, orderID, Status.ShoppingBasket, address));
     }
 
-    public void addItem(Product product, int quantity)
-    {
+    public void addItem(Product product, int quantity) {
         findShoppingBasket().addItem(product, quantity);
     }
 

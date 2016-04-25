@@ -8,21 +8,21 @@ import java.util.Set;
  * @author Niels
  */
 public class WebshopDriver {
-    
+
     private static WebshopDriver webshopDriver = null;
     //private DatabaseController database;
     private UserManager userManager;
     private Set<Product> products;
     private Product selectedProduct;
     private static int orderID;
-    
+
     private WebshopDriver() {
         //database = new DatabaseController();
         userManager = new UserManager();
         products = new HashSet<>();
         orderID = 0;
     }
-    
+
     /*public void connect() {
         database.connect();
     }
@@ -34,19 +34,18 @@ public class WebshopDriver {
     public boolean isConnected() {
         return database.isConnected();
     }*/
-    
     public boolean login(String username, String password) {
         return userManager.validate(username, password);
     }
-    
+
     public void logout(String username) {
         userManager.logout(username);
     }
-    
+
     public String getName(String username) {
         return userManager.getFirstName(username);
     }
-    
+
     /**
      * Testmetode til at fylde noget i products.
      */
@@ -65,8 +64,8 @@ public class WebshopDriver {
         products.add(new Product(12, 4, "Grim bluse", "Bluser", "M", "Sort", "Herre", 159));
         products.add(new Product(13, 4, "Pæn bluse", "Bluser", "S", "Hvid", "Dame", 239));
     }
-    
-    public Set<Product> searchProduct(String searchTerm, double maxPrice, Set<String> genders, 
+
+    public Set<Product> searchProduct(String searchTerm, double maxPrice, Set<String> genders,
             Set<String> categories, Set<String> colors, Set<String> sizes) {
         Set<Product> gender = searchGender(products, genders);
         Set<Product> category = searchCategory(gender, categories);
@@ -74,105 +73,103 @@ public class WebshopDriver {
         Set<Product> size = searchSize(color, sizes);
         return search(size, searchTerm, maxPrice);
     }
-    
+
     private Set<Product> search(Set<Product> setToSearch, String searchTerm, double maxPrice) {
         Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
-            if(p.getName().toLowerCase().contains(searchTerm.toLowerCase()) && p.getPrice() < maxPrice) {
+        for (Product p : setToSearch) {
+            if (p.getName().toLowerCase().contains(searchTerm.toLowerCase()) && p.getPrice() < maxPrice) {
                 results.add(p);
             }
         }
         return results;
     }
-    
+
     private Set<Product> searchGender(Set<Product> setToSearch, Set<String> genders) {
         Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
-            for(String gender : genders) {
-                if(p.getGender().equals(gender)) {
+        for (Product p : setToSearch) {
+            for (String gender : genders) {
+                if (p.getGender().equals(gender)) {
                     results.add(p);
                 }
             }
         }
         return results;
     }
-    
+
     private Set<Product> searchCategory(Set<Product> setToSearch, Set<String> categories) {
         Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
-            for(String category : categories) {
-                if(p.getCategory().equals(category)) {
+        for (Product p : setToSearch) {
+            for (String category : categories) {
+                if (p.getCategory().equals(category)) {
                     results.add(p);
                 }
             }
         }
         return results;
     }
-    
+
     private Set<Product> searchColor(Set<Product> setToSearch, Set<String> colors) {
         Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
-            for(String color : colors) {
-                if(p.getColor().equals(color)) {
+        for (Product p : setToSearch) {
+            for (String color : colors) {
+                if (p.getColor().equals(color)) {
                     results.add(p);
                 }
             }
         }
         return results;
     }
-    
+
     private Set<Product> searchSize(Set<Product> setToSearch, Set<String> sizes) {
         Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
-            for(String size : sizes) {
-                if(p.getSize().equals(size)) {
+        for (Product p : setToSearch) {
+            for (String size : sizes) {
+                if (p.getSize().equals(size)) {
                     results.add(p);
                 }
             }
         }
         return results;
     }
-    
+
     public Set<Product> getProducts() {
         return products;
     }
-    
+
     public void setSelectedProduct(Product product) {
         selectedProduct = product;
     }
-    
+
     public Product getSelectedProduct() {
         return selectedProduct;
     }
-    
+
     /**
      * Singleton implementation. Sørger for at der altid kun findes én instans.
+     *
      * @return Instansen af WebshopDriver.
      */
     public static WebshopDriver getInstance() {
-        if(webshopDriver == null) {
+        if (webshopDriver == null) {
             webshopDriver = new WebshopDriver();
         }
         return webshopDriver;
     }
-    
-    public void changeQuantity(String username, int quantity, Item item)
-    {
+
+    public void changeQuantity(String username, int quantity, Item item) {
         userManager.changeQuantity(username, item, quantity);
     }
-    
-    public void removeItem(String username, Item item){
+
+    public void removeItem(String username, Item item) {
         userManager.removeItem(username, item);
     }
-    
-    private void makeNewBasket(String username)
-    {
+
+    private void makeNewBasket(String username) {
         userManager.createOrder(username, orderID++);
     }
-    
-    public void addItem(Product product, int quantity, String username)
-    {
-        if(!userManager.hasBasket(username)) {
+
+    public void addItem(Product product, int quantity, String username) {
+        if (!userManager.hasBasket(username)) {
             makeNewBasket(username);
         }
         userManager.addItem(username, product, quantity);
