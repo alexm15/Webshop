@@ -27,9 +27,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setOnCloseRequest((e) -> {
             WebshopDriver webshop = WebshopDriver.getInstance();
-            if(webshop.isConnected()) {
+            /*if(webshop.isConnected()) {
                 webshop.disconnect();
-            }
+            }*/
         });
         stage.show();
     }
