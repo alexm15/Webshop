@@ -2,6 +2,9 @@ package webshop;
 
 import java.util.HashMap;
 import java.util.Map;
+import util.Address;
+import util.Name;
+import util.Rights;
 
 /**
  * @author Niels
@@ -13,18 +16,20 @@ public class UserManager {
     public UserManager() {
         customersMap = new HashMap<>();
         workersMap = new HashMap<>();
-        Customer c = new Customer("niels", "kode", "Niels", "12345678", "email@email.dk");
+        Customer c = new Customer("niels", "kode", "12345678", "email@email.dk",
+                new Name("Niels", "Heltner"), new Address("55", "Campusvej",
+                        "5000", "Odense", "Danmark"), Rights.Customer);
         customersMap.put(c.getUsername(), c);
     }
     
     public boolean validate(String username, String password) {
-        Customer customer = findCustomer(username);
-        if(customer == null) {
+        User user = findCustomer(username);
+        if(user == null) {
             return false;
         }
         else {
-            boolean validated = customer.getPassword().equals(password);
-            customer.setLoggedIn(validated);
+            boolean validated = user.getPassword().equals(password);
+            user.setLoggedIn(validated);
             return validated;
         }
     }
@@ -53,7 +58,7 @@ public class UserManager {
         return findCustomer(username).getName().getFirstName();
     }
     
-    private Customer findCustomer(String username) {
+    private User findCustomer(String username) {
         return customersMap.get(username);
     }
     
