@@ -86,7 +86,7 @@ public abstract class User {
 
     public void createOrder(int orderID)
     {
-         orderMap.put(orderID, new Order(new Date(), (orderMap.get(this).getFinalPrice() * 0.2), orderID, orderID, orderID, Status.Shipped, address));
+         orderMap.put(orderID, new Order(new Date(), (orderMap.get(orderID).getFinalPrice() * 0.2), 25.0, 2000, orderID, Status.ShoppingBasket, address));
     }
 
     

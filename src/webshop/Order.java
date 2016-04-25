@@ -1,6 +1,8 @@
 package webshop;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import util.*;
 
 /**
@@ -14,6 +16,7 @@ public class Order {
     private int orderID;
     private Status status;
     private Address shippingAddress;
+    private Set<Item> itemList;
 
     public Order(Date orderDate, double tax, double shippingCharge, double finalPrice, int orderID, Status status, Address shippingAddress) {
         this.orderDate = orderDate;
@@ -23,6 +26,7 @@ public class Order {
         this.orderID = orderID;
         this.status = status;
         this.shippingAddress = shippingAddress;
+        itemList = new HashSet<>();
     }
     
     public void addItem(Product product, int quantity) {
