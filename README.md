@@ -8,6 +8,7 @@ Forslag om at implementere et version numeringsystem til vores projekt for at g�
 
 ### Forslaget:
 Webshop_v1.0.1, hvor syntaksen vil være v[Major].[Minor].[Patch]
+
 [Major] = Ændringer hvor det ikke er muligt at gå tilbage til et tidligere nummer under disse fx v2.0.0 kan ikke gå tilbage til v1.0.0. Er også alt der er med endelig release og gøre.
 
 [Minor] = Ændringer der ikke ødelægger kompatabilitet til tidligere numre af denne type, så v1.2.0 kan godt gå tilbage til v1.1.0. Her øges nummeret typisk når til tilføjes nye features til produktet.
