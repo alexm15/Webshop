@@ -104,7 +104,8 @@ public abstract class User
 
     public void createOrder(int orderID)
     {
-        orderMap.put(orderID, new Order(new Date(), 25.0, orderID, Status.ShoppingBasket, address));
+        double shippingCharge = 25.0;
+        orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, Status.ShoppingBasket, address));
     }
 
     public void addItem(Product product, int quantity)
