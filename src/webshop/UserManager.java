@@ -22,7 +22,7 @@ public class UserManager {
     }
     
     public boolean validate(String username, String password) {
-        User user = findCustomer(username);
+        User user = findUser(username);
         if(user == null) {
             return false;
         }
@@ -34,40 +34,34 @@ public class UserManager {
     }
     
     public void logout(String username) {
-        findCustomer(username).setLoggedIn(false);
+        findUser(username).setLoggedIn(false);
     }
     
     public void createOrder(String username, int orderID) {
-        //Kaldes på user klassen
-        this.findCustomer(username).createOrder(orderID);
-        
+        findUser(username).createOrder(orderID);
     }
     
     public boolean hasBasket(String username) {
-        return findCustomer(username).findShoppingBasket() != null;
+        return findUser(username).findShoppingBasket() != null;
     }
     
     public void addItem(String username, Product product, int quantity) {
-        findCustomer(username).addItem(product, quantity);
+        findUser(username).addItem(product, quantity);
     }
     
     public void changeQuantity(String username, Item item, int quantity) {
-        User c = this.findCustomer(username);
-        
-        c.changeQuantity(quantity, item);
+        findUser(username).changeQuantity(quantity, item);
     }
     
     public void removeItem(String username, Item item) {
-        User c = this.findCustomer(username);
-        
-        c.removeItem(item);
+        findUser(username).removeItem(item);
     }
     
     public String getFirstName(String username) {
-        return findCustomer(username).getName().getFirstName();
+        return findUser(username).getName().getFirstName();
     }
     
-    private User findCustomer(String username) {
+    private User findUser(String username) {
         return usersMap.get(username);
     }
     
