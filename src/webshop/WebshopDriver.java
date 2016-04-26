@@ -1,7 +1,6 @@
 package webshop;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -150,7 +149,7 @@ public class WebshopDriver {
      * @return Instansen af WebshopDriver.
      */
     public static WebshopDriver getInstance() {
-        if (webshopDriver == null) {
+        if(webshopDriver == null) {
             webshopDriver = new WebshopDriver();
         }
         return webshopDriver;
