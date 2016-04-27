@@ -162,6 +162,11 @@ public class WebshopDriver {
     public void removeItem(String email, Item item) {
         userManager.removeItem(email, item);
     }
+    
+    private void makeGuestLogin()
+    {
+        userManager.createUser();
+    }
 
     private void makeNewBasket(String email) {
         userManager.createOrder(email, orderID++);

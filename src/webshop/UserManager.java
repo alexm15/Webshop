@@ -2,6 +2,7 @@ package webshop;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import util.Address;
 import util.Name;
 import util.Rights;
@@ -63,6 +64,26 @@ public class UserManager {
     
     private User findUser(String email) {
         return usersMap.get(email);
+    }
+
+    private String randomString(int numChars) {
+        Random generator = new Random();
+        String s = "";
+            for(int i = 0; i < numChars; i++) {
+            s += (char) ('a' + generator.nextInt(26));
+            }
+            s = s + "@FashionEshop.com";
+        return s;
+    }
+    
+    public void createUser()
+    {
+        String key = randomString(5);
+      
+        if (!usersMap.containsKey(key))
+        {
+            usersMap.put(key, new User(key, null, null, null, null, Rights.Guest, null, null, null));
+        }
     }
     
 }
