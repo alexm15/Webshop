@@ -15,10 +15,10 @@ public class UserManager {
     
     public UserManager() {
         usersMap = new HashMap<>();
-        Customer c = new Customer("niels", "kode", "12345678", "email@email.dk",
+        User testUser = new User("niels", "kode", "12345678", "email@email.dk",
                 new Name("Niels", "Heltner"), new Address("55", "Campusvej",
                         "5000", "Odense", "Danmark"), Rights.Customer);
-        usersMap.put(c.getUsername(), c);
+        usersMap.put(testUser.getUsername(), testUser);
     }
     
     public boolean validate(String username, String password) {

@@ -9,7 +9,7 @@ import util.*;
  *
  * @author Niels
  */
-public abstract class User {
+public class User {
 
     private String username, password, phoneNumber, email;
     private boolean loggedIn;
