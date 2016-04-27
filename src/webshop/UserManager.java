@@ -17,7 +17,7 @@ public class UserManager {
         usersMap = new HashMap<>();
         User testUser = new User("niels", "kode", "12345678", "email@email.dk",
                 new Name("Niels", "Heltner"), new Address("55", "Campusvej",
-                        "5000", "Odense", "Danmark"), Rights.Customer);
+                        "5000", "Odense", "Danmark"), Rights.Customer, "20", "03", "1996");
         usersMap.put(testUser.getUsername(), testUser);
     }
     

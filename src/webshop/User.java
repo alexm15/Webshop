@@ -1,5 +1,8 @@
 package webshop;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +20,10 @@ public class User {
     private Address address;
     private Rights right;
     private Map<Integer, Order> orderMap;
+    private Date dateOfBirth;
 
-    public User(String username, String password, String phoneNumber, String email, Name name, Address address, Rights right) {
+    public User(String username, String password, String phoneNumber, String email, 
+            Name name, Address address, Rights right, String day, String month, String year) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -28,6 +33,14 @@ public class User {
         this.address = address;
         this.right = right;
         orderMap = new HashMap<>();
+        String startDateString = day + "/" + month + "/" + year;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateOfBirth = df.parse(startDateString);
+            //String newDateString = df.format(startDate);
+        } catch(ParseException e) {
+            System.err.println(e);
+        }
     }
 
     public void setLoggedIn(boolean loggedIn) {
