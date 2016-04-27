@@ -75,8 +75,8 @@ public class WebshopDriver {
 
     private Set<Product> search(Set<Product> setToSearch, String searchTerm, double maxPrice) {
         Set<Product> results = new HashSet<>();
-        for (Product p : setToSearch) {
-            if (p.getName().toLowerCase().contains(searchTerm.toLowerCase()) && p.getPrice() < maxPrice) {
+        for(Product p : setToSearch) {
+            if(p.getName().toLowerCase().contains(searchTerm.toLowerCase()) && p.getPrice() < maxPrice) {
                 results.add(p);
             }
         }
@@ -85,9 +85,9 @@ public class WebshopDriver {
 
     private Set<Product> searchGender(Set<Product> setToSearch, Set<String> genders) {
         Set<Product> results = new HashSet<>();
-        for (Product p : setToSearch) {
-            for (String gender : genders) {
-                if (p.getGender().equals(gender)) {
+        for(Product p : setToSearch) {
+            for(String gender : genders) {
+                if(p.getGender().equals(gender)) {
                     results.add(p);
                 }
             }
@@ -97,9 +97,9 @@ public class WebshopDriver {
 
     private Set<Product> searchCategory(Set<Product> setToSearch, Set<String> categories) {
         Set<Product> results = new HashSet<>();
-        for (Product p : setToSearch) {
-            for (String category : categories) {
-                if (p.getCategory().equals(category)) {
+        for(Product p : setToSearch) {
+            for(String category : categories) {
+                if(p.getCategory().equals(category)) {
                     results.add(p);
                 }
             }
@@ -109,9 +109,9 @@ public class WebshopDriver {
 
     private Set<Product> searchColor(Set<Product> setToSearch, Set<String> colors) {
         Set<Product> results = new HashSet<>();
-        for (Product p : setToSearch) {
-            for (String color : colors) {
-                if (p.getColor().equals(color)) {
+        for(Product p : setToSearch) {
+            for(String color : colors) {
+                if(p.getColor().equals(color)) {
                     results.add(p);
                 }
             }
@@ -121,9 +121,9 @@ public class WebshopDriver {
 
     private Set<Product> searchSize(Set<Product> setToSearch, Set<String> sizes) {
         Set<Product> results = new HashSet<>();
-        for (Product p : setToSearch) {
-            for (String size : sizes) {
-                if (p.getSize().equals(size)) {
+        for(Product p : setToSearch) {
+            for(String size : sizes) {
+                if(p.getSize().equals(size)) {
                     results.add(p);
                 }
             }
@@ -162,10 +162,9 @@ public class WebshopDriver {
     public void removeItem(String email, Item item) {
         userManager.removeItem(email, item);
     }
-    
-    private void makeGuestLogin()
-    {
-        userManager.createGuestUser();
+
+    private String createGuestUser() {
+        return userManager.createGuestUser();
     }
 
     private void makeNewBasket(String email) {
@@ -174,10 +173,9 @@ public class WebshopDriver {
 
     public void addItem(Product product, int quantity, String email) {
         if(email.equals("")) {
-            //makenewguest
-            //email = guest.email
+            email = createGuestUser();
         }
-        if (!userManager.hasBasket(email)) {
+        if(!userManager.hasBasket(email)) {
             makeNewBasket(email);
         }
         userManager.addItem(email, product, quantity);

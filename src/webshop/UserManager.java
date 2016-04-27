@@ -76,11 +76,12 @@ public class UserManager {
         return s;
     }
 
-    public void createGuestUser() {
+    public String createGuestUser() {
         String email = randomString(5);
         if(!usersMap.containsKey(email)) {
             usersMap.put(email, new User(email, null, null, null, null, Rights.Guest, null, null, null));
         }
+        return email;
     }
 
 }
