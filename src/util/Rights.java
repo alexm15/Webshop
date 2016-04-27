@@ -6,6 +6,7 @@ package util;
  */
 public enum Rights {
     
+    Guest, 
     Customer,
     Worker, 
     Admin;

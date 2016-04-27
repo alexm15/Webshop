@@ -14,7 +14,7 @@ import util.*;
  */
 public class User {
 
-    private String username, password, phoneNumber, email;
+    private String email, password, phoneNumber;
     private boolean loggedIn;
     private Name name;
     private Address address;
@@ -22,12 +22,11 @@ public class User {
     private Map<Integer, Order> orderMap;
     private Date dateOfBirth;
 
-    public User(String username, String password, String phoneNumber, String email, 
-            Name name, Address address, Rights right, String day, String month, String year) {
-        this.username = username;
+    public User(String email, String password, String phoneNumber, Name name, 
+            Address address, Rights right, String day, String month, String year) {
+        this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.email = email;
         this.loggedIn = false;
         this.name = name;
         this.address = address;
@@ -46,9 +45,9 @@ public class User {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-
-    public String getUsername() {
-        return username;
+    
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -57,10 +56,6 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public boolean isLoggedIn() {
@@ -81,13 +76,11 @@ public class User {
 
     public void changeQuantity(int quantity, Item item) {
         Order shoppingBasket = this.findShoppingBasket();
-
         shoppingBasket.changeQuantity(item, quantity);
     }
 
     public void removeItem(Item item) {
         Order shoppingBasket = this.findShoppingBasket();
-
         shoppingBasket.removeItem(item);
     }
 
@@ -100,8 +93,7 @@ public class User {
         return null;
     }
 
-    public void createOrder(int orderID)
-    {
+    public void createOrder(int orderID) {
         double shippingCharge = 25.0;
         orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, Status.ShoppingBasket, address));
     }
@@ -109,5 +101,4 @@ public class User {
     public void addItem(Product product, int quantity) {
         findShoppingBasket().addItem(product, quantity);
     }
-
 }

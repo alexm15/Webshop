@@ -123,7 +123,7 @@
       <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="568.0" layoutY="30.0" prefHeight="39.0" prefWidth="460.0" spacing="5.0">
          <children>
             <Label fx:id="errorTxt" text="Forkert brugernavn eller password" textFill="#dc3847" visible="false" />
-            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Brugernavn" />
+            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Email" />
             <PasswordField fx:id="passwordField" prefWidth="100.0" promptText="Kodeord" />
             <Button mnemonicParsing="false" onAction="#login" text="Log ind" />
          </children>

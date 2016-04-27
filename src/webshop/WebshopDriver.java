@@ -33,16 +33,16 @@ public class WebshopDriver {
     public boolean isConnected() {
         return database.isConnected();
     }*/
-    public boolean login(String username, String password) {
-        return userManager.validate(username, password);
+    public boolean login(String email, String password) {
+        return userManager.validate(email, password);
     }
 
-    public void logout(String username) {
-        userManager.logout(username);
+    public void logout(String email) {
+        userManager.logout(email);
     }
 
-    public String getName(String username) {
-        return userManager.getFirstName(username);
+    public String getName(String email) {
+        return userManager.getFirstName(email);
     }
 
     /**
@@ -155,22 +155,26 @@ public class WebshopDriver {
         return webshopDriver;
     }
 
-    public void changeQuantity(String username, int quantity, Item item) {
-        userManager.changeQuantity(username, item, quantity);
+    public void changeQuantity(String email, int quantity, Item item) {
+        userManager.changeQuantity(email, item, quantity);
     }
 
-    public void removeItem(String username, Item item) {
-        userManager.removeItem(username, item);
+    public void removeItem(String email, Item item) {
+        userManager.removeItem(email, item);
     }
 
-    private void makeNewBasket(String username) {
-        userManager.createOrder(username, orderID++);
+    private void makeNewBasket(String email) {
+        userManager.createOrder(email, orderID++);
     }
 
-    public void addItem(Product product, int quantity, String username) {
-        if (!userManager.hasBasket(username)) {
-            makeNewBasket(username);
+    public void addItem(Product product, int quantity, String email) {
+        if(email.equals("")) {
+            //makenewguest
+            //email = guest.email
         }
-        userManager.addItem(username, product, quantity);
+        if (!userManager.hasBasket(email)) {
+            makeNewBasket(email);
+        }
+        userManager.addItem(email, product, quantity);
     }
 }

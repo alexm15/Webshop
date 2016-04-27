@@ -97,8 +97,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
             errorTxt.setVisible(false);
             loginContainer.setVisible(false);
             logoutContainer.setVisible(true);
-            String[] msg = {"Hej", "Goddag", "Velkommen"};
-            usernameTxt.setText(msg[new Random().nextInt(msg.length)] + " " + WebshopDriver.getInstance().getName(usernameField.getText()));
+            String[] welcomeMSg = {"Hej", "Goddag", "Velkommen", "Guten Tag", 
+                "Hola", "Greetings", "Yo", "Sup", "Hello", "Ohøj", "Mojn", 
+                "Mjello", "Vær hilset", "Hejsa", "Buon giorno", "Bonjour"};
+            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + WebshopDriver.getInstance().getName(usernameField.getText()));
         }
         else {
             errorTxt.setVisible(true);

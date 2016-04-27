@@ -15,14 +15,14 @@ public class UserManager {
     
     public UserManager() {
         usersMap = new HashMap<>();
-        User testUser = new User("niels", "kode", "12345678", "email@email.dk",
+        User testUser = new User("email@email.dk", "kode", "12345678",
                 new Name("Niels", "Heltner"), new Address("55", "Campusvej",
                         "5000", "Odense", "Danmark"), Rights.Customer, "20", "03", "1996");
-        usersMap.put(testUser.getUsername(), testUser);
+        usersMap.put(testUser.getEmail(), testUser);
     }
     
-    public boolean validate(String username, String password) {
-        User user = findUser(username);
+    public boolean validate(String email, String password) {
+        User user = findUser(email);
         if(user == null) {
             return false;
         }
@@ -33,36 +33,36 @@ public class UserManager {
         }
     }
     
-    public void logout(String username) {
-        findUser(username).setLoggedIn(false);
+    public void logout(String email) {
+        findUser(email).setLoggedIn(false);
     }
     
-    public void createOrder(String username, int orderID) {
-        findUser(username).createOrder(orderID);
+    public void createOrder(String email, int orderID) {
+        findUser(email).createOrder(orderID);
     }
     
-    public boolean hasBasket(String username) {
-        return findUser(username).findShoppingBasket() != null;
+    public boolean hasBasket(String email) {
+        return findUser(email).findShoppingBasket() != null;
     }
     
-    public void addItem(String username, Product product, int quantity) {
-        findUser(username).addItem(product, quantity);
+    public void addItem(String email, Product product, int quantity) {
+        findUser(email).addItem(product, quantity);
     }
     
-    public void changeQuantity(String username, Item item, int quantity) {
-        findUser(username).changeQuantity(quantity, item);
+    public void changeQuantity(String email, Item item, int quantity) {
+        findUser(email).changeQuantity(quantity, item);
     }
     
-    public void removeItem(String username, Item item) {
-        findUser(username).removeItem(item);
+    public void removeItem(String email, Item item) {
+        findUser(email).removeItem(item);
     }
     
-    public String getFirstName(String username) {
-        return findUser(username).getName().getFirstName();
+    public String getFirstName(String email) {
+        return findUser(email).getName().getFirstName();
     }
     
-    private User findUser(String username) {
-        return usersMap.get(username);
+    private User findUser(String email) {
+        return usersMap.get(email);
     }
     
 }
