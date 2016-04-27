@@ -163,7 +163,7 @@ public class WebshopDriver {
         userManager.removeItem(email, item);
     }
 
-    private String createGuestUser() {
+    private String makeGuestLogin() {
         return userManager.createGuestUser();
     }
 
@@ -173,7 +173,7 @@ public class WebshopDriver {
 
     public void addItem(Product product, int quantity, String email) {
         if(email.equals("")) {
-            email = createGuestUser();
+            email = makeGuestLogin();
         }
         if(!userManager.hasBasket(email)) {
             makeNewBasket(email);
