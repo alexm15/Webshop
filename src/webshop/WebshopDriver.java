@@ -165,7 +165,7 @@ public class WebshopDriver {
     
     private void makeGuestLogin()
     {
-        userManager.createUser();
+        userManager.createGuestUser();
     }
 
     private void makeNewBasket(String email) {
