@@ -5,13 +5,12 @@ package webshop;
  */
 public class Product {
     
-    private final int id, stock;
+    private final int id;
     private final String name, category, size, color, gender, description, imagePath;
     private final double price;
 
-    public Product(int id, int stock, String name, String category, String size, String color, String gender, double price) {
+    public Product(int id, String name, String category, String size, String color, String gender, double price) {
         this.id = id;
-        this.stock = stock;
         this.name = name;
         this.category = category;
         this.size = size;
@@ -24,10 +23,6 @@ public class Product {
 
     public int getId() {
         return id;
-    }
-
-    public int getStock() {
-        return stock;
     }
 
     public String getName() {
@@ -56,7 +51,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", stock=" + stock + ", name=" + name + ", category=" + category + ", size=" + size + ", color=" + color + ", gender=" + gender + ", price=" + price + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", category=" + category + ", size=" + size + ", color=" + color + ", gender=" + gender + ", price=" + price + '}';
     }
     
 }

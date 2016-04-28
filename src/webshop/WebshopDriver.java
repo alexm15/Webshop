@@ -1,7 +1,13 @@
 package webshop;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Niels
@@ -44,24 +50,25 @@ public class WebshopDriver {
     public String getName(String email) {
         return userManager.getFirstName(email);
     }
-
-    /**
-     * Testmetode til at fylde noget i products.
-     */
-    public void fillProducts() { // int id, int stock, String name, String category, String size, String color, String gender, double price
-        products.add(new Product(1, 5, "Flot kjole", "Kjoler", "M", "Rød", "Dame", 499));
-        products.add(new Product(2, 4, "Grim kjole", "Kjoler", "L", "Blå", "Dame", 249));
-        products.add(new Product(3, 5, "Pæn skjorte", "Skjorter", "M", "Sort", "Herre", 349));
-        products.add(new Product(4, 6, "Knap så pæn skjorte", "Skjorter", "M", "Sort", "Herre", 899));
-        products.add(new Product(5, 4, "Sej skjorte", "Skjorter", "S", "Grøn", "Unisex", 499));
-        products.add(new Product(6, 5, "Kortærmet bluse", "Bluser", "M", "Hvid", "Herre", 679));
-        products.add(new Product(7, 4, "Langærmet bluse", "Bluser", "S", "Hvid", "Dame", 689));
-        products.add(new Product(8, 5, "Hullede bukser", "Bukser", "S", "Blå", "Herre", 1299));
-        products.add(new Product(9, 4, "Faldskærms bukser", "Bukser", "M", "Gul", "Dame", 1199));
-        products.add(new Product(10, 5, "Farverig bluse", "Bluser", "S", "Gul", "Unisex", 449));
-        products.add(new Product(11, 5, "Farverige bukser", "Bukser", "L", "Grøn", "Unisex", 1219));
-        products.add(new Product(12, 4, "Grim bluse", "Bluser", "M", "Sort", "Herre", 159));
-        products.add(new Product(13, 4, "Pæn bluse", "Bluser", "S", "Hvid", "Dame", 239));
+    
+    public void loadProducts() {
+        try(Scanner in = new Scanner(new File("data/Products.txt"))) {
+            in.nextLine(); // kommentarlinje
+            while(in.hasNextLine()) {
+                String[] tokens = in.nextLine().split(", ");
+                int id = Integer.parseInt(tokens[0]);
+                String name = tokens[1];
+                String category = tokens[2];
+                String size = tokens[3];
+                String color = tokens[4];
+                String gender = tokens[5];
+                int price = Integer.parseInt(tokens[6]);
+                products.add(new Product(id, name, category, size, color, gender, price));
+            }
+        }
+        catch(IOException e) {
+            System.err.println(e);
+        }
     }
 
     public Set<Product> searchProduct(String searchTerm, double maxPrice, Set<String> genders,

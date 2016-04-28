@@ -19,7 +19,7 @@ public class UserManager {
     public UserManager() {
         usersMap = new HashMap<>();
         createUser("email@email.dk", "kode", "12345678", "Test", "Bruger", "55", 
-                "Campusvej", "5000", "Odense", "Danmark", Rights.Customer, "01", "01", "1990");
+                "Campusvej", "5000", "Odense", "Danmark", Rights.Customer, "01", "27", "1990");
     }
 
     public boolean validate(String email, String password) {

@@ -164,7 +164,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
         categories = new CheckBox[] {dressBox, shirtBox, blouseBox, pantsBox};
         colors = new CheckBox[] {blackBox, whiteBox, redBox, blueBox, greenBox, yellowBox};
         sizes = new CheckBox[] {sBox, mBox, lBox};
-        WebshopDriver.getInstance().fillProducts();
+        WebshopDriver.getInstance().loadProducts();
         createProductButtons(WebshopDriver.getInstance().getProducts());
         priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             priceTxt.setText(newValue.intValue() + "");
