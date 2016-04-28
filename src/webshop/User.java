@@ -15,6 +15,7 @@ import util.*;
 public class User {
 
     private String email, password, phoneNumber;
+    private byte[] salt;
     private boolean loggedIn;
     private Name name;
     private Address address;
@@ -22,14 +23,17 @@ public class User {
     private Map<Integer, Order> orderMap;
     private Date dateOfBirth;
 
-    public User(String email, String password, String phoneNumber, Name name, 
-            Address address, Rights right, String day, String month, String year) {
+    public User(String email, String password, byte[] salt, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, Rights right, 
+            String day, String month, String year) {
         this.email = email;
         this.password = password;
+        this.salt = salt;
         this.phoneNumber = phoneNumber;
         this.loggedIn = false;
-        this.name = name;
-        this.address = address;
+        this.name = new Name(firstName, lastName);
+        this.address = new Address(houseNumber, streetName, zipCode, city, country);
         this.right = right;
         orderMap = new HashMap<>();
         String startDateString = day + "/" + month + "/" + year;
@@ -52,6 +56,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+    
+    public byte[] getSalt() {
+        return salt;
     }
 
     public String getPhoneNumber() {
