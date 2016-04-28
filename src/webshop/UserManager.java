@@ -28,7 +28,7 @@ public class UserManager {
             return false;
         }
         else {
-            boolean validated = user.getPassword().equals(getSecurePassword(password, user.getSalt()));
+            boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             user.setLoggedIn(validated);
             return validated;
         }
@@ -47,7 +47,7 @@ public class UserManager {
         }
         else {
             byte[] salt = getSalt();
-            String hashedPassword = getSecurePassword(password, salt);
+            String hashedPassword = getHashedPassword(password, salt);
             usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber, 
                     firstName, lastName, houseNumber, streetName, zipCode, city, country, 
                     right, day, month, year));
@@ -55,7 +55,18 @@ public class UserManager {
         }
     }
     
-    private String getSecurePassword(String passwordToHash, byte[] salt) {
+    /**
+     * Henter først en instans af MessageDigest med MD5 algoritmen, en cryptografisk hash funktion,
+     * der laver 128-bit hash værdier.
+     * Derefter tilføjes salt-værdien til hash funktionen.
+     * Derefter bliver passwordet hashet (digestet) til decimaler.
+     * Så bliver det i et loop lavet om til hexadecimaler ved at ANDe alle bits
+     * med 0xff.
+     * @param passwordToHash Det password der skal hashes
+     * @param salt Den salt-værdi der skal bruges til at hashe passwordToHash med
+     * @return Det hashede password
+     */
+    private String getHashedPassword(String passwordToHash, byte[] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -73,6 +84,13 @@ public class UserManager {
         return generatedPassword;
     }
     
+    /**
+     * Henter instansen af SecureRandom, med algoritmen SHA1PRNG, fra provideren SUN, 
+     * en pseudo random number generator algoritme.
+     * Herefter laves et nyt byte array med 16 pladser. Dette array bliver
+     * fyldt ud med et pseudo random byte array fra SecureRandom generatoren.
+     * @return Den tilfældigt genererede salt-værdi.
+     */
     private byte[] getSalt() {
         byte[] salt = null;
         try {
