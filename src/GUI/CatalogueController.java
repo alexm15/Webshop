@@ -16,8 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import webshop.Product;
-import webshop.WebshopDriver;
+import domain.products.Product;
+import domain.WebshopDriver;
 
 /**
  * @author Niels

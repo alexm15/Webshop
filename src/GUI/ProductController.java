@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import webshop.Product;
-import webshop.WebshopDriver;
+import domain.products.Product;
+import domain.WebshopDriver;
 
 /**
  * @author Niels

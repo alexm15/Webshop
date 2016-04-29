@@ -16,7 +16,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import webshop.Product;
+import domain.products.Product;
 
 /**
  * @author Niels

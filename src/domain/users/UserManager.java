@@ -1,5 +1,7 @@
-package webshop;
+package domain.users;
 
+import domain.products.Item;
+import domain.products.Product;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;

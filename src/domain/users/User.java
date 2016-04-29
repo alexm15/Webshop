@@ -1,5 +1,8 @@
-package webshop;
+package domain.users;
 
+import domain.products.Item;
+import domain.products.Order;
+import domain.products.Product;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

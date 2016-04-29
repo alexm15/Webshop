@@ -1,5 +1,8 @@
-package webshop;
+package domain;
 
+import domain.products.Product;
+import domain.products.Item;
+import domain.users.UserManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

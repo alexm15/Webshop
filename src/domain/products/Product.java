@@ -1,4 +1,4 @@
-package webshop;
+package domain.products;
 
 /**
  * @author Niels
