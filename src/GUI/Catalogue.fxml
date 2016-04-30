@@ -114,18 +114,20 @@
             </AnchorPane>
          </children>
       </VBox>
-      <HBox fx:id="logoutContainer" alignment="CENTER_RIGHT" layoutX="753.0" layoutY="30.0" prefHeight="39.0" prefWidth="275.0" spacing="5.0" visible="false">
+      <HBox fx:id="logoutContainer" alignment="CENTER_RIGHT" layoutX="566.0" layoutY="30.0" prefHeight="39.0" prefWidth="462.0" spacing="5.0" visible="false">
          <children>
             <Label fx:id="usernameTxt" text="Label" />
             <Button mnemonicParsing="false" onAction="#logout" text="Log ud" />
+            <Button mnemonicParsing="false" onAction="#showMyPageScreen" text="Min side" />
          </children>
       </HBox>
-      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="568.0" layoutY="30.0" prefHeight="39.0" prefWidth="460.0" spacing="5.0">
+      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="493.0" layoutY="30.0" prefHeight="39.0" prefWidth="537.0" spacing="5.0">
          <children>
             <Label fx:id="errorTxt" text="Forkert brugernavn eller password" textFill="#dc3847" visible="false" />
             <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Email" />
             <PasswordField fx:id="passwordField" prefWidth="100.0" promptText="Kodeord" />
             <Button mnemonicParsing="false" onAction="#login" text="Log ind" />
+            <Button mnemonicParsing="false" text="Registrer" />
          </children>
       </HBox>
       <ScrollPane layoutX="417.0" layoutY="103.0" prefHeight="593.0" prefWidth="643.0" style="-fx-focus-color: #F4F4F4;">

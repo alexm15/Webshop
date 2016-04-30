@@ -33,7 +33,6 @@ public class Order {
     }
 
     public void removeItem(Item item) {
-
         itemSet.remove(item);
     }
 

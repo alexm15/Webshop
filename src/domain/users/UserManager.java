@@ -17,6 +17,7 @@ import util.Rights;
 public class UserManager {
 
     private Map<String, User> usersMap;
+    private User loggedInUser;
 
     public UserManager() {
         usersMap = new HashMap<>();
@@ -31,9 +32,16 @@ public class UserManager {
         }
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
-            user.setLoggedIn(validated);
+            if(validated) {
+                user.setLoggedIn(true);
+                loggedInUser = user;
+            }
             return validated;
         }
+    }
+    
+    public User getLoggedInUser() {
+        return loggedInUser;
     }
 
     public void logout(String email) {
@@ -124,10 +132,6 @@ public class UserManager {
 
     public void removeItem(String email, Item item) {
         findUser(email).removeItem(item);
-    }
-
-    public String getFirstName(String email) {
-        return findUser(email).getName().getFirstName();
     }
 
     private User findUser(String email) {

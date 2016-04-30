@@ -17,19 +17,18 @@ import util.*;
  */
 public class User {
 
-    private String email, password, phoneNumber;
+    private String email, password, phoneNumber, birthDay, birthMonth, birthYear;
     private byte[] salt;
     private boolean loggedIn;
     private Name name;
     private Address address;
     private Rights right;
     private Map<Integer, Order> orderMap;
-    private Date dateOfBirth;
 
     public User(String email, String password, byte[] salt, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, Rights right, 
-            String day, String month, String year) {
+            String birthDay, String birthMonth, String birthYear) {
         this.email = email;
         this.password = password;
         this.salt = salt;
@@ -38,15 +37,18 @@ public class User {
         this.name = new Name(firstName, lastName);
         this.address = new Address(houseNumber, streetName, zipCode, city, country);
         this.right = right;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
         orderMap = new HashMap<>();
-        String startDateString = day + "/" + month + "/" + year;
+        /*String startDateString = day + "/" + month + "/" + year;
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             dateOfBirth = df.parse(startDateString);
             //String newDateString = df.format(startDate);
         } catch(ParseException e) {
             System.err.println(e);
-        }
+        }*/
     }
 
     public void setLoggedIn(boolean loggedIn) {
@@ -59,6 +61,18 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
     }
     
     public byte[] getSalt() {

@@ -2,6 +2,7 @@ package domain;
 
 import domain.products.Product;
 import domain.products.Item;
+import domain.users.User;
 import domain.users.UserManager;
 import java.io.File;
 import java.io.IOException;
@@ -47,8 +48,48 @@ public class WebshopDriver {
         userManager.logout(email);
     }
 
-    public String getName(String email) {
-        return userManager.getFirstName(email);
+    public String getFirstName() {
+        return userManager.getLoggedInUser().getName().getFirstName();
+    }
+    
+    public String getLastName() {
+        return userManager.getLoggedInUser().getName().getLastName();
+    }
+    
+    public String getStreetName() {
+        return userManager.getLoggedInUser().getAddress().getStreetName();
+    }
+    
+    public String getHouseNumber() {
+        return userManager.getLoggedInUser().getAddress().getHouseNumber();
+    }
+    
+    public String getCity() {
+        return userManager.getLoggedInUser().getAddress().getCity();
+    }
+    
+    public String getCountry() {
+        return userManager.getLoggedInUser().getAddress().getCountry();
+    }
+    
+    public String getEmail() {
+        return userManager.getLoggedInUser().getEmail();
+    }
+    
+    public String getPhoneNumber() {
+        return userManager.getLoggedInUser().getPhoneNumber();
+    }
+    
+    public String getBirthDay() {
+        return userManager.getLoggedInUser().getBirthDay();
+    }
+    
+    public String getBirthMonth() {
+        return userManager.getLoggedInUser().getBirthMonth();
+    }
+    
+    public String getBirthYear() {
+        return userManager.getLoggedInUser().getBirthYear();
     }
     
     public void loadProducts() {

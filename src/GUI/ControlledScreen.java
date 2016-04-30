@@ -13,6 +13,8 @@ public interface ControlledScreen {
     String CATALOGUE_SCREEN_FXML = "Catalogue.fxml";
     String PRODUCT_SCREEN = "ProductController";
     String PRODUCT_SCREEN_FXML = "Product.fxml";
+    String MYPAGE_SCREEN = "MyPageController";
+    String MYPAGE_SCREEN_FXML = "MyPage.fxml";
     
     /**
      * Metode til at sætte den samme screen controller i forskellige filer.

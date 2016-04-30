@@ -85,10 +85,21 @@ public class CatalogueController implements Initializable, ControlledScreen {
      */
     public void showProductScreen() {
         controller.loadScreen(ControlledScreen.PRODUCT_SCREEN, ControlledScreen.PRODUCT_SCREEN_FXML);
+        handleLoginContainers();
+        controller.setScreen(PRODUCT_SCREEN);
+    }
+    
+    @FXML
+    public void showMyPageScreen() {
+        controller.loadScreen(ControlledScreen.MYPAGE_SCREEN, ControlledScreen.MYPAGE_SCREEN_FXML);
+        handleLoginContainers();
+        controller.setScreen(MYPAGE_SCREEN);
+    }
+    
+    public void handleLoginContainers() {
         if(!controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
             controller.getChildren().addAll(loginContainer, logoutContainer);
         }
-        controller.setScreen(PRODUCT_SCREEN);
     }
     
     @FXML
@@ -100,7 +111,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
             String[] welcomeMSg = {"Hej", "Goddag", "Velkommen", "Guten Tag", 
                 "Hola", "Greetings", "Yo", "Sup", "Hello", "Ohøj", "Mojn", 
                 "Mjello", "Vær hilset", "Hejsa", "Buon giorno", "Bonjour"};
-            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + WebshopDriver.getInstance().getName(usernameField.getText()));
+            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + WebshopDriver.getInstance().getFirstName());
         }
         else {
             errorTxt.setVisible(true);
@@ -109,6 +120,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     @FXML
     public void logout() {
+        if(controller.unloadScreen(MYPAGE_SCREEN)) {
+            controller.setScreen(CATALOGUE_SCREEN);
+        }
         logoutContainer.setVisible(false);
         loginContainer.setVisible(true);
         WebshopDriver.getInstance().logout(usernameField.getText());
@@ -188,9 +202,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * @param products Det Set af produkter der skal vises.
      */
     private void createProductButtons(Set<Product> products) {
-        int xOffset = 0;
-        int yOffset = 0;
-        int amount = 0;
+        int xOffset = 0, yOffset = 0, amount = 0;
         for(Product p : products) {
             System.out.println(p.toString());
             ProductButton pb = new ProductButton(p, 10 + xOffset, 10 + yOffset);
