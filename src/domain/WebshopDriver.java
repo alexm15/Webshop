@@ -4,20 +4,17 @@ import domain.products.Product;
 import domain.products.Item;
 import domain.users.UserManager;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Niels
  */
 public class WebshopDriver {
 
-    private static WebshopDriver webshopDriver = null;
+    private static WebshopDriver instance = null;
     //private DatabaseController database;
     private UserManager userManager;
     private Set<Product> products;
@@ -159,10 +156,10 @@ public class WebshopDriver {
      * @return Instansen af WebshopDriver.
      */
     public static WebshopDriver getInstance() {
-        if(webshopDriver == null) {
-            webshopDriver = new WebshopDriver();
+        if(instance == null) {
+            instance = new WebshopDriver();
         }
-        return webshopDriver;
+        return instance;
     }
 
     public void changeQuantity(String email, int quantity, Item item) {
