@@ -2,7 +2,6 @@ package domain;
 
 import domain.products.Product;
 import domain.products.Item;
-import domain.users.User;
 import domain.users.UserManager;
 import java.io.File;
 import java.io.IOException;
