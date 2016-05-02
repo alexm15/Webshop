@@ -3,7 +3,7 @@ package database;
 /**
  * @author Niels
  */
-public class PIM extends Database {
+public class PIM extends AbstractDatabase {
 
     public PIM() {
         super("pim");

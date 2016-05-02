@@ -7,12 +7,12 @@ import java.sql.SQLException;
 /**
  * @author Niels
  */
-public abstract class Database implements DatabaseInterface {
+public abstract class AbstractDatabase implements DatabaseInterface {
     
     private final String location;
     private Connection connection = null;
 
-    public Database(String location) {
+    public AbstractDatabase(String location) {
         this.location = location;
     }
 
