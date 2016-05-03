@@ -51,7 +51,7 @@ public class UserManager {
     public boolean createUser(String email, String password, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, Rights right, 
-            String day, String month, String year) {
+            String birthDay, String birthMonth, String birthYear) {
         if(usersMap.containsKey(email)) {
             return false;
         }
@@ -60,7 +60,7 @@ public class UserManager {
             String hashedPassword = getHashedPassword(password, salt);
             usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber, 
                     firstName, lastName, houseNumber, streetName, zipCode, city, country, 
-                    right, day, month, year));
+                    right, birthDay, birthMonth, birthYear));
             return true;
         }
     }

@@ -118,6 +118,7 @@ public class WebshopDriver {
         Set<Product> color = searchColor(category, colors);
         Set<Product> size = searchSize(color, sizes);
         return search(size, searchTerm, maxPrice);
+        //return search(searchSize(searchColor(searchCategory(searchGender(products, genders), categories), colors), sizes), searchTerm, maxPrice); // alternativ måde (slet ikke forvirrende)
     }
 
     private Set<Product> search(Set<Product> setToSearch, String searchTerm, double maxPrice) {
