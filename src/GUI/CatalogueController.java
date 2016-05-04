@@ -75,6 +75,12 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     private CheckBox pantsBox;
     @FXML
+    private CheckBox shortsBox;
+    @FXML
+    private CheckBox sweatersBox;
+    @FXML
+    private CheckBox tshirtsBox;
+    @FXML
     private AnchorPane productButtonContainer;
     @FXML
     private Label errorTxt;
@@ -173,7 +179,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
-        categories = new CheckBox[] {dressBox, shirtBox, blouseBox, pantsBox};
+        categories = new CheckBox[] {dressBox, shirtBox, blouseBox, pantsBox, shortsBox, sweatersBox, tshirtsBox};
         colors = new CheckBox[] {blackBox, whiteBox, redBox, blueBox, greenBox, yellowBox};
         sizes = new CheckBox[] {sBox, mBox, lBox};
         WebshopDriver.getInstance().loadProducts();

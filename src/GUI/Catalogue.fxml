@@ -49,19 +49,17 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ScrollPane focusTraversable="false" prefHeight="130.0" prefWidth="148.0">
+            <ScrollPane focusTraversable="false" prefHeight="108.0" prefWidth="171.0">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="150.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="147.0" prefWidth="150.0">
                      <children>
                         <CheckBox fx:id="dressBox" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Kjoler" />
                         <CheckBox fx:id="shirtBox" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Skjorter" />
                         <CheckBox fx:id="blouseBox" layoutX="6.0" layoutY="46.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Bluser" />
                         <CheckBox fx:id="pantsBox" layoutX="6.0" layoutY="66.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Bukser" />
-                        <CheckBox layoutX="6.0" layoutY="86.0" mnemonicParsing="false" text="Trøjer" />
-                        <CheckBox layoutX="6.0" layoutY="106.0" mnemonicParsing="false" text="T-shirts" />
-                        <CheckBox layoutX="6.0" layoutY="126.0" mnemonicParsing="false" text="1" />
-                        <CheckBox layoutX="6.0" layoutY="146.0" mnemonicParsing="false" text="2" />
-                        <CheckBox layoutX="6.0" layoutY="166.0" mnemonicParsing="false" text="3" />
+                        <CheckBox fx:id="shortsBox" layoutX="6.0" layoutY="86.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Shorts" />
+                        <CheckBox fx:id="sweatersBox" layoutX="6.0" layoutY="106.0" mnemonicParsing="false" onAction="#updateProductsShown" text="Sweatere" />
+                        <CheckBox fx:id="tshirtsBox" layoutX="6.0" layoutY="126.0" mnemonicParsing="false" onAction="#updateProductsShown" text="T-shirts" />
                      </children>
                   </AnchorPane>
                </content>

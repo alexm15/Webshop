@@ -12,3 +12,6 @@
 11, Farverige bukser, Bukser, L, Grøn, Unisex, 1219
 12, Grim bluse, Bluser, M, Sort, Herre, 159
 13, Pæn bluse, Bluser, S, Hvid, Dame, 239
+14, Grønne shorts, Shorts, M, Grøn, Herre, 629
+15, Sort sweater, Sweatere, L, Sort, Herre, 879
+16, Hvid t-shirt, T-shirts, S, Hvid, Dame, 299
