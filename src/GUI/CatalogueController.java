@@ -108,9 +108,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
             errorTxt.setVisible(false);
             loginContainer.setVisible(false);
             logoutContainer.setVisible(true);
-            String[] welcomeMSg = {"Hej", "Goddag", "Velkommen", "Guten Tag", 
-                "Hola", "Greetings", "Yo", "Sup", "Hello", "Ohøj", "Mojn", 
-                "Mjello", "Vær hilset", "Hejsa", "Buon giorno", "Bonjour"};
+            String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
             usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + WebshopDriver.getInstance().getFirstName());
         }
         else {
@@ -137,7 +135,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     public void updateProductsShown() {
         productButtonContainer.getChildren().clear();
-        createProductButtons(WebshopDriver.getInstance().searchProduct(searchTxt.getText(), priceSlider.getValue(), 
+        createProductButtons(WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
             getSelectedText(genders), getSelectedText(categories), getSelectedText(colors), getSelectedText(sizes)));
     }
     
