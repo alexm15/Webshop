@@ -33,7 +33,6 @@ public class UserManager {
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             if(validated) {
-                user.setLoggedIn(true);
                 loggedInUser = user;
             }
             return validated;
@@ -44,8 +43,8 @@ public class UserManager {
         return loggedInUser;
     }
 
-    public void logout(String email) {
-        findUser(email).setLoggedIn(false);
+    public void logout() {
+        loggedInUser = null;
     }
     
     public boolean createUser(String email, String password, String phoneNumber, 

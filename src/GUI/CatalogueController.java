@@ -123,7 +123,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
         }
         logoutContainer.setVisible(false);
         loginContainer.setVisible(true);
-        WebshopDriver.getInstance().logout(usernameField.getText());
+        WebshopDriver.getInstance().logout();
     }
     
     /**

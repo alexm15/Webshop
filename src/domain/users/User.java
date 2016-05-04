@@ -19,7 +19,6 @@ public class User {
 
     private String email, password, phoneNumber, birthDay, birthMonth, birthYear;
     private byte[] salt;
-    private boolean loggedIn;
     private Name name;
     private Address address;
     private Rights right;
@@ -33,7 +32,6 @@ public class User {
         this.password = password;
         this.salt = salt;
         this.phoneNumber = phoneNumber;
-        this.loggedIn = false;
         this.name = new Name(firstName, lastName);
         this.address = new Address(houseNumber, streetName, zipCode, city, country);
         this.right = right;
@@ -49,10 +47,6 @@ public class User {
         } catch(ParseException e) {
             System.err.println(e);
         }*/
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
     }
     
     public String getEmail() {
@@ -81,10 +75,6 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
     }
 
     public Name getName() {

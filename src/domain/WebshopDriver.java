@@ -39,8 +39,8 @@ public class WebshopDriver {
         return userManager.validate(email, password);
     }
 
-    public void logout(String email) {
-        userManager.logout(email);
+    public void logout() {
+        userManager.logout();
     }
 
     public String getFirstName() {
