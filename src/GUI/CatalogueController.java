@@ -102,6 +102,12 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.setScreen(MYPAGE_SCREEN);
     }
     
+    public void showShoppingBasketScreen() {
+        controller.loadScreen(ControlledScreen.SHOPPINGBASKET_SCREEN, ControlledScreen.SHOPPINGBASKET_SCREEN_FXML);
+        handleLoginContainers();
+        controller.setScreen(SHOPPINGBASKET_SCREEN);
+    }
+    
     public void handleLoginContainers() {
         if(!controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
             controller.getChildren().addAll(loginContainer, logoutContainer);

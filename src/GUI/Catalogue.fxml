@@ -134,5 +134,6 @@
         </content>
       </ScrollPane>
       <Label layoutX="714.0" layoutY="14.0" text="Log ind med &quot;email@email.dk&quot; og &quot;kode&quot;" />
+      <Button layoutX="588.0" layoutY="726.0" mnemonicParsing="false" onAction="#showShoppingBasketScreen" text="Gå til min indkøbskurv" />
    </children>
 </AnchorPane>
