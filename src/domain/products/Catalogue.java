@@ -2,7 +2,9 @@ package domain.products;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -11,11 +13,11 @@ import java.util.Set;
  */
 public class Catalogue {
     
-    private Set<Product> products;
+    private List<Product> products;
     private Product selectedProduct;
     
     public Catalogue() {
-        products = new HashSet<>();
+        products = new ArrayList<>();
     }
     
     public void loadProducts() {
@@ -32,25 +34,26 @@ public class Catalogue {
                 int price = Integer.parseInt(tokens[6]);
                 products.add(new Product(id, name, category, size, color, gender, price));
             }
+            Collections.sort(products);
         }
         catch(IOException e) {
             System.err.println(e);
         }
     }
 
-    public Set<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
+    public List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
             Set<String> categories, Set<String> colors, Set<String> sizes) {
-        Set<Product> gender = searchGender(products, genders);
-        Set<Product> category = searchCategory(gender, categories);
-        Set<Product> color = searchColor(category, colors);
-        Set<Product> size = searchSize(color, sizes);
+        List<Product> gender = searchGender(products, genders);
+        List<Product> category = searchCategory(gender, categories);
+        List<Product> color = searchColor(category, colors);
+        List<Product> size = searchSize(color, sizes);
         return search(size, searchTerm, maxPrice);
         //return search(searchSize(searchColor(searchCategory(searchGender(products, genders), categories), colors), sizes), searchTerm, maxPrice); // alternativ måde (slet ikke forvirrende)
     }
 
-    private Set<Product> search(Set<Product> setToSearch, String searchTerm, double maxPrice) {
-        Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
+    private List<Product> search(List<Product> listToSearch, String searchTerm, double maxPrice) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
             if(p.getName().toLowerCase().contains(searchTerm.toLowerCase()) && p.getPrice() < maxPrice) {
                 results.add(p);
             }
@@ -58,9 +61,9 @@ public class Catalogue {
         return results;
     }
 
-    private Set<Product> searchGender(Set<Product> setToSearch, Set<String> genders) {
-        Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
+    private List<Product> searchGender(List<Product> listToSearch, Set<String> genders) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
             for(String gender : genders) {
                 if(p.getGender().equals(gender)) {
                     results.add(p);
@@ -70,9 +73,9 @@ public class Catalogue {
         return results;
     }
 
-    private Set<Product> searchCategory(Set<Product> setToSearch, Set<String> categories) {
-        Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
+    private List<Product> searchCategory(List<Product> listToSearch, Set<String> categories) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
             for(String category : categories) {
                 if(p.getCategory().equals(category)) {
                     results.add(p);
@@ -82,9 +85,9 @@ public class Catalogue {
         return results;
     }
 
-    private Set<Product> searchColor(Set<Product> setToSearch, Set<String> colors) {
-        Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
+    private List<Product> searchColor(List<Product> listToSearch, Set<String> colors) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
             for(String color : colors) {
                 if(p.getColor().equals(color)) {
                     results.add(p);
@@ -94,9 +97,9 @@ public class Catalogue {
         return results;
     }
 
-    private Set<Product> searchSize(Set<Product> setToSearch, Set<String> sizes) {
-        Set<Product> results = new HashSet<>();
-        for(Product p : setToSearch) {
+    private List<Product> searchSize(List<Product> listToSearch, Set<String> sizes) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
             for(String size : sizes) {
                 if(p.getSize().equals(size)) {
                     results.add(p);
@@ -105,8 +108,25 @@ public class Catalogue {
         }
         return results;
     }
+    
+    public void sortNameAscending(List listToSort) {
+        Collections.sort(listToSort);
+    }
+    
+    public void sortNameDescending(List listToSort) {
+        sortNameAscending(listToSort);
+        Collections.reverse(listToSort);
+    }
+    
+    public void sortPriceAscending(List listToSort) {
+        Collections.sort(listToSort, new ProductPriceComparator());
+    }
+    
+    public void sortPriceDescending(List listToSort) {
+        Collections.sort(listToSort, Collections.reverseOrder(new ProductPriceComparator()));
+    }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 

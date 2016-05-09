@@ -3,23 +3,13 @@ package GUI;
 import domain.WebshopDriver;
 import domain.products.Product;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.VPos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Niels
@@ -38,7 +28,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         createShoppingBasketItems(WebshopDriver.getInstance().getProducts());
     }    
 
-    private void createShoppingBasketItems(Set<Product> products) {
+    private void createShoppingBasketItems(List<Product> products) {
         int yOffset = 0;
         for(Product p : products) {
             System.out.println(p.toString());

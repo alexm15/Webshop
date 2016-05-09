@@ -18,6 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import domain.products.Product;
 import domain.WebshopDriver;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 
 /**
  * @author Niels
@@ -84,6 +87,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private AnchorPane productButtonContainer;
     @FXML
     private Label errorTxt;
+    @FXML
+    private ComboBox<String> sortingOptionsBox;
     
     /**
      * Loader og viser produktskærmen.
@@ -102,6 +107,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.setScreen(MYPAGE_SCREEN);
     }
     
+    @FXML
     public void showShoppingBasketScreen() {
         controller.loadScreen(ControlledScreen.SHOPPINGBASKET_SCREEN, ControlledScreen.SHOPPINGBASKET_SCREEN_FXML);
         handleLoginContainers();
@@ -147,8 +153,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     public void updateProductsShown() {
         productButtonContainer.getChildren().clear();
-        createProductButtons(WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
-            getSelectedText(genders), getSelectedText(categories), getSelectedText(colors), getSelectedText(sizes)));
+        List<Product> searchedProducts = WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
+            getSelectedText(genders), getSelectedText(categories), getSelectedText(colors), getSelectedText(sizes));
+        List<Product> sortedProducts = WebshopDriver.getInstance().sortProducts(sortingOptionsBox.getValue(), searchedProducts);
+        createProductButtons(sortedProducts);
     }
     
     /**
@@ -203,6 +211,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
                 login();
             }
         });
+        sortingOptionsBox.setItems(FXCollections.observableArrayList(
+            "A-Å stigende", "A-Å faldene", "Pris stigende", "Pris faldene"));
     }
     
     /**
@@ -211,7 +221,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * hinanden.
      * @param products Det Set af produkter der skal vises.
      */
-    private void createProductButtons(Set<Product> products) {
+    private void createProductButtons(List<Product> products) {
         int xOffset = 0, yOffset = 0, amount = 0;
         for(Product p : products) {
             System.out.println(p.toString());

@@ -4,6 +4,7 @@ import domain.products.Catalogue;
 import domain.products.Product;
 import domain.products.Item;
 import domain.users.UserManager;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -91,12 +92,31 @@ public class WebshopDriver {
         catalogue.loadProducts();
     }
 
-    public Set<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
+    public List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
             Set<String> categories, Set<String> colors, Set<String> sizes) {
         return catalogue.searchProducts(searchTerm, maxPrice, genders, categories, colors, sizes);
     }
+    
+    public List<Product> sortProducts(String sortTerm, List listToSort) {
+        if(sortTerm.equals("A-Å stigende")) {
+            catalogue.sortNameAscending(listToSort);
+        }
+        else if(sortTerm.equals("A-Å faldene")) {
+            catalogue.sortNameDescending(listToSort);
+        }
+        else if(sortTerm.equals("Pris stigende")) {
+            catalogue.sortPriceAscending(listToSort);
+        }
+        else if(sortTerm.equals("Pris faldene")) {
+            catalogue.sortPriceDescending(listToSort);
+        }
+        else {
+            return getProducts();
+        }
+        return listToSort;
+    }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return catalogue.getProducts();
     }
 

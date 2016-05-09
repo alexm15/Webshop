@@ -3,7 +3,7 @@ package domain.products;
 /**
  * @author Niels
  */
-public class Product {
+public class Product implements Comparable<Product> {
     
     private final int id;
     private final String name, category, size, color, gender, description, imagePath;
@@ -53,5 +53,9 @@ public class Product {
     public String toString() {
         return "Product{" + "id=" + id + ", name=" + name + ", category=" + category + ", size=" + size + ", color=" + color + ", gender=" + gender + ", price=" + price + '}';
     }
-    
+
+    @Override
+    public int compareTo(Product other) {
+        return this.getName().compareTo(other.getName());
+    }
 }
