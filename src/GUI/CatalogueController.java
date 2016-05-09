@@ -19,7 +19,6 @@ import javafx.scene.layout.HBox;
 import domain.products.Product;
 import domain.WebshopDriver;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -213,6 +212,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
         });
         sortingOptionsBox.setItems(FXCollections.observableArrayList(
             "A-Å stigende", "A-Å faldene", "Pris stigende", "Pris faldene"));
+        sortingOptionsBox.setValue("A-Å stigende");
     }
     
     /**

@@ -98,20 +98,21 @@ public class WebshopDriver {
     }
     
     public List<Product> sortProducts(String sortTerm, List listToSort) {
-        if(sortTerm.equals("A-Å stigende")) {
-            catalogue.sortNameAscending(listToSort);
-        }
-        else if(sortTerm.equals("A-Å faldene")) {
-            catalogue.sortNameDescending(listToSort);
-        }
-        else if(sortTerm.equals("Pris stigende")) {
-            catalogue.sortPriceAscending(listToSort);
-        }
-        else if(sortTerm.equals("Pris faldene")) {
-            catalogue.sortPriceDescending(listToSort);
-        }
-        else {
-            return getProducts();
+        switch(sortTerm) {
+            case "A-Å stigende":
+                catalogue.sortNameAscending(listToSort);
+                break;
+            case "A-Å faldene":
+                catalogue.sortNameDescending(listToSort);
+                break;
+            case "Pris stigende":
+                catalogue.sortPriceAscending(listToSort);
+                break;
+            case "Pris faldene":
+                catalogue.sortPriceDescending(listToSort);
+                break;
+            default:
+                return getProducts();
         }
         return listToSort;
     }
