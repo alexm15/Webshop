@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import domain.products.Product;
+import javafx.scene.control.Button;
 
 /**
  * @author Niels
@@ -28,7 +29,7 @@ public class ShoppingBasketItem extends HBox {
     
     public ShoppingBasketItem(Product product, int x, int y) {
         //setPadding(new Insets(15, 0, 0, 0));
-        setSpacing(100);
+        setSpacing(20);
         setPrefWidth(610);
         setPrefHeight(100);
         setLayoutX(x);
@@ -41,10 +42,20 @@ public class ShoppingBasketItem extends HBox {
         iv.setPreserveRatio(true);
         Label name = new Label(product.getName());
         name.setTextAlignment(TextAlignment.LEFT);
+        name.setMaxWidth(210);
+        name.setMinWidth(210);
+        //name.setBorder(hoverBorder);
         Label details = new Label(product.getSize() + "\n" + product.getColor() + "\n" + "2");
         details.setTextAlignment(TextAlignment.LEFT);
+        details.setMaxWidth(40);
+        details.setMinWidth(40);
+        //details.setBorder(hoverBorder);
         Label price = new Label(product.getPrice() + "");
         price.setTextAlignment(TextAlignment.LEFT);
-        getChildren().addAll(iv, name, details, price);
+        price.setMaxWidth(70);
+        price.setMinWidth(70);
+        //price.setBorder(hoverBorder);
+        Button rm = new Button("Remove item"); 
+        getChildren().addAll(iv, name, details, price, rm);
     }
 }
