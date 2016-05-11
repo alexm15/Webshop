@@ -225,7 +225,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
         int xOffset = 0, yOffset = 0, amount = 0;
         for(Product p : products) {
             System.out.println(p.toString());
-            ProductButton pb = new ProductButton(p, 10 + xOffset, 10 + yOffset);
+            ProductItem pb = new ProductItem(p, 10 + xOffset, 10 + yOffset);
             xOffset += 160;
             amount++;
             if(amount > 3) {

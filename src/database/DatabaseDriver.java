@@ -7,7 +7,7 @@ package database;
 public class DatabaseDriver {
     
     private static DatabaseDriver instance = null;
-    private DatabaseInterface pim, dam;
+    private IDatabase pim, dam;
     
     private DatabaseDriver() {
         pim = new PIM();
