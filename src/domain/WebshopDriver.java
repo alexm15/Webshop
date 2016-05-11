@@ -99,16 +99,16 @@ public class WebshopDriver {
     
     public List<Product> sortProducts(String sortTerm, List listToSort) {
         switch(sortTerm) {
-            case "A-Å stigende":
+            case "Alfabetisk stigende":
                 catalogue.sortNameAscending(listToSort);
                 break;
-            case "A-Å faldene":
+            case "Alfabetisk faldende":
                 catalogue.sortNameDescending(listToSort);
                 break;
             case "Pris stigende":
                 catalogue.sortPriceAscending(listToSort);
                 break;
-            case "Pris faldene":
+            case "Pris faldende":
                 catalogue.sortPriceDescending(listToSort);
                 break;
             default:

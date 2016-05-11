@@ -211,8 +211,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
             }
         });
         sortingOptionsBox.setItems(FXCollections.observableArrayList(
-            "A-Å stigende", "A-Å faldene", "Pris stigende", "Pris faldene"));
-        sortingOptionsBox.setValue("A-Å stigende");
+            "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende"));
+        sortingOptionsBox.setValue("Alfabetisk stigende");
     }
     
     /**
