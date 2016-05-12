@@ -1,10 +1,12 @@
 package GUI;
 
 import domain.WebshopDriver;
+import domain.products.Item;
 import domain.products.Product;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Separator;
@@ -27,14 +29,19 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        createShoppingBasketItems(WebshopDriver.getInstance().getProducts());
+        try {
+            createShoppingBasketItems(WebshopDriver.getInstance().getShoppingBasket());
+        }
+        catch(NullPointerException e) {
+            System.err.println(e);
+        }
     }    
 
-    private void createShoppingBasketItems(List<Product> products) {
+    private void createShoppingBasketItems(List<Item> items) {
         int yOffset = 0;
-        for(Product p : products) {
-            System.out.println(p.toString());
-            ShoppingBasketItem sbi = new ShoppingBasketItem(p, 10, 10 + yOffset);
+        for(Item i : items) {
+            System.out.println(i.toString());
+            ShoppingBasketItem sbi = new ShoppingBasketItem(i, 10, 10 + yOffset);
             /*pb.setOnMouseReleased((e) -> {
                 WebshopDriver.getInstance().setSelectedProduct(p);
                 showProductScreen();

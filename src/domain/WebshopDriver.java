@@ -120,6 +120,10 @@ public class WebshopDriver {
     public List<Product> getProducts() {
         return catalogue.getProducts();
     }
+    
+    public List<Item> getShoppingBasket() {
+        return userManager.getShoppingBasket();
+    }
 
     public void setSelectedProduct(Product product) {
         catalogue.setSelectedProduct(product);
@@ -149,21 +153,21 @@ public class WebshopDriver {
         userManager.removeItem(email, item);
     }
 
-    private String makeGuestLogin() {
-        return userManager.createGuestUser();
+    private void makeGuestLogin() {
+        userManager.createGuestUser();
     }
 
-    private void makeNewBasket(String email) {
-        userManager.createOrder(email, orderID++);
+    private void makeNewBasket() {
+        userManager.createOrder(orderID++);
     }
 
-    public void addItem(Product product, int quantity, String email) {
-        if(email.isEmpty()) {
-            email = makeGuestLogin();
+    public void addItem(int quantity) {
+        if(!userManager.isUserLoggedIn()) {
+            makeGuestLogin();
         }
-        if(!userManager.hasBasket(email)) {
-            makeNewBasket(email);
+        if(!userManager.hasBasket()) {
+            makeNewBasket();
         }
-        userManager.addItem(email, product, quantity);
+        userManager.addItem(getSelectedProduct(), quantity);
     }
 }

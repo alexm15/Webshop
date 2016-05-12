@@ -27,5 +27,8 @@ public class Item {
     public int getQuantity() {
         return quantity;
     }
-
+    
+    public Product getProduct() {
+        return product;
+    }
 }

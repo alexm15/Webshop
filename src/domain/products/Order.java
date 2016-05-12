@@ -1,8 +1,8 @@
 package domain.products;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import util.*;
 
 /**
@@ -16,7 +16,7 @@ public class Order {
     private int orderID;
     private int status;
     private Address shippingAddress;
-    private Set<Item> itemSet;
+    private List<Item> itemList;
     private final double TAX = 1.2;
 
     public Order(Date orderDate, double shippingCharge, int orderID, int status, Address shippingAddress) {
@@ -25,27 +25,27 @@ public class Order {
         this.orderID = orderID;
         this.status = status;
         this.shippingAddress = shippingAddress;
-        itemSet = new HashSet<>();
+        itemList = new ArrayList<>();
     }
 
     public void addItem(Product product, int quantity) {
-        itemSet.add(new Item(product, quantity, product.getPrice() * quantity));
+        itemList.add(new Item(product, quantity, product.getPrice() * quantity));
     }
 
     public void removeItem(Item item) {
-        itemSet.remove(item);
+        itemList.remove(item);
     }
 
     public void changeQuantity(Item item, int quantity) {
-        for(Item i : itemSet) {
+        for(Item i : itemList) {
             if (item.equals(i)) {
                 item.changeQuantity(quantity);
             }
         }
     }
 
-    public void returnItems() {
-
+    public List<Item> getItems() {
+        return itemList;
     }
 
     public Date getOrderDate() {
@@ -66,7 +66,7 @@ public class Order {
 
     public double getFinalPrice() {
         double sum = 0;
-        for(Item item : itemSet) {
+        for(Item item : itemList) {
             sum += item.getSumPrice();
         }
         return sum * TAX;

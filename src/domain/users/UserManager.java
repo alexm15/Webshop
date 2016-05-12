@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import util.Rights;
@@ -45,6 +46,10 @@ public class UserManager {
     
     public User getLoggedInUser() {
         return loggedInUser;
+    }
+    
+    public boolean isUserLoggedIn() {
+        return loggedInUser != null;
     }
 
     public void logout() {
@@ -117,16 +122,23 @@ public class UserManager {
         return salt;
     }
 
-    public void createOrder(String email, int orderID) {
-        findUser(email).createOrder(orderID);
+    public void createOrder(int orderID) {
+        loggedInUser.createOrder(orderID);
     }
 
-    public boolean hasBasket(String email) {
-        return findUser(email).findShoppingBasket() != null;
+    public boolean hasBasket() {
+        if(!isUserLoggedIn()) {
+            return false;
+        }
+        return findUser(loggedInUser.getEmail()).findShoppingBasket() != null;
+    }
+    
+    public List<Item> getShoppingBasket() {
+        return loggedInUser.getShoppingBasket();
     }
 
-    public void addItem(String email, Product product, int quantity) {
-        findUser(email).addItem(product, quantity);
+    public void addItem(Product product, int quantity) {
+        loggedInUser.addItem(product, quantity);
     }
 
     public void changeQuantity(String email, Item item, int quantity) {
@@ -151,13 +163,13 @@ public class UserManager {
         return builder.toString();
     }
 
-    public String createGuestUser() {
+    public void createGuestUser() {
         String email = randomString(5);
         if(!usersMap.containsKey(email)) {
-            usersMap.put(email, new User(email, null, null, null, null, null, 
-                    null, null, null, null, null, Rights.GUEST, null, null, null));
+            User guestUser = new User(email, null, null, null, null, null, 
+                    null, null, null, null, null, Rights.GUEST, null, null, null);
+            usersMap.put(email, guestUser);
+            setLoggedInUser(guestUser);
         }
-        return email;
     }
-
 }

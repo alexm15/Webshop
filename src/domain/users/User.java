@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import util.*;
 
@@ -100,12 +101,16 @@ public class User {
     }
 
     public Order findShoppingBasket() {
-        for (Order order : orderMap.values()) {
-            if (order.getStatus() == OrderStatus.SHOPPING_BASKET) {
+        for(Order order : orderMap.values()) {
+            if(order.getStatus() == OrderStatus.SHOPPING_BASKET) {
                 return order;
             }
         }
         return null;
+    }
+    
+    public List<Item> getShoppingBasket() {
+        return findShoppingBasket().getItems();
     }
 
     public void createOrder(int orderID) {

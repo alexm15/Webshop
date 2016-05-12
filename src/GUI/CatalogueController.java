@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import domain.products.Product;
 import domain.WebshopDriver;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -28,6 +29,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
     private CheckBox[] genders, categories, colors, sizes;
+    private final ObservableList SORTING_OPTIONS = FXCollections.observableArrayList(
+            "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende");
     @FXML
     private TextField searchTxt;
     @FXML
@@ -210,8 +213,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
                 login();
             }
         });
-        sortingOptionsBox.setItems(FXCollections.observableArrayList(
-            "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende"));
+        sortingOptionsBox.setItems(SORTING_OPTIONS);
         sortingOptionsBox.setValue("Alfabetisk stigende");
     }
     

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,35 +19,29 @@
       <Button layoutX="592.0" layoutY="459.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1e1e1" height="238.0" layoutX="308.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" width="255.0" />
       <ImageView fx:id="imageView" fitHeight="198.0" fitWidth="215.0" layoutX="308.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="328.0" AnchorPane.topAnchor="113.0" />
-      <VBox alignment="CENTER_LEFT" layoutX="678.0" layoutY="93.0" prefHeight="361.0" prefWidth="129.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" layoutX="657.0" layoutY="93.0" prefHeight="361.0" prefWidth="150.0" spacing="10.0">
          <children>
             <Label fx:id="nameTxt" text="Productname">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="60.0">
+            <Separator prefWidth="200.0" />
+            <HBox fx:id="amountContainer" alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="90.0">
                <children>
                   <Label text="Antal" />
-                  <TextField fx:id="amountField" prefHeight="25.0" prefWidth="34.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="5.0">
-               <children>
-                  <Label text="Farve" />
-                  <ComboBox prefHeight="25.0" prefWidth="88.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="23.0">
                <children>
                   <Label text="Størrelse" />
-                  <ComboBox prefHeight="25.0" prefWidth="71.0" />
+                  <ComboBox fx:id="sizeBox" prefHeight="25.0" prefWidth="80.0" promptText="Vælg..." />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Tilpas" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Tilpas" />
             <Label fx:id="descriptionTxt" text="Description" wrapText="true" />
             <Separator prefWidth="200.0" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Tilføj" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addItemToBasket" prefHeight="25.0" prefWidth="150.0" text="Tilføj" />
          </children>
       </VBox>
    </children>

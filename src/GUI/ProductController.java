@@ -10,6 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import domain.products.Product;
 import domain.WebshopDriver;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
 
 /**
  * @author Niels
@@ -18,14 +22,19 @@ public class ProductController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
     private Product selectedProduct;
+    private final ObservableList SIZE_OPTIONS = FXCollections.observableArrayList(
+            "S", "M", "L");
+    private TextField amountField;
     @FXML
     private Label descriptionTxt;
     @FXML
     private Label nameTxt;
     @FXML
-    private TextField amountField;
-    @FXML
     private ImageView imageView;
+    @FXML
+    private ComboBox<?> sizeBox;
+    @FXML
+    private HBox amountContainer;
     
     @FXML
     public void showCatalogueScreen() {
@@ -33,12 +42,32 @@ public class ProductController implements Initializable, ControlledScreen {
         controller.unloadScreen(PRODUCT_SCREEN);
     }
     
+    public void addItemToBasket() {
+        WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()));
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         selectedProduct = WebshopDriver.getInstance().getSelectedProduct();
+        amountField = new TextField("1") {
+            @Override
+            public void replaceText(int start, int end, String text) {
+                if(text.matches("[0-9]*")) {
+                    super.replaceText(start, end, text);
+                }
+            }
+            @Override
+            public void replaceSelection(String text) {
+                if(text.matches("[0-9]*")) {
+                    super.replaceSelection(text);
+                }
+            }
+        };
+        amountField.setPrefSize(30, 25);
+        amountContainer.getChildren().add(amountField);
         imageView.setImage(new Image("file:icons/PHshirtIcon.png"));
         nameTxt.setText(selectedProduct.getName());
-        amountField.setText("1");
+        sizeBox.setItems(SIZE_OPTIONS);
         descriptionTxt.setText(selectedProduct.toString());
     }
     
