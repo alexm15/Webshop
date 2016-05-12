@@ -33,10 +33,14 @@ public class UserManager {
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             if(validated) {
-                loggedInUser = user;
+                this.setLoggedInUser(user);
             }
             return validated;
         }
+    }
+    
+    public void setLoggedInUser(User user){
+        loggedInUser = user;
     }
     
     public User getLoggedInUser() {
