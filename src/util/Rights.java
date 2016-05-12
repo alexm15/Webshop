@@ -4,11 +4,11 @@ package util;
  *
  * @author Niels
  */
-public enum Rights {
+public interface Rights {
     
-    Guest, 
-    Customer,
-    Worker, 
-    Admin;
+    int GUEST = 0;
+    int CUSTOMER = 1;
+    int WORKER = 2;
+    int ADMIN = 3;
     
 }

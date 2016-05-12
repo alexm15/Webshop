@@ -21,12 +21,12 @@ public class User {
     private byte[] salt;
     private Name name;
     private Address address;
-    private Rights right;
+    private int right;
     private Map<Integer, Order> orderMap;
 
     public User(String email, String password, byte[] salt, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
-            String zipCode, String city, String country, Rights right, 
+            String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear) {
         this.email = email;
         this.password = password;
@@ -85,7 +85,7 @@ public class User {
         return address;
     }
 
-    public Rights getRight() {
+    public int getRight() {
         return right;
     }
 

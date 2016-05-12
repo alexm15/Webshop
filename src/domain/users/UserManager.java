@@ -22,7 +22,7 @@ public class UserManager {
     public UserManager() {
         usersMap = new HashMap<>();
         createUser("email@email.dk", "kode", "12345678", "Test", "Bruger", "55", 
-                "Campusvej", "5000", "Odense", "Danmark", Rights.Customer, "01", "27", "1990");
+                "Campusvej", "5000", "Odense", "Danmark", Rights.CUSTOMER, "01", "27", "1990");
     }
 
     public boolean validate(String email, String password) {
@@ -33,13 +33,13 @@ public class UserManager {
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             if(validated) {
-                this.setLoggedInUser(user);
+                setLoggedInUser(user);
             }
             return validated;
         }
     }
     
-    public void setLoggedInUser(User user){
+    private void setLoggedInUser(User user){
         loggedInUser = user;
     }
     
@@ -48,12 +48,12 @@ public class UserManager {
     }
 
     public void logout() {
-        loggedInUser = null;
+        setLoggedInUser(null);
     }
     
     public boolean createUser(String email, String password, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
-            String zipCode, String city, String country, Rights right, 
+            String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear) {
         if(usersMap.containsKey(email)) {
             return false;
@@ -155,7 +155,7 @@ public class UserManager {
         String email = randomString(5);
         if(!usersMap.containsKey(email)) {
             usersMap.put(email, new User(email, null, null, null, null, null, 
-                    null, null, null, null, null, Rights.Guest, null, null, null));
+                    null, null, null, null, null, Rights.GUEST, null, null, null));
         }
         return email;
     }
