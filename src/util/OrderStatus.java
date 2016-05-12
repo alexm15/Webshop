@@ -4,7 +4,7 @@ package util;
  *
  * @author Niels
  */
-public interface Status {
+public interface OrderStatus {
     
     int SHOPPING_BASKET = 0;
     int PROCESSING = 1;

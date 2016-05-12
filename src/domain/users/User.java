@@ -101,7 +101,7 @@ public class User {
 
     public Order findShoppingBasket() {
         for (Order order : orderMap.values()) {
-            if (order.getStatus() == Status.SHOPPING_BASKET) {
+            if (order.getStatus() == OrderStatus.SHOPPING_BASKET) {
                 return order;
             }
         }
@@ -110,7 +110,7 @@ public class User {
 
     public void createOrder(int orderID) {
         double shippingCharge = 25.0;
-        orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, Status.SHOPPING_BASKET, address));
+        orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, OrderStatus.SHOPPING_BASKET, address));
     }
 
     public void addItem(Product product, int quantity) {
