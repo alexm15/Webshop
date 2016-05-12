@@ -5,8 +5,6 @@ import domain.products.Product;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Separator;
@@ -21,9 +19,12 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     @FXML
     private AnchorPane shoppingItemsContainer;
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    public void showCatalogueScreen() {
+        controller.setScreen(CATALOGUE_SCREEN);
+        controller.unloadScreen(SHOPPINGBASKET_SCREEN);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         createShoppingBasketItems(WebshopDriver.getInstance().getProducts());
@@ -49,11 +50,5 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
-    }
-
-    @FXML
-    private void showCatalogueScreen(ActionEvent event) {
-        controller.setScreen(CATALOGUE_SCREEN);
-        controller.unloadScreen(SHOPPINGBASKET_SCREEN);
     }
 }

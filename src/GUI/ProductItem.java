@@ -21,7 +21,7 @@ import domain.products.Product;
 /**
  * @author Niels
  */
-public class ProductButton extends VBox {
+public class ProductItem extends VBox {
     
     private final BackgroundFill defaultBackgroundFill = new BackgroundFill(new Color(225 / 255.0, 225 / 255.0, 225 / 255.0, 1), null, null);
     private final Background defaultBackground = new Background(defaultBackgroundFill);
@@ -29,7 +29,7 @@ public class ProductButton extends VBox {
     private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
     private final Border hoverBorder = new Border(hoverStroke);
     
-    public ProductButton(Product product, int x, int y) {
+    public ProductItem(Product product, int x, int y) {
         setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
         setPrefWidth(130);

@@ -4,7 +4,7 @@ package database;
  *
  * @author Niels
  */
-public interface DatabaseInterface {
+public interface IDatabase {
     
     String URL = "jdbc:postgresql://localhost:5432/";
     String USERNAME = "nhelt15";

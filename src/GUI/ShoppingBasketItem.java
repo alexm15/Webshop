@@ -55,7 +55,7 @@ public class ShoppingBasketItem extends HBox {
         price.setMaxWidth(70);
         price.setMinWidth(70);
         //price.setBorder(hoverBorder);
-        Button rm = new Button("Remove item"); 
+        Button rm = new Button("Fjern"); 
         getChildren().addAll(iv, name, details, price, rm);
     }
 }

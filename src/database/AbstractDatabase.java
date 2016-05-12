@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * @author Niels
  */
-public abstract class AbstractDatabase implements DatabaseInterface {
+public abstract class AbstractDatabase implements IDatabase {
     
     private final String location;
     private Connection connection = null;
