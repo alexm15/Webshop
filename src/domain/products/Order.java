@@ -14,12 +14,12 @@ public class Order {
     private Date orderDate;
     private double shippingCharge;
     private int orderID;
-    private Status status;
+    private int status;
     private Address shippingAddress;
     private Set<Item> itemSet;
     private final double TAX = 1.2;
 
-    public Order(Date orderDate, double shippingCharge, int orderID, Status status, Address shippingAddress) {
+    public Order(Date orderDate, double shippingCharge, int orderID, int status, Address shippingAddress) {
         this.orderDate = orderDate;
         this.shippingCharge = shippingCharge;
         this.orderID = orderID;
@@ -80,11 +80,11 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

@@ -4,12 +4,12 @@ package util;
  *
  * @author Niels
  */
-public enum Status {
+public interface Status {
     
-    ShoppingBasket,
-    Processing, 
-    Shipped, 
-    Received,
-    Canceled;
+    int SHOPPING_BASKET = 0;
+    int PROCESSING = 1;
+    int SHIPPED = 2;
+    int RECEIVED = 3;
+    int CANCELLED = 4;
     
 }
