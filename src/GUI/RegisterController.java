@@ -136,11 +136,16 @@ public class RegisterController implements Initializable, ControlledScreen {
             birthYear = birthYearTxt.getText();
         }
         if(!error) {
-            WebshopDriver.getInstance().createUser(email, password, phoneNumber, 
-                    firstName, lastName, houseNumber, streetName, zipCode, city, 
-                    country, birthDay, birthMonth, birthYear);
-            formulaErrorTxt.setVisible(true);
-            formulaErrorTxt.setText("Bruger oprettet.");
+            if(validEmail) {
+                WebshopDriver.getInstance().createUser(email, password, phoneNumber, 
+                        firstName, lastName, houseNumber, streetName, zipCode, city, 
+                        country, birthDay, birthMonth, birthYear);
+                formulaErrorTxt.setVisible(true);
+                formulaErrorTxt.setText("Bruger oprettet.");
+            }
+            else {
+                checkEmail();
+            }
         }
     }
     
