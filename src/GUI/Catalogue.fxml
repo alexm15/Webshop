@@ -137,7 +137,7 @@
             <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Email" />
             <PasswordField fx:id="passwordField" prefWidth="100.0" promptText="Kodeord" />
             <Button mnemonicParsing="false" onAction="#login" text="Log ind" />
-            <Button mnemonicParsing="false" text="Registrer" />
+            <Button mnemonicParsing="false" onAction="#showRegisterScreen" text="Registrer" />
          </children>
       </HBox>
       <ScrollPane layoutX="417.0" layoutY="103.0" prefHeight="593.0" prefWidth="643.0" style="-fx-focus-color: #F4F4F4;">

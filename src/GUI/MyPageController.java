@@ -35,6 +35,8 @@ public class MyPageController implements Initializable, ControlledScreen {
     private TextField birthMonthTxt;
     @FXML
     private TextField birthYearTxt;
+    @FXML
+    private TextField zipCodeTxt;
     
     @FXML
     public void showCatalogueScreen() {
@@ -51,6 +53,7 @@ public class MyPageController implements Initializable, ControlledScreen {
         houseNumberTxt.setText(driver.getHouseNumber());
         cityTxt.setText(driver.getCity());
         countryTxt.setText(driver.getCountry());
+        zipCodeTxt.setText(driver.getZipCode());
         emailTxt.setText(driver.getEmail());
         phoneNumberTxt.setText(driver.getPhoneNumber());
         birthDayTxt.setText(driver.getBirthDay());

@@ -56,21 +56,21 @@ public class UserManager {
         setLoggedInUser(null);
     }
     
-    public boolean createUser(String email, String password, String phoneNumber, 
+    public void createUser(String email, String password, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear) {
-        if(usersMap.containsKey(email)) {
-            return false;
-        }
-        else {
+        if(isValidEmail(email)) {
             byte[] salt = getSalt();
             String hashedPassword = getHashedPassword(password, salt);
             usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber, 
                     firstName, lastName, houseNumber, streetName, zipCode, city, country, 
                     right, birthDay, birthMonth, birthYear));
-            return true;
         }
+    }
+    
+    public boolean isValidEmail(String email) {
+        return !usersMap.containsKey(email);
     }
     
     /**

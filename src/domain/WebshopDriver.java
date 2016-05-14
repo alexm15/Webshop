@@ -6,6 +6,7 @@ import domain.products.Item;
 import domain.users.UserManager;
 import java.util.List;
 import java.util.Set;
+import util.Rights;
 
 /**
  * @author Niels
@@ -62,6 +63,10 @@ public class WebshopDriver {
     
     public String getCity() {
         return userManager.getLoggedInUser().getAddress().getCity();
+    }
+    
+    public String getZipCode() {
+        return userManager.getLoggedInUser().getAddress().getZipCode();
     }
     
     public String getCountry() {
@@ -169,5 +174,19 @@ public class WebshopDriver {
             makeNewBasket();
         }
         userManager.addItem(getSelectedProduct(), quantity);
+    }
+    
+    public void createUser(String email, String password, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, 
+            String birthDay, String birthMonth, String birthYear) {
+        userManager.createUser(email, password, phoneNumber, 
+            firstName, lastName, houseNumber, streetName, zipCode, city, country, 
+            Rights.CUSTOMER, birthDay, birthMonth, birthYear);
+    }
+    
+    public boolean isValidEmail(String email) {
+        System.out.println("y");
+        return userManager.isValidEmail(email);
     }
 }

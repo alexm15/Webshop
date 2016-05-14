@@ -97,23 +97,29 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * Sørger for at login- og logoutcontainerne følger med.
      */
     public void showProductScreen() {
-        controller.loadScreen(ControlledScreen.PRODUCT_SCREEN, ControlledScreen.PRODUCT_SCREEN_FXML);
+        controller.loadScreen(PRODUCT_SCREEN, PRODUCT_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(PRODUCT_SCREEN);
     }
     
     @FXML
     public void showMyPageScreen() {
-        controller.loadScreen(ControlledScreen.MYPAGE_SCREEN, ControlledScreen.MYPAGE_SCREEN_FXML);
+        controller.loadScreen(MYPAGE_SCREEN, MYPAGE_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(MYPAGE_SCREEN);
     }
     
     @FXML
     public void showShoppingBasketScreen() {
-        controller.loadScreen(ControlledScreen.SHOPPINGBASKET_SCREEN, ControlledScreen.SHOPPINGBASKET_SCREEN_FXML);
+        controller.loadScreen(SHOPPINGBASKET_SCREEN, SHOPPINGBASKET_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(SHOPPINGBASKET_SCREEN);
+    }
+    
+    public void showRegisterScreen() {
+        controller.loadScreen(REGISTER_SCREEN, REGISTER_SCREEN_FXML);
+        handleLoginContainers();
+        controller.setScreen(REGISTER_SCREEN);
     }
     
     public void handleLoginContainers() {
