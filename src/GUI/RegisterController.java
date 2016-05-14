@@ -74,6 +74,9 @@ public class RegisterController implements Initializable, ControlledScreen {
         else if(validEmail) {
             email = emailTxt.getText();
         }
+        else {
+            checkEmail();
+        }
         if(passwordTxt.getText().isEmpty()) {
             formulaErrorTxt.setVisible(true);
             formulaErrorTxt.setText("Indtast venligst et password.");
@@ -135,17 +138,12 @@ public class RegisterController implements Initializable, ControlledScreen {
             birthMonth = birthMonthTxt.getText();
             birthYear = birthYearTxt.getText();
         }
-        if(!error) {
-            if(validEmail) {
+        if(!error && validEmail) {
                 WebshopDriver.getInstance().createUser(email, password, phoneNumber, 
                         firstName, lastName, houseNumber, streetName, zipCode, city, 
                         country, birthDay, birthMonth, birthYear);
                 formulaErrorTxt.setVisible(true);
                 formulaErrorTxt.setText("Bruger oprettet.");
-            }
-            else {
-                checkEmail();
-            }
         }
     }
     
