@@ -69,7 +69,8 @@ public class ShoppingBasketItem extends HBox {
     
     private void remove(Item item){
         WebshopDriver.getInstance().removeItem(item);
-        //this.getChildren().remove(this);
-        ((AnchorPane) this.getParent()).getChildren().remove(this);
+        int i = ((AnchorPane) this.getParent()).getChildren().indexOf(this)+1;
+        ((AnchorPane) this.getParent()).getChildren().remove(i);
+        ((AnchorPane) this.getParent()).getChildren().remove(this);    
     }
 }
