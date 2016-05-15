@@ -154,8 +154,12 @@ public class WebshopDriver {
         userManager.changeQuantity(email, item, quantity);
     }
 
-    public void removeItem(String email, Item item) {
+    public void removeItem(Item item) {
+        System.out.println(getInstance().userManager.getLoggedInUser().getShoppingBasket());
+        String email = getInstance().getEmail();
         userManager.removeItem(email, item);
+        System.out.println(getInstance().userManager.getLoggedInUser().getShoppingBasket());
+
     }
 
     private void makeGuestLogin() {

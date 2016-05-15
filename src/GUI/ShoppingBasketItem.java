@@ -1,5 +1,6 @@
 package GUI;
 
+import domain.WebshopDriver;
 import domain.products.Item;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import domain.products.Product;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * @author Niels
@@ -57,6 +59,17 @@ public class ShoppingBasketItem extends HBox {
         price.setMinWidth(70);
         //price.setBorder(hoverBorder);
         Button rm = new Button("Fjern"); 
+        
+        rm.setOnAction(e -> {
+            this.remove(item);
+        });
+        
         getChildren().addAll(iv, name, details, price, rm);
+    }
+    
+    private void remove(Item item){
+        WebshopDriver.getInstance().removeItem(item);
+        //this.getChildren().remove(this);
+        ((AnchorPane) this.getParent()).getChildren().remove(this);
     }
 }
