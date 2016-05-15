@@ -16,8 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import domain.products.Product;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * @author Niels
@@ -33,6 +35,7 @@ public class ShoppingBasketItem extends HBox {
     public ShoppingBasketItem(Item item, int x, int y) {
         //setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
+        setPadding(new Insets(10,0,10,10));
         setPrefWidth(610);
         setPrefHeight(100);
         setLayoutX(x);
@@ -69,8 +72,8 @@ public class ShoppingBasketItem extends HBox {
     
     private void remove(Item item){
         WebshopDriver.getInstance().removeItem(item);
-        int i = ((AnchorPane) this.getParent()).getChildren().indexOf(this)+1;
-        ((AnchorPane) this.getParent()).getChildren().remove(i);
-        ((AnchorPane) this.getParent()).getChildren().remove(this);    
+        int i = ((VBox) this.getParent()).getChildren().indexOf(this)+1;
+        ((VBox) this.getParent()).getChildren().remove(i);
+        ((VBox) this.getParent()).getChildren().remove(this);    
     }
 }

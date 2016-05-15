@@ -6,16 +6,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ShoppingBasketController">
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
-      <ScrollPane layoutX="315.0" layoutY="169.0" prefHeight="530.0" prefWidth="650.0" style="-fx-focus-color: #F4F4F4;">
-        <content>
-          <AnchorPane fx:id="shoppingItemsContainer" style="-fx-focus-color: #F4F4F4;" />
-        </content>
+      <ScrollPane hbarPolicy="NEVER" layoutX="315.0" layoutY="169.0" prefHeight="530.0" prefWidth="650.0" style="-fx-focus-color: #F4F4F4;">
+         <content>
+            <VBox fx:id="shoppingItemsContainer" prefHeight="528.0" prefWidth="649.0" spacing="5.0" />
+         </content>
       </ScrollPane>
       <HBox alignment="CENTER" layoutX="540.0" layoutY="98.0" prefHeight="33.0" prefWidth="200.0">
          <children>

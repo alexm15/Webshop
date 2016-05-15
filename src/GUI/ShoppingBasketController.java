@@ -9,8 +9,10 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * @author Niels
@@ -19,7 +21,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
 
     private ScreensController controller;
     @FXML
-    private AnchorPane shoppingItemsContainer;
+    private VBox shoppingItemsContainer;
 
     @FXML
     public void showCatalogueScreen() {
