@@ -34,6 +34,10 @@ public class UserManager {
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             if(validated) {
+             
+                if(this.hasBasket()){
+                    user.recieveShoppingBasket(loggedInUser.findShoppingBasket());
+                }
                 setLoggedInUser(user);
             }
             return validated;

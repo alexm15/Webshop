@@ -112,6 +112,10 @@ public class User {
     public List<Item> getShoppingBasket() {
         return findShoppingBasket().getItems();
     }
+    
+    public void recieveShoppingBasket(Order o){
+        orderMap.put(o.getOrderID(), o);
+    }
 
     public void createOrder(int orderID) {
         double shippingCharge = 25.0;
