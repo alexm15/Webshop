@@ -155,10 +155,8 @@ public class WebshopDriver {
     }
 
     public void removeItem(Item item) {
-        System.out.println(getInstance().userManager.getLoggedInUser().getShoppingBasket());
         String email = getInstance().getEmail();
         userManager.removeItem(email, item);
-        System.out.println(getInstance().userManager.getLoggedInUser().getShoppingBasket());
 
     }
 
