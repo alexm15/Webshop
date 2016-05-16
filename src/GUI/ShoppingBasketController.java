@@ -11,7 +11,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 
 /**
- * @author Niels
+ * @author Niels, Niclas
  */
 public class ShoppingBasketController implements Initializable, ControlledScreen {
 
