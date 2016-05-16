@@ -29,7 +29,7 @@ public class Order {
     }
 
     public void addItem(Product product, int quantity) {
-        itemList.add(new Item(product, quantity, product.getPrice() * quantity));
+        itemList.add(new Item(product, quantity));
     }
 
     public void removeItem(Item item) {

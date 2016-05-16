@@ -13,9 +13,9 @@
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="315.0" layoutY="169.0" prefHeight="530.0" prefWidth="650.0" style="-fx-focus-color: #F4F4F4;">
+      <ScrollPane hbarPolicy="NEVER" layoutX="240.0" layoutY="169.0" prefHeight="530.0" prefWidth="800.0" style="-fx-focus-color: #F4F4F4;">
          <content>
-            <VBox fx:id="shoppingItemsContainer" prefHeight="528.0" prefWidth="649.0" spacing="5.0" />
+            <VBox fx:id="shoppingItemsContainer" prefHeight="528.0" prefWidth="800.0" spacing="5.0" />
          </content>
       </ScrollPane>
       <HBox alignment="CENTER" layoutX="540.0" layoutY="98.0" prefHeight="33.0" prefWidth="200.0">
