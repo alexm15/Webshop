@@ -15,10 +15,9 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import domain.products.Product;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
@@ -32,11 +31,14 @@ public class ShoppingBasketItem extends HBox {
     private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
     private final Border hoverBorder = new Border(hoverStroke);
     
+    TextField tf;
+    Label price;
+        
     public ShoppingBasketItem(Item item, int x, int y) {
         //setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
         setPadding(new Insets(10,0,10,10));
-        setPrefWidth(610);
+        setPrefWidth(800);
         setPrefHeight(100);
         setLayoutX(x);
         setLayoutY(y);
@@ -48,26 +50,32 @@ public class ShoppingBasketItem extends HBox {
         iv.setPreserveRatio(true);
         Label name = new Label(item.getProduct().getName());
         name.setTextAlignment(TextAlignment.LEFT);
-        name.setMaxWidth(210);
-        name.setMinWidth(210);
-        //name.setBorder(hoverBorder);
-        Label details = new Label(item.getProduct().getSize() + "\n" + item.getProduct().getColor() + "\n" + item.getQuantity());
+        name.setMaxWidth(250);
+        name.setMinWidth(250);
+        Label details = new Label(item.getProduct().getSize() + "\n" + item.getProduct().getColor());
         details.setTextAlignment(TextAlignment.LEFT);
         details.setMaxWidth(40);
         details.setMinWidth(40);
-        //details.setBorder(hoverBorder);
-        Label price = new Label(item.getSumPrice() + "");
+        price = new Label(item.getSumPrice() + "");
         price.setTextAlignment(TextAlignment.LEFT);
         price.setMaxWidth(70);
         price.setMinWidth(70);
-        //price.setBorder(hoverBorder);
+        tf = new TextField(""+item.getQuantity());
+        tf.setMaxWidth(40);
+        Button update = new Button("Opdater antal");
+        
+        update.setOnAction(e -> {
+            
+            this.update(item);
+        });
+        
         Button rm = new Button("Fjern"); 
         
         rm.setOnAction(e -> {
             this.remove(item);
         });
         
-        getChildren().addAll(iv, name, details, price, rm);
+        getChildren().addAll(iv, name, details, price, tf, update, rm);
     }
     
     private void remove(Item item){
@@ -75,5 +83,28 @@ public class ShoppingBasketItem extends HBox {
         int i = ((VBox) this.getParent()).getChildren().indexOf(this)+1;
         ((VBox) this.getParent()).getChildren().remove(i);
         ((VBox) this.getParent()).getChildren().remove(this);    
+    }
+    
+    private void update(Item item){
+        String s = tf.getText();
+        
+        if(!s.equals("")){
+            
+            try{
+               int i = Integer.valueOf(s);
+               
+               if(i == 0){
+                   this.remove(item);
+               }
+               else {
+                   item.changeQuantity(i);
+                   price.setText(""+item.getSumPrice());
+               }
+               
+            }
+            catch(NumberFormatException e){ 
+            }
+            
+        }
     }
 }

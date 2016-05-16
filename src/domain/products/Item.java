@@ -8,12 +8,10 @@ public class Item {
 
     private Product product;
     private int quantity;
-    private double sumPrice;
 
-    public Item(Product product, int quantity, double sumPrice) {
+    public Item(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.sumPrice = sumPrice;
     }
 
     public void changeQuantity(int quantity) {
@@ -21,6 +19,8 @@ public class Item {
     }
 
     public double getSumPrice() {
+        double sumPrice = product.getPrice()*quantity;
+        
         return sumPrice;
     }
     
