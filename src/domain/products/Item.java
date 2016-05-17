@@ -29,11 +29,19 @@ public class Item {
 
     /**
      * 
-     * @return den totale pris for det givne antal af item
+     * @return den samlede pris på item'et ganget med antal af item'et
      */
+
     public double getSumPrice() {
-        return product.getPrice()*quantity;
+
+        return product.getPrice() * quantity;
+
     }
+    
+    /**
+     * 
+     * @return mængden på det givne item
+     */
     
     /**
      * 
@@ -43,10 +51,11 @@ public class Item {
         return quantity;
     }
     
+    
     /**
-     * 
      * @return produktet knyttet til item'et
      */
+
     public Product getProduct() {
         return product;
     }
