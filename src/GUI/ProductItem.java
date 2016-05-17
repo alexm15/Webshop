@@ -28,7 +28,12 @@ public class ProductItem extends VBox {
     
     private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
     private final Border hoverBorder = new Border(hoverStroke);
-    
+    /**
+     * 
+     * @param product
+     * @param x
+     * @param y 
+     */
     public ProductItem(Product product, int x, int y) {
         setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
