@@ -37,12 +37,7 @@ public class Item {
         return product.getPrice() * quantity;
 
     }
-    
-    /**
-     * 
-     * @return mængden på det givne item
-     */
-    
+   
     /**
      * 
      * @return antallet af item'et
