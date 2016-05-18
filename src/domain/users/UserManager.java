@@ -170,8 +170,7 @@ public class UserManager {
     public void createGuestUser() {
         String email = randomString(5);
         if(!usersMap.containsKey(email)) {
-            User guestUser = new User(email, null, null, null, null, null, 
-                    null, null, null, null, null, Rights.GUEST, null, null, null);
+            User guestUser = new User(email, Rights.GUEST);
             usersMap.put(email, guestUser);
             setLoggedInUser(guestUser);
         }
