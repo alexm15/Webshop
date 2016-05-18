@@ -174,5 +174,8 @@ public class UserManager {
             usersMap.put(email, guestUser);
             setLoggedInUser(guestUser);
         }
+        else {
+            createGuestUser();
+        }
     }
 }
