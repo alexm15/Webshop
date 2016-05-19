@@ -157,7 +157,7 @@ public class UserManager {
         return usersMap.get(email);
     }
 
-    private String randomString(int numChars) {
+    private String randomEmail(int numChars) {
         Random generator = new Random();
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < numChars; i++) {
@@ -168,7 +168,7 @@ public class UserManager {
     }
 
     public void createGuestUser() {
-        String email = randomString(5);
+        String email = randomEmail(5);
         if(!usersMap.containsKey(email)) {
             User guestUser = new User(email, Rights.GUEST);
             usersMap.put(email, guestUser);
