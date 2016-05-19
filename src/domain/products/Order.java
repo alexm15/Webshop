@@ -47,7 +47,6 @@ public class Order implements OrderManageable {
         return null;
     }
 
-<<<<<<< HEAD
     public void setQuantity(Item item, int quantity) {
         for(Item i : itemList) {
             if (item.equals(i)) {
@@ -56,9 +55,8 @@ public class Order implements OrderManageable {
         }
     }
     
-=======
+
     @Override
->>>>>>> master
     public void changeQuantity(Item item, int quantity) {
         for(Item i : itemList) {
             if (item.equals(i)) {

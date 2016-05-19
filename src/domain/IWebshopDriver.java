@@ -33,7 +33,7 @@ public interface IWebshopDriver {
      * skal ændres til.
      * @param item den specifikke item det drejer sig om.
      */
-    void changeQuantity(String email, int quantity, Item item);
+    void changeQuantity(int quantity, Item item);
 
     /**
      * Styrer oprettelsen af en bruger i GUI

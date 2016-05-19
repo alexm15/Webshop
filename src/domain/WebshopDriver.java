@@ -306,14 +306,9 @@ public class WebshopDriver implements IWebshopDriver {
      * skal ændres til.
      * @param item den specifikke item det drejer sig om.
      */
-<<<<<<< HEAD
     public void changeQuantity(int quantity, Item item) {
         userManager.changeQuantity(item, quantity);
-=======
-    @Override
-    public void changeQuantity(String email, int quantity, Item item) {
-        userManager.changeQuantity(email, item, quantity);
->>>>>>> master
+
     }
 
     /**

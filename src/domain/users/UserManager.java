@@ -160,14 +160,9 @@ public class UserManager implements UserManageable {
         loggedInUser.addItem(product, quantity, size);
     }
 
-<<<<<<< HEAD
     public void changeQuantity(Item item, int quantity) {
         loggedInUser.changeQuantity(quantity, item);
-=======
-    @Override
-    public void changeQuantity(String email, Item item, int quantity) {
-        findUser(email).changeQuantity(quantity, item);
->>>>>>> master
+
     }
 
     @Override

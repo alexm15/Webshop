@@ -6,6 +6,7 @@
 package domain.users;
 
 import domain.products.Item;
+import domain.products.Order;
 import domain.products.Product;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface UserManageable {
 
     void addItem(Product product, int quantity, String size);
 
-    void changeQuantity(String email, Item item, int quantity);
+    void changeQuantity(Item item, int quantity);
 
     void createGuestUser();
 
@@ -28,6 +29,8 @@ public interface UserManageable {
     User getLoggedInUser();
 
     List<Item> getShoppingBasket();
+    
+    Order getShoppingBasketOrder();
 
     boolean hasBasket();
 
