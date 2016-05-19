@@ -16,7 +16,7 @@ import util.Rights;
 /**
  * @author Niels
  */
-public class UserManager {
+public class UserManager implements UserManageable {
 
     private Map<String, User> usersMap;
     private User loggedInUser;
@@ -27,6 +27,7 @@ public class UserManager {
                 "Campusvej", "5000", "Odense", "Danmark", Rights.CUSTOMER, "01", "27", "1990");
     }
 
+    @Override
     public boolean validate(String email, String password) {
         User user = findUser(email);
         if(user == null) {
@@ -49,18 +50,22 @@ public class UserManager {
         loggedInUser = user;
     }
     
+    @Override
     public User getLoggedInUser() {
         return loggedInUser;
     }
     
+    @Override
     public boolean isUserLoggedIn() {
         return loggedInUser != null;
     }
 
+    @Override
     public void logout() {
         setLoggedInUser(null);
     }
     
+    @Override
     public void createUser(String email, String password, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, int right, 
@@ -74,6 +79,7 @@ public class UserManager {
         }
     }
     
+    @Override
     public boolean isValidEmail(String email) {
         return !usersMap.containsKey(email);
     }
@@ -127,10 +133,12 @@ public class UserManager {
         return salt;
     }
 
+    @Override
     public void createOrder(int orderID) {
         loggedInUser.createOrder(orderID);
     }
 
+    @Override
     public boolean hasBasket() {
         if(!isUserLoggedIn()) {
             return false;
@@ -138,6 +146,7 @@ public class UserManager {
         return findUser(loggedInUser.getEmail()).findShoppingBasket() != null;
     }
     
+    @Override
     public List<Item> getShoppingBasket() {
         return loggedInUser.getShoppingBasket();
     }
@@ -146,14 +155,22 @@ public class UserManager {
         return loggedInUser.getShoppingBasketOrder();
     }
 
+    @Override
     public void addItem(Product product, int quantity, String size) {
         loggedInUser.addItem(product, quantity, size);
     }
 
+<<<<<<< HEAD
     public void changeQuantity(Item item, int quantity) {
         loggedInUser.changeQuantity(quantity, item);
+=======
+    @Override
+    public void changeQuantity(String email, Item item, int quantity) {
+        findUser(email).changeQuantity(quantity, item);
+>>>>>>> master
     }
 
+    @Override
     public void removeItem(String email, Item item) {
         findUser(email).removeItem(item);
     }
@@ -172,6 +189,7 @@ public class UserManager {
         return builder.toString();
     }
 
+    @Override
     public void createGuestUser() {
         String email = randomEmail(5);
         if(!usersMap.containsKey(email)) {
