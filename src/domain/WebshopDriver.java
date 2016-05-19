@@ -34,9 +34,9 @@ public class WebshopDriver {
         userManager = new UserManager();
         catalogue = new Catalogue();
         orderID = 0;
-        DatabaseDriver.getInstance().connectPIM();
-        DatabaseDriver.getInstance().connectURM();
-        DatabaseDriver.getInstance().pim();
+        //DatabaseDriver.getInstance().connectPIM();
+        //DatabaseDriver.getInstance().connectURM();
+        //DatabaseDriver.getInstance().pim();
     }
 
     /*public void connect() {

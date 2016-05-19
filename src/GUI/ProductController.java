@@ -65,10 +65,10 @@ public class ProductController implements Initializable, ControlledScreen {
         };
         amountField.setPrefSize(30, 25);
         amountContainer.getChildren().add(amountField);
-        imageView.setImage(new Image("file:icons/PHshirtIcon.png"));
+        imageView.setImage(new Image(selectedProduct.getImagePath()));
         nameTxt.setText(selectedProduct.getName());
         sizeBox.setItems(SIZE_OPTIONS);
-        descriptionTxt.setText(selectedProduct.toString());
+        descriptionTxt.setText(selectedProduct.getDescription());
     }
     
     @Override

@@ -19,7 +19,7 @@
       <Button layoutX="592.0" layoutY="459.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1e1e1" height="238.0" layoutX="308.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" width="255.0" />
       <ImageView fx:id="imageView" fitHeight="198.0" fitWidth="215.0" layoutX="308.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="328.0" AnchorPane.topAnchor="113.0" />
-      <VBox alignment="CENTER_LEFT" layoutX="657.0" layoutY="93.0" prefHeight="361.0" prefWidth="150.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" layoutX="657.0" layoutY="93.0" prefHeight="326.0" prefWidth="364.0" spacing="10.0">
          <children>
             <Label fx:id="nameTxt" text="Productname">
                <font>
@@ -35,13 +35,12 @@
             <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="23.0">
                <children>
                   <Label text="Størrelse" />
-                  <ComboBox fx:id="sizeBox" prefHeight="25.0" prefWidth="80.0" promptText="Vælg..." />
+                  <ComboBox fx:id="sizeBox" prefHeight="27.0" prefWidth="93.0" promptText="Vælg..." />
                </children>
             </HBox>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Tilpas" />
             <Label fx:id="descriptionTxt" text="Description" wrapText="true" />
             <Separator prefWidth="200.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addItemToBasket" prefHeight="25.0" prefWidth="150.0" text="Tilføj" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addItemToBasket" prefHeight="27.0" prefWidth="70.0" text="Tilføj" />
          </children>
       </VBox>
    </children>

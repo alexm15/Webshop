@@ -1,6 +1,5 @@
 package GUI;
 
-import domain.WebshopDriver;
 import domain.products.Item;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -18,7 +17,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Niels
@@ -31,8 +29,9 @@ public class ShoppingBasketItem extends HBox {
     private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
     private final Border hoverBorder = new Border(hoverStroke);
     
-    TextField tf;
-    Label price;
+    private TextField tf;
+    private Label price;
+    private Button removeBtn, updateBtn;
         
     public ShoppingBasketItem(Item item, int x, int y) {
         //setPadding(new Insets(15, 0, 0, 0));
@@ -60,51 +59,50 @@ public class ShoppingBasketItem extends HBox {
         price.setTextAlignment(TextAlignment.LEFT);
         price.setMaxWidth(70);
         price.setMinWidth(70);
-        tf = new TextField(""+item.getQuantity());
+        tf = new TextField(""+item.getQuantity()) {
+            @Override public void replaceText(int start, int end, String text) {
+                if(validate(text)) {
+                    super.replaceText(start, end, text);
+                }
+            }
+            @Override public void replaceSelection(String text) {
+                if(validate(text)) {
+                    super.replaceSelection(text);
+                }
+            }
+            public boolean validate(String text) {
+                return ("".equals(text) || text.matches("[0-9]"));
+            }
+        };
+        
         tf.setMaxWidth(40);
-        Button update = new Button("Opdater antal");
+        updateBtn = new Button("Opdater antal");
+        removeBtn = new Button("Fjern");
         
-        update.setOnAction(e -> {
-            
-            this.update(item);
-        });
-        
-        Button rm = new Button("Fjern"); 
-        
-        rm.setOnAction(e -> {
-            this.remove(item);
-        });
-        
-        getChildren().addAll(iv, name, details, price, tf, update, rm);
+        getChildren().addAll(iv, name, details, price, tf, updateBtn, removeBtn);
     }
     
-    private void remove(Item item){
-        WebshopDriver.getInstance().removeItem(item);
-        int i = ((VBox) this.getParent()).getChildren().indexOf(this)+1;
-        ((VBox) this.getParent()).getChildren().remove(i);
-        ((VBox) this.getParent()).getChildren().remove(this);    
+    public Button getRemoveBtn() {
+        return removeBtn;
     }
     
-    private void update(Item item){
-        String s = tf.getText();
-        
-        if(!s.equals("")){
-            
-            try{
-               int i = Integer.valueOf(s);
-               
-               if(i == 0){
-                   this.remove(item);
-               }
-               else {
-                   item.changeQuantity(i);
-                   price.setText(""+item.getSumPrice());
-               }
-               
-            }
-            catch(NumberFormatException e){ 
-            }
-            
-        }
+    public Button getUpdateBtn(){
+        return updateBtn;
     }
+    
+    public TextField getPriceField() {
+        return tf;
+    }
+    
+    public String getText(){
+        return tf.getText();
+    }
+    
+    public void setPrice(double i){
+        price.setText(i+"");
+    }
+    
+
+    
+    
 }
