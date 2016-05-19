@@ -6,7 +6,7 @@ package database;
  */
 public class DatabaseDriver implements IDatabase {
     
-    private static DatabaseDriver instance = null;
+    private static IDatabase instance = null;
     private Controllable pim, urm;
     
     private DatabaseDriver() {
@@ -49,7 +49,7 @@ public class DatabaseDriver implements IDatabase {
         pim.getData();
     }
     
-    public static DatabaseDriver getInstance() {
+    public static IDatabase getInstance() {
         if(instance == null) {
             instance = new DatabaseDriver();
         }
