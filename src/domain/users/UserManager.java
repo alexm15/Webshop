@@ -1,6 +1,7 @@
 package domain.users;
 
 import domain.products.Item;
+import domain.products.Order;
 import domain.products.Product;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -140,13 +141,17 @@ public class UserManager {
     public List<Item> getShoppingBasket() {
         return loggedInUser.getShoppingBasket();
     }
+    
+    public Order getShoppingBasketOrder() {
+        return loggedInUser.getShoppingBasketOrder();
+    }
 
     public void addItem(Product product, int quantity, String size) {
         loggedInUser.addItem(product, quantity, size);
     }
 
-    public void changeQuantity(String email, Item item, int quantity) {
-        findUser(email).changeQuantity(quantity, item);
+    public void changeQuantity(Item item, int quantity) {
+        loggedInUser.changeQuantity(quantity, item);
     }
 
     public void removeItem(String email, Item item) {

@@ -35,7 +35,24 @@ public class Order {
     public void removeItem(Item item) {
         itemList.remove(item);
     }
+    
+    public Item containsProduct(Product product, String size) {
+        for(Item i : itemList) {
+            if(i.getProduct().equals(product) && i.getSize().equals(size)) {
+                return i;
+            }
+        }
+        return null;
+    }
 
+    public void setQuantity(Item item, int quantity) {
+        for(Item i : itemList) {
+            if (item.equals(i)) {
+                item.setQuantity(quantity);
+            }
+        }
+    }
+    
     public void changeQuantity(Item item, int quantity) {
         for(Item i : itemList) {
             if (item.equals(i)) {

@@ -25,8 +25,12 @@ public class Item {
      * 
      * @param quantity den nye mængde af item'et
      */
-    public void changeQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    
+    public void changeQuantity(int quantity) {
+        this.quantity += quantity;
     }
 
     /**
