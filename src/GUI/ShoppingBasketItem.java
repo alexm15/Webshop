@@ -51,7 +51,7 @@ public class ShoppingBasketItem extends HBox {
         name.setTextAlignment(TextAlignment.LEFT);
         name.setMaxWidth(250);
         name.setMinWidth(250);
-        Label details = new Label(/*item.getProduct().getSize() + */item.getSize() + "\n" + item.getProduct().getColor());
+        Label details = new Label(item.getSize() + "\n" + item.getProduct().getColor());
         details.setTextAlignment(TextAlignment.LEFT);
         details.setMaxWidth(40);
         details.setMinWidth(40);

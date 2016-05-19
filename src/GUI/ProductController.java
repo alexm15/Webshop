@@ -22,8 +22,6 @@ public class ProductController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
     private Product selectedProduct;
-    private final ObservableList SIZE_OPTIONS = FXCollections.observableArrayList(
-            "S", "M", "L");
     private TextField amountField;
     @FXML
     private Label descriptionTxt;
@@ -80,7 +78,19 @@ public class ProductController implements Initializable, ControlledScreen {
         amountContainer.getChildren().add(amountField);
         imageView.setImage(new Image(selectedProduct.getImagePath()));
         nameTxt.setText(selectedProduct.getName());
-        sizeBox.setItems(SIZE_OPTIONS);
+        
+        if(selectedProduct.isSmall()){
+            sizeBox.getItems().add("S");
+        }
+        
+        if(selectedProduct.isMedium()){
+            sizeBox.getItems().add("M");
+        }
+        
+        if(selectedProduct.isLarge()){
+            sizeBox.getItems().add("L");
+        }
+        
         descriptionTxt.setText(selectedProduct.getDescription());
     }
     
