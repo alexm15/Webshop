@@ -4,6 +4,8 @@ import database.DatabaseDriver;
 import domain.products.Catalogue;
 import domain.products.Product;
 import domain.products.Item;
+import domain.products.ProductManagable;
+import domain.users.UserManageable;
 import domain.users.UserManager;
 import java.util.List;
 import java.util.Set;
@@ -21,8 +23,8 @@ public class WebshopDriver implements IWebshopDriver {
 
     private static IWebshopDriver instance = null;
     //private DatabaseController database;
-    private UserManager userManager;
-    private Catalogue catalogue;
+    private UserManageable userManager;
+    private ProductManagable catalogue;
     private static int orderID;
 
     /**
