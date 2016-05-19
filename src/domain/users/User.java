@@ -128,7 +128,7 @@ public class User {
         orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, OrderStatus.SHOPPING_BASKET, address));
     }
 
-    public void addItem(Product product, int quantity) {
-        findShoppingBasket().addItem(product, quantity);
+    public void addItem(Product product, int quantity, String size) {
+        findShoppingBasket().addItem(product, quantity, size);
     }
 }

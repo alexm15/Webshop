@@ -8,15 +8,17 @@ public class Item {
 
     private Product product;
     private int quantity;
+    private String size;
 
     /**
      * 
      * @param product det produkt item'et skal knyttes til
      * @param quantity mængden af item'et
      */
-    public Item(Product product, int quantity) {
+    public Item(Product product, int quantity, String size) {
         this.product = product;
         this.quantity = quantity;
+        this.size = size;
     }
 
     /**
@@ -53,5 +55,9 @@ public class Item {
 
     public Product getProduct() {
         return product;
+    }
+    
+    public String getSize(){
+        return size;
     }
 }

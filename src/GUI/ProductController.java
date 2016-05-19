@@ -32,18 +32,31 @@ public class ProductController implements Initializable, ControlledScreen {
     @FXML
     private ImageView imageView;
     @FXML
-    private ComboBox<?> sizeBox;
+    private ComboBox<String> sizeBox;
     @FXML
     private HBox amountContainer;
+    @FXML
+    private Label sizeErr;
     
     @FXML
-    public void showCatalogueScreen() {
+    private void showCatalogueScreen() {
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(PRODUCT_SCREEN);
     }
     
-    public void addItemToBasket() {
-        WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()));
+    @FXML
+    private void addItemToBasket() {   
+        try {   
+            WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()),sizeBox.getValue().toString());
+        }
+        catch (NullPointerException e){
+            sizeErr.setText("Du skal vælge en størrelse!");
+        }
+    }
+    
+    @FXML
+    private void unsetSizeError(){
+        sizeErr.setText("");
     }
     
     @Override
@@ -52,13 +65,13 @@ public class ProductController implements Initializable, ControlledScreen {
         amountField = new TextField("1") {
             @Override
             public void replaceText(int start, int end, String text) {
-                if(text.matches("[0-9]*")) {
+                if(text.matches("[0-9]")) {
                     super.replaceText(start, end, text);
                 }
             }
             @Override
             public void replaceSelection(String text) {
-                if(text.matches("[0-9]*")) {
+                if(text.matches("[0-9]")) {
                     super.replaceSelection(text);
                 }
             }

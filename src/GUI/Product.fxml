@@ -35,7 +35,8 @@
             <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="196.0" spacing="23.0">
                <children>
                   <Label text="Størrelse" />
-                  <ComboBox fx:id="sizeBox" prefHeight="27.0" prefWidth="93.0" promptText="Vælg..." />
+                  <ComboBox fx:id="sizeBox" onMouseReleased="#unsetSizeError" prefHeight="27.0" prefWidth="93.0" promptText="Vælg..." />
+                  <Label fx:id="sizeErr" textFill="#dc3847" />
                </children>
             </HBox>
             <Label fx:id="descriptionTxt" text="Description" wrapText="true" />

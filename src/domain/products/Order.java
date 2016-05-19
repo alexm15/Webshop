@@ -28,8 +28,8 @@ public class Order {
         itemList = new ArrayList<>();
     }
 
-    public void addItem(Product product, int quantity) {
-        itemList.add(new Item(product, quantity));
+    public void addItem(Product product, int quantity, String size) {
+        itemList.add(new Item(product, quantity, size));
     }
 
     public void removeItem(Item item) {

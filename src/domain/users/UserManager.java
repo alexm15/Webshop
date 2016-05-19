@@ -141,8 +141,8 @@ public class UserManager {
         return loggedInUser.getShoppingBasket();
     }
 
-    public void addItem(Product product, int quantity) {
-        loggedInUser.addItem(product, quantity);
+    public void addItem(Product product, int quantity, String size) {
+        loggedInUser.addItem(product, quantity, size);
     }
 
     public void changeQuantity(String email, Item item, int quantity) {

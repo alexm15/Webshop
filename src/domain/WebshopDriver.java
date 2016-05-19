@@ -320,7 +320,7 @@ public class WebshopDriver {
      * så den kommunikerer med domæne-laget.
      * @param quantity antallet valgt af den specifikke item
      */
-    public void addItem(int quantity) {
+    public void addItem(int quantity, String size) {
         //Checker om brugeren er logget ind.
         if (!userManager.isUserLoggedIn()) {
             makeGuestLogin();
@@ -329,7 +329,7 @@ public class WebshopDriver {
         if (!userManager.hasBasket()) {
             makeNewBasket();
         }
-        userManager.addItem(getSelectedProduct(), quantity);
+        userManager.addItem(getSelectedProduct(), quantity, size);
     }
 
     /**
