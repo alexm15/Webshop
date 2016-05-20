@@ -90,7 +90,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
                    this.remove(item);
                }
                else {
-                   item.changeQuantity(i);
+                   item.setQuantity(i);
                    shoppingItemMap.get(item).setPrice(item.getSumPrice());
                }
                

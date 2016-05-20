@@ -306,9 +306,9 @@ public class WebshopDriver implements IWebshopDriver {
      * skal ændres til.
      * @param item den specifikke item det drejer sig om.
      */
-    @Override
-    public void changeQuantity(String email, int quantity, Item item) {
-        userManager.changeQuantity(email, item, quantity);
+    public void changeQuantity(int quantity, Item item) {
+        userManager.changeQuantity(item, quantity);
+
     }
 
     /**
@@ -355,7 +355,24 @@ public class WebshopDriver implements IWebshopDriver {
         if (!userManager.hasBasket()) {
             makeNewBasket();
         }
-        userManager.addItem(getSelectedProduct(), quantity, size);
+//        try {
+//            Item item = userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size);
+//            userManager.changeQuantity(item, quantity);
+//            System.err.println("Item");
+//        }
+//        catch(NullPointerException e) {
+//            userManager.addItem(getSelectedProduct(), quantity, size);
+//            System.err.println("Nullpointer - tilføjes normalt");
+//        }
+        
+        if(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size) != null){
+            userManager.changeQuantity(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size), quantity);
+            System.err.println("niels");
+        }
+        else {          
+            userManager.addItem(getSelectedProduct(), quantity, size);
+            System.err.println("Nullpointer - tilføjes normalt");
+        }
     }
 
     /**

@@ -44,7 +44,7 @@ public class ProductController implements Initializable, ControlledScreen {
     
     @FXML
     private void addItemToBasket() {   
-        try {   
+        try {
             WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()),sizeBox.getValue().toString());
         }
         catch (NullPointerException e){
@@ -61,17 +61,18 @@ public class ProductController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         selectedProduct = WebshopDriver.getInstance().getSelectedProduct();
         amountField = new TextField("1") {
-            @Override
-            public void replaceText(int start, int end, String text) {
-                if(text.matches("[0-9]")) {
+            @Override public void replaceText(int start, int end, String text) {
+                if(validate(text)) {
                     super.replaceText(start, end, text);
                 }
             }
-            @Override
-            public void replaceSelection(String text) {
-                if(text.matches("[0-9]")) {
+            @Override public void replaceSelection(String text) {
+                if(validate(text)) {
                     super.replaceSelection(text);
                 }
+            }
+            public boolean validate(String text) {
+                return ("".equals(text) || text.matches("[0-9]"));
             }
         };
         amountField.setPrefSize(30, 25);
