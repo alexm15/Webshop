@@ -25,7 +25,16 @@ public class URM extends AbstractDatabase {
             String birthDay, String birthMonth, String birthYear) {
         
         try {
-            PreparedStatement insert = connection.prepareStatement("INSERT INTO ");
+            PreparedStatement insert = connection.prepareStatement("INSERT INTO users("
+                    + "email, password, salt, phonenumber, firstname, lastname, rights, "
+                    + "birthday, birthmonth, birthyear)"
+                    + "VALUES(" + email + "," + password + "," + salt + "," 
+                    + phoneNumber + "," + firstName + "," + lastName + ","
+                    + right + "," + birthDay + "," + birthMonth + "," + birthYear + ");"
+                    + "INSERT INTO address(email, housenumber, zipcode, streetname, city, country)"
+                    + "VALUES("+ email + "," + houseNumber + "," + zipCode + ","
+                    + streetName + "," + city + "," + country + ");");
+            insert.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(URM.class.getName()).log(Level.SEVERE, null, ex);
         }
