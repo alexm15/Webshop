@@ -1,5 +1,6 @@
 package domain.products;
 
+import database.DatabaseDriver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,11 +106,11 @@ public class Catalogue implements ProductManagable {
     private List<Product> searchSize(List<Product> listToSearch, boolean small, boolean medium, boolean large) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
-            if((p.isSmall()) && small || p.isMedium() && medium || p.isLarge() && large) { // VIRKER IKKE,
-                    if(!results.contains(p)) {
-                        results.add(p);
-                    }
+            if((p.isSmall()) && small || p.isMedium() && medium || p.isLarge() && large) {
+                if(!results.contains(p)) {
+                    results.add(p);
                 }
+            }
         }
         return results;
     }
@@ -151,8 +152,10 @@ public class Catalogue implements ProductManagable {
     }
 
     @Override
-    public void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
-        
-        changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufactorer, price);
+    public void changeProductDetails(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        DatabaseDriver.getInstance().changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
+        //loadProducts(); //genload products fra database
     }
 }
