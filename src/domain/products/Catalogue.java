@@ -149,4 +149,10 @@ public class Catalogue implements ProductManagable {
     public Product getSelectedProduct() {
         return selectedProduct;
     }
+    
+    public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath) {
+        products.add(new Product(id, name, category, small, medium, large, color, gender, "", "file:icons/PHshirtIcon.png", manufactor, price));
+        
+    
+    }
 }

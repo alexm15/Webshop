@@ -32,4 +32,7 @@ public interface ProductManagable {
 
     void sortPriceDescending(List listToSort);
     
+    public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath);
+    
+    
 }
