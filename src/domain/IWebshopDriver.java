@@ -240,7 +240,7 @@ public interface IWebshopDriver {
      */
     List<Product> sortProducts(String sortTerm, List listToSort);
     
-    public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath);        
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);        
     
 
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,

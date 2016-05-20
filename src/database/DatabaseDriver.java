@@ -72,7 +72,7 @@ public class DatabaseDriver implements IDatabase {
         return instance;
     }
     
-    public void createProduct(){
-        
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
+        pim.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
     }
 }

@@ -153,10 +153,10 @@ public class Catalogue implements ProductManagable {
         return selectedProduct;
     }
     
-    public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath) {
-        products.add(new Product(id, name, category, small, medium, large, color, gender, "", "file:icons/PHshirtIcon.png", manufactor, price));
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath) {
+        products.add(new Product(id, name, category, small, medium, large, color, gender, description, "file:icons/PHshirtIcon.png", manufactor, price));
         
-        database.createProduct();
+        database.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
     }
 
     @Override

@@ -52,7 +52,7 @@ public interface ProductManagable {
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufactorer, double price);
     
-    public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath);
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);
     
     
 }

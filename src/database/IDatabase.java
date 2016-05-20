@@ -29,6 +29,6 @@ public interface IDatabase {
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear);
     
-    void createProduct();
+    void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);
     
 }
