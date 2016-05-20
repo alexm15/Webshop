@@ -13,7 +13,7 @@ public class PIM extends AbstractDatabase {
         super("pim");
     }
     
-    public void getData() {
+    public void getProducts() {
         List<String> results = new ArrayList<>();
         try(PreparedStatement st = connection.prepareStatement("SELECT *"
                     + "                 FROM product, product_size"
@@ -37,7 +37,11 @@ public class PIM extends AbstractDatabase {
         System.out.println(results);
     }
     
+
     public void createProduct(){
+    }
+    public void updateProduct(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
+            String gender, String description, String imagePath, String manufactorer, double price) {
         
     }
     

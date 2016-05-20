@@ -418,4 +418,9 @@ public class WebshopDriver implements IWebshopDriver {
     public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath){
         catalogue.createProduct(id, name, manufactor, category, small, medium, large, color, gender, price, imagePath);
     }
+    
+    @Override
+    public void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
+        catalogue.changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufactorer, price);
+    }
 }

@@ -7,7 +7,8 @@ package database;
 public class DatabaseDriver implements IDatabase {
     
     private static IDatabase instance = null;
-    private Controllable pim, urm;
+    private PIM pim;
+    private URM urm;
     
     private DatabaseDriver() {
         pim = new PIM();
@@ -45,8 +46,23 @@ public class DatabaseDriver implements IDatabase {
     }
     
     @Override
-    public void pim() {
-        pim.getData();
+    public void getProducts() {
+        //pim.getProducts();
+    }
+
+    @Override
+    public void getCustomers() {
+        //urm.getCustomers();
+    }
+
+    @Override
+    public void updatePIMDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateURMDetails(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public static IDatabase getInstance() {

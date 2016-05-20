@@ -158,4 +158,10 @@ public class Catalogue implements ProductManagable {
         
         database.createProduct();
     }
+
+    @Override
+    public void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
+        
+        changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufactorer, price);
+    }
 }
