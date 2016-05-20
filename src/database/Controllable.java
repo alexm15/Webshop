@@ -15,7 +15,5 @@ public interface Controllable {
     void connect();
     void disconnect();
     boolean isConnected();
-    void getData();
-    void updateDetails(List<String> info);
     
 }

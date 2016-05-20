@@ -11,13 +11,14 @@ public class URM extends AbstractDatabase {
         super("urm");
     }
     
-    @Override
-    public void getData() {
+    public void getCustomers() {
         
     }
-
-    @Override
-    public void updateDetails(List<String> info) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public void updateUser(String email, String password, byte[] salt, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, int right, 
+            String birthDay, String birthMonth, String birthYear) {
+        
     }
 }
