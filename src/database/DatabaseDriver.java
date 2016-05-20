@@ -60,15 +60,21 @@ public class DatabaseDriver implements IDatabase {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void updateURMDetails(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     public static IDatabase getInstance() {
         if(instance == null) {
             instance = new DatabaseDriver();
         }
         return instance;
+    }
+
+    @Override
+    public void storeUser(String email, String password, byte[] salt, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, int right, 
+            String birthDay, String birthMonth, String birthYear) {
+        
+        urm.storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
     }
 }
