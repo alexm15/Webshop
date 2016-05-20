@@ -37,4 +37,8 @@ public class PIM extends AbstractDatabase {
         System.out.println(results);
     }
     
+    public void createProduct(){
+        
+    }
+    
 }

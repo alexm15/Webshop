@@ -25,4 +25,6 @@ public interface IDatabase {
 
     void pim();
     
+    void createProduct();
+    
 }

@@ -55,4 +55,8 @@ public class DatabaseDriver implements IDatabase {
         }
         return instance;
     }
+    
+    public void createProduct(){
+        
+    }
 }

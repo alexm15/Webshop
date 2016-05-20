@@ -1,5 +1,7 @@
 package domain.products;
 
+import database.DatabaseDriver;
+import database.IDatabase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Catalogue implements ProductManagable {
     
     private List<Product> products;
     private Product selectedProduct;
+    private IDatabase database = DatabaseDriver.getInstance();
     
     public Catalogue() {
         products = new ArrayList<>();
@@ -153,6 +156,6 @@ public class Catalogue implements ProductManagable {
     public void createProduct(int id, String name, String manufactor, String category, Boolean small, Boolean medium, Boolean large, String color, String gender, Double price, String imagePath) {
         products.add(new Product(id, name, category, small, medium, large, color, gender, "", "file:icons/PHshirtIcon.png", manufactor, price));
         
-    
+        database.createProduct();
     }
 }
