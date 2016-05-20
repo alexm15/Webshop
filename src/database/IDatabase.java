@@ -22,12 +22,13 @@ public interface IDatabase {
     
     void getCustomers(); // skal have anden returtype
     
-    void updatePIMDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
-            String gender, String description, String imagePath, String manufactorer, double price);
+    void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
+            String gender, String description, String imagePath, String manufacturer, double price);
     
-    void updateURMDetails(String email, String password, String phoneNumber, 
+    void storeUser(String email, String password, byte[] salt, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
-            String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear);
+            String zipCode, String city, String country, int right, 
+            String birthDay, String birthMonth, String birthYear);
     
     void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);
     

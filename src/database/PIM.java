@@ -57,5 +57,20 @@ public class PIM extends AbstractDatabase {
             String gender, String description, String imagePath, String manufactorer, double price) {
         
     }
+    public void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        try(PreparedStatement st = connection.prepareStatement("UPDATE product"
+                    + "SET id=" + id + ", name='" + name + "', category='" + category + "',"
+                    + "small=" + small + ", medium=" + medium + ", large=" + large + ","
+                    + "color='" + color + "', gender='" + gender + "', description='" + description + "',"
+                    + "image_path='" + imagePath + "', manufacturer='" + manufacturer + "',"
+                    + "price=" + price
+                    + "WHERE id = " + id)) {
+            st.executeQuery();
+        }
+        catch(SQLException e) {
+            System.err.println(e);
+        }
+    }
     
 }

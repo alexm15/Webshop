@@ -56,14 +56,11 @@ public class DatabaseDriver implements IDatabase {
     }
 
     @Override
-    public void updatePIMDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateURMDetails(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void changeProductDetails(int id, String name, String category, boolean small, 
+            boolean medium, boolean large, String color, String gender, String description, 
+            String imagePath, String manufacturer, double price) {
+        pim.changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
+    } 
     
     public static IDatabase getInstance() {
         if(instance == null) {
@@ -75,4 +72,14 @@ public class DatabaseDriver implements IDatabase {
     public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
         pim.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
     }
+
+    @Override
+    public void storeUser(String email, String password, byte[] salt, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, int right, 
+            String birthDay, String birthMonth, String birthYear) {
+        
+        urm.storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
+    }
+    
 }
