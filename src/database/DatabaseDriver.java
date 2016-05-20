@@ -1,7 +1,5 @@
 package database;
 
-import java.util.List;
-
 /**
  *
  * @author Niels
@@ -46,6 +44,16 @@ public class DatabaseDriver implements IDatabase {
         return urm.isConnected();
     }
     
+    @Override
+    public void getProducts() {
+        //pim.getData();
+    }
+
+    @Override
+    public void getCustomers() {
+        //urm.getData();
+    }
+    
     public static IDatabase getInstance() {
         if(instance == null) {
             instance = new DatabaseDriver();
@@ -54,7 +62,12 @@ public class DatabaseDriver implements IDatabase {
     }
 
     @Override
-    public void updateDetails(List<String> info) {
+    public void updatePIMDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateURMDetails(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
