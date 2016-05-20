@@ -241,6 +241,6 @@ public interface IWebshopDriver {
     List<Product> sortProducts(String sortTerm, List listToSort);
 
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
-            String gender, String description, String imagePath, String manufactorer, double price);
+            String gender, String description, String imagePath, String manufacturer, double price);
 
 }

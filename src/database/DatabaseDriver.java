@@ -56,8 +56,10 @@ public class DatabaseDriver implements IDatabase {
     }
 
     @Override
-    public void updatePIMDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color, String gender, String description, String imagePath, String manufactorer, double price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changeProductDetails(int id, String name, String category, boolean small, 
+            boolean medium, boolean large, String color, String gender, String description, 
+            String imagePath, String manufacturer, double price) {
+        pim.changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
 
     
