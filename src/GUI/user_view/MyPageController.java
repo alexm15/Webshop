@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 public class MyPageController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     @FXML
     private TextField firstNameTxt;
     @FXML
@@ -42,26 +43,27 @@ public class MyPageController implements Initializable, ControlledScreen {
     private TextField zipCodeTxt;
     
     @FXML
-    public void showCatalogueScreen() {
+    private void showCatalogueScreen() {
+        controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(MYPAGE_SCREEN);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        IWebshopDriver driver = WebshopDriver.getInstance();
-        firstNameTxt.setText(driver.getFirstName());
-        lastNameTxt.setText(driver.getLastName());
-        streetNameTxt.setText(driver.getStreetName());
-        houseNumberTxt.setText(driver.getHouseNumber());
-        cityTxt.setText(driver.getCity());
-        countryTxt.setText(driver.getCountry());
-        zipCodeTxt.setText(driver.getZipCode());
-        emailTxt.setText(driver.getEmail());
-        phoneNumberTxt.setText(driver.getPhoneNumber());
-        birthDayTxt.setText(driver.getBirthDay());
-        birthMonthTxt.setText(driver.getBirthMonth());
-        birthYearTxt.setText(driver.getBirthYear());
+        webshopDriver = WebshopDriver.getInstance();
+        firstNameTxt.setText(webshopDriver.getFirstName());
+        lastNameTxt.setText(webshopDriver.getLastName());
+        streetNameTxt.setText(webshopDriver.getStreetName());
+        houseNumberTxt.setText(webshopDriver.getHouseNumber());
+        cityTxt.setText(webshopDriver.getCity());
+        countryTxt.setText(webshopDriver.getCountry());
+        zipCodeTxt.setText(webshopDriver.getZipCode());
+        emailTxt.setText(webshopDriver.getEmail());
+        phoneNumberTxt.setText(webshopDriver.getPhoneNumber());
+        birthDayTxt.setText(webshopDriver.getBirthDay());
+        birthMonthTxt.setText(webshopDriver.getBirthMonth());
+        birthYearTxt.setText(webshopDriver.getBirthYear());
     }
     
     @Override

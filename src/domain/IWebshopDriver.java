@@ -172,13 +172,6 @@ public interface IWebshopDriver {
      */
     boolean isValidEmail(String email);
 
-    /**
-     * Styrer indlæsning af produkter på GUI. Indlæser objekterne af
-     * {@link Product} som {@link Catalogue} indeholder.
-     *
-     */
-    void loadProducts();
-
     /*public void connect() {
     database.connect();
     }

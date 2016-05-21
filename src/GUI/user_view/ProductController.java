@@ -2,6 +2,7 @@ package GUI.user_view;
 
 import GUI.ControlledScreen;
 import GUI.ScreensController;
+import domain.IWebshopDriver;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import javafx.scene.layout.HBox;
 public class ProductController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     private Product selectedProduct;
     private TextField amountField;
     @FXML
@@ -38,6 +40,7 @@ public class ProductController implements Initializable, ControlledScreen {
     
     @FXML
     private void showCatalogueScreen() {
+        controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(PRODUCT_SCREEN);
     }
@@ -45,9 +48,9 @@ public class ProductController implements Initializable, ControlledScreen {
     @FXML
     private void addItemToBasket() {   
         try {
-            WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()), sizeBox.getValue());
+            webshopDriver.addItem(Integer.parseInt(amountField.getText()), sizeBox.getValue().toString()); // toString for at kunne fange nullpointerexception
         }
-        catch (NullPointerException e){
+        catch(NullPointerException e){
             sizeErr.setText("Vælg venligst en størrelse.");
         }
     }
@@ -59,7 +62,8 @@ public class ProductController implements Initializable, ControlledScreen {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        selectedProduct = WebshopDriver.getInstance().getSelectedProduct();
+        webshopDriver = WebshopDriver.getInstance();
+        selectedProduct = webshopDriver.getSelectedProduct();
         amountField = new TextField("1") {
             @Override public void replaceText(int start, int end, String text) {
                 if(validate(text)) {

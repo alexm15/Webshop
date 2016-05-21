@@ -191,16 +191,6 @@ public class WebshopDriver implements IWebshopDriver {
     }
 
     /**
-     * Styrer indlæsning af produkter på GUI. 
-     * Indlæser objekterne af {@link Product} som {@link Catalogue} indeholder.
-     * 
-     */
-    @Override
-    public void loadProducts() {
-        catalogue.loadProducts();
-    }
-
-    /**
      * Styrer søgekriterier valg i GUI så de kommunikere med domæne-laget.
      * 
      * @param searchWord indtastet søgeord

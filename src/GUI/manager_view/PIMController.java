@@ -2,6 +2,7 @@ package GUI.manager_view;
 
 import GUI.ControlledScreen;
 import GUI.ScreensController;
+import domain.IWebshopDriver;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,16 +34,11 @@ import javafx.scene.layout.VBox;
 public class PIMController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     private CheckBox[] genders, categories, manufacturers, colors;
     private RadioButton[] gendersRBtn, colorsRBtn;
     private final ObservableList SORTING_OPTIONS = FXCollections.observableArrayList(
             "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende");
-    /*private final ObservableList CATEGORIES = FXCollections.observableArrayList(
-            "Kjole", "Skjorte", "Bluse", "Bukser", "Shorts", "T-Shirt", "Træning");
-    private final ObservableList MANUFACTURERS = FXCollections.observableArrayList(
-            "Miss Selfridge", "Dry Lake", "ONENESS", "Jacqueline de Yong", "Vila", 
-            "Only", "Polo Ralph Lauren", "Jacks", "Bertoni", "Eton", "Huzar", 
-            "Signal", "Wrangler", "Adidas", "Under Armour");*/
     @FXML
     private TextField searchTxt;
     @FXML
@@ -51,8 +47,6 @@ public class PIMController implements Initializable, ControlledScreen {
     private CheckBox menBox;
     @FXML
     private CheckBox unisexBox;
-    private CheckBox dressBox;
-    private CheckBox shirtBox;
     @FXML
     private CheckBox sBox;
     @FXML
@@ -62,17 +56,6 @@ public class PIMController implements Initializable, ControlledScreen {
     @FXML
     private Slider priceSlider;
     private TextField priceTxt;
-    private CheckBox blackBox;
-    private CheckBox whiteBox;
-    private CheckBox redBox;
-    private CheckBox blueBox;
-    private CheckBox greenBox;
-    private CheckBox yellowBox;
-    private CheckBox blouseBox;
-    private CheckBox pantsBox;
-    private CheckBox shortsBox;
-    private CheckBox tshirtsBox;
-    private CheckBox trainingBox;
     @FXML
     private ComboBox<String> sortingOptionsBox;
     @FXML
@@ -128,6 +111,7 @@ public class PIMController implements Initializable, ControlledScreen {
     
     @FXML
     public void showCatalogueScreen() {
+        controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(PIM_SCREEN);
     }
@@ -156,11 +140,11 @@ public class PIMController implements Initializable, ControlledScreen {
             errorTxt.setText("Indtast en pris.");
         }
         else {
-            WebshopDriver.getInstance().changeProductDetails(WebshopDriver.getInstance().getSelectedProduct().getId(), 
+            webshopDriver.changeProductDetails(webshopDriver.getSelectedProduct().getId(), 
                 name, category, small, medium, large, ((RadioButton) colorGroup.getSelectedToggle()).getText(), 
                 ((RadioButton) genderGroup.getSelectedToggle()).getText(), 
-                WebshopDriver.getInstance().getSelectedProduct().getDescription(), 
-                WebshopDriver.getInstance().getSelectedProduct().getImagePath(), 
+                webshopDriver.getSelectedProduct().getDescription(), 
+                webshopDriver.getSelectedProduct().getImagePath(), 
                 manufacturer, price);
             System.out.println("Produkt opdateret");
             createCategoryCheckBoxes();
@@ -177,26 +161,26 @@ public class PIMController implements Initializable, ControlledScreen {
      * basseret på søgekriterierne.
      */
     @FXML
-    public void updateProductsShown() {
+    private void updateProductsShown() {
         productListView.getItems().clear();
         errorTxt.setText("");
-        WebshopDriver.getInstance().setSelectedProduct(null);
+        webshopDriver.setSelectedProduct(null);
         boolean small = sBox.isSelected(), medium = mBox.isSelected(), large = lBox.isSelected();
         if(!small && !medium && !large) {
             small = true;
             medium = true;
             large = true;
         }
-        List<Product> searchedProducts = WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
+        List<Product> searchedProducts = webshopDriver.searchProducts(searchTxt.getText(), priceSlider.getValue(), 
             getSelectedText(genders), getSelectedText(categories), getSelectedText(manufacturers), getSelectedText(colors), small, medium, large);
-        List<Product> sortedProducts = WebshopDriver.getInstance().sortProducts(sortingOptionsBox.getValue(), searchedProducts);
+        List<Product> sortedProducts = webshopDriver.sortProducts(sortingOptionsBox.getValue(), searchedProducts);
         productListView.getItems().addAll(sortedProducts);
         showProductInfo();
     }
     
     private void showProductInfo() {
         errorTxt.setText("");
-        if(WebshopDriver.getInstance().getSelectedProduct() == null) {
+        if(webshopDriver.getSelectedProduct() == null) {
             nameTxt.setDisable(true);
             womenRBtn.setDisable(true);
             menRBtn.setDisable(true);
@@ -216,7 +200,7 @@ public class PIMController implements Initializable, ControlledScreen {
             updateBtn.setDisable(true);
         }
         else {
-            Product selectedProduct = WebshopDriver.getInstance().getSelectedProduct();
+            Product selectedProduct = webshopDriver.getSelectedProduct();
             nameTxt.setDisable(false);
             nameTxt.setText(selectedProduct.getName());
             for(RadioButton rBtn : gendersRBtn) {
@@ -298,15 +282,15 @@ public class PIMController implements Initializable, ControlledScreen {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        webshopDriver = WebshopDriver.getInstance();
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
         gendersRBtn = new RadioButton[] {womenRBtn, menRBtn, unisexRBtn};
-        colors = new CheckBox[] {blackBox, whiteBox, redBox, blueBox, greenBox, yellowBox};
         colorsRBtn = new RadioButton[] {blackRBtn, whiteRBtn, redRBtn, blueRBtn,
             greenRBtn, yellowRBtn};
         createCategoryCheckBoxes();
         createManufacturerCheckBoxes();
         createColorCheckBoxes();
-        priceSlider.setMax(WebshopDriver.getInstance().getMaxPrice());
+        priceSlider.setMax(webshopDriver.getMaxPrice());
         priceSlider.setValue(priceSlider.getMax());
         priceVTxt.setText(priceSlider.getMax() + "");
         priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -314,11 +298,11 @@ public class PIMController implements Initializable, ControlledScreen {
         });
         sortingOptionsBox.setItems(SORTING_OPTIONS);
         sortingOptionsBox.setValue("Alfabetisk stigende");
-        categoryCBox.setItems(FXCollections.observableArrayList(WebshopDriver.getInstance().getAllCategories()));
-        manufacturerCBox.setItems(FXCollections.observableArrayList(WebshopDriver.getInstance().getAllManufacturers()));
+        categoryCBox.setItems(FXCollections.observableArrayList(webshopDriver.getAllCategories()));
+        manufacturerCBox.setItems(FXCollections.observableArrayList(webshopDriver.getAllManufacturers()));
         productListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Product> observable, Product oldValue, Product newValue) -> {
             if(newValue != null) {
-                WebshopDriver.getInstance().setSelectedProduct(newValue);
+                webshopDriver.setSelectedProduct(newValue);
                 showProductInfo();
             }
         });
@@ -358,9 +342,9 @@ public class PIMController implements Initializable, ControlledScreen {
     
     private void createCategoryCheckBoxes() {
         categoryChoiceContainer.getChildren().clear();
-        categories = new CheckBox[WebshopDriver.getInstance().getAllCategories().size()];
+        categories = new CheckBox[webshopDriver.getAllCategories().size()];
         int i = 0;
-        for(String category : WebshopDriver.getInstance().getAllCategories()) {
+        for(String category : webshopDriver.getAllCategories()) {
             CheckBox categoryBox = new CheckBox(category);
             categoryBox.setOnAction((e) -> {
                 updateProductsShown();
@@ -373,9 +357,9 @@ public class PIMController implements Initializable, ControlledScreen {
     
     private void createManufacturerCheckBoxes() {
         manufacturerChoiceContainer.getChildren().clear();
-        manufacturers = new CheckBox[WebshopDriver.getInstance().getAllManufacturers().size()];
+        manufacturers = new CheckBox[webshopDriver.getAllManufacturers().size()];
         int i = 0;
-        for(String manufacturer : WebshopDriver.getInstance().getAllManufacturers()) {
+        for(String manufacturer : webshopDriver.getAllManufacturers()) {
             CheckBox manufacturerBox = new CheckBox(manufacturer);
             manufacturerBox.setOnAction((e) -> {
                 updateProductsShown();
@@ -388,9 +372,9 @@ public class PIMController implements Initializable, ControlledScreen {
     
     private void createColorCheckBoxes() {
         colorChoiceContainer.getChildren().clear();
-        colors = new CheckBox[WebshopDriver.getInstance().getAllColors().size()];
+        colors = new CheckBox[webshopDriver.getAllColors().size()];
         int i = 0;
-        for(String string : WebshopDriver.getInstance().getAllColors()) {
+        for(String string : webshopDriver.getAllColors()) {
             CheckBox checkBox = new CheckBox(string);
             checkBox.setOnAction((e) -> {
                 updateProductsShown();

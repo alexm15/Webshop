@@ -15,8 +15,8 @@
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
-      <Button layoutX="571.0" layoutY="556.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
-      <VBox alignment="CENTER" layoutX="497.0" layoutY="101.0" prefHeight="428.0" prefWidth="218.0" spacing="10.0">
+      <Button layoutX="605.0" layoutY="607.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <VBox alignment="CENTER" layoutX="532.0" layoutY="124.0" prefHeight="428.0" prefWidth="216.0" spacing="10.0">
          <children>
             <HBox alignment="CENTER" prefHeight="20.0" prefWidth="129.0">
                <children>
@@ -81,9 +81,10 @@
                   <TextField fx:id="birthYearTxt" prefHeight="25.0" prefWidth="52.0" promptText="ÅÅÅÅ" />
                </children>
             </HBox>
-            <Label fx:id="formulaErrorTxt" text="Fejl" textFill="#dc3847" visible="false" />
+            <Label fx:id="formulaErrorTxt" textFill="#dc3847" />
             <Button mnemonicParsing="false" onAction="#register" text="Opret bruger" />
          </children>
       </VBox>
+      <Label fx:id="emailAvailableTxt" layoutX="757.0" layoutY="171.0" />
    </children>
 </AnchorPane>

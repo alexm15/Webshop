@@ -2,6 +2,7 @@ package GUI.user_view;
 
 import GUI.ControlledScreen;
 import GUI.ScreensController;
+import domain.IWebshopDriver;
 import domain.WebshopDriver;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 public class RegisterController implements Initializable, ControlledScreen {
 
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     private boolean validEmail;
     @FXML
     private TextField firstNameTxt;
@@ -47,115 +50,78 @@ public class RegisterController implements Initializable, ControlledScreen {
     private PasswordField passwordTxt;
     @FXML
     private TextField zipCodeTxt;
+    @FXML
+    private Label emailAvailableTxt;
     
     @FXML
-    public void showCatalogueScreen() {
+    private void showCatalogueScreen() {
+        controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(REGISTER_SCREEN);
     }
     
     @FXML
-    public void register() {
-        String email = "", password = "", firstName = "", lastName = "", 
-                streetName = "", houseNumber = "", city = "", zipCode = "", 
-                country = "", phoneNumber = "", birthDay = "", birthMonth = "", birthYear = "";
-        boolean error = false;
-        formulaErrorTxt.setVisible(false);
-        if(emailTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+    private void register() {
+        String email = emailTxt.getText(), password = passwordTxt.getText(), 
+                firstName = firstNameTxt.getText(), lastName = lastNameTxt.getText(), 
+                streetName = streetNameTxt.getText(), houseNumber = houseNumberTxt.getText(), 
+                city = cityTxt.getText(), zipCode = zipCodeTxt.getText(), 
+                country = countryTxt.getText(), phoneNumber = phoneNumberTxt.getText(), 
+                birthDay = birthDayTxt.getText(), birthMonth = birthMonthTxt.getText(), 
+                birthYear = birthYearTxt.getText();
+        formulaErrorTxt.setText("");
+        if(email.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst en email.");
-            error = true;
         }
-        else if(validEmail) {
-            email = emailTxt.getText();
-        }
-        else {
-            checkEmail();
-        }
-        if(passwordTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+        else if(password.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst et password.");
-            error = true;
         }
-        else {
-            password = passwordTxt.getText();
-        }
-        if(firstNameTxt.getText().isEmpty() || lastNameTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+        else if(firstName.isEmpty() || lastName.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst både for- og efternavn.");
-            error = true;
         }
-        else {
-            firstName = firstNameTxt.getText();
-            lastName = lastNameTxt.getText();
+        else if(streetName.isEmpty() || houseNumber.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst både vejnavn og husnr.");
         }
-        if(streetNameTxt.getText().isEmpty() || houseNumberTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
-            formulaErrorTxt.setText("Indtast venligst både vejnavn og husnummer.");
-            error = true;
+        else if(city.isEmpty() || zipCode.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst både bynavn og postnr.");
         }
-        else {
-            streetName = streetNameTxt.getText();
-            houseNumber = houseNumberTxt.getText();
-        }
-        if(cityTxt.getText().isEmpty() || zipCodeTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
-            formulaErrorTxt.setText("Indtast venligst både bynavn og postnummer.");
-            error = true;
-        }
-        else {
-            city = cityTxt.getText();
-            zipCode = zipCodeTxt.getText();
-        }
-        if(countryTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+        else if(country.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst land.");
-            error = true;
         }
-        else {
-            country = countryTxt.getText();
-        }
-        if(phoneNumberTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+        else if(phoneNumber.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst et telefonnummer.");
-            error = true;
         }
-        else {
-            phoneNumber = phoneNumberTxt.getText();
-        }
-        if(birthDayTxt.getText().isEmpty() || birthMonthTxt.getText().isEmpty() ||birthYearTxt.getText().isEmpty()) {
-            formulaErrorTxt.setVisible(true);
+        else if(birthDay.isEmpty() || birthMonth.isEmpty() || birthYear.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst en fødselsdag.");
-            error = true;
         }
         else {
-            birthDay = birthDayTxt.getText();
-            birthMonth = birthMonthTxt.getText();
-            birthYear = birthYearTxt.getText();
-        }
-        if(!error && validEmail) {
-            WebshopDriver.getInstance().createUser(email, password, phoneNumber, 
-                    firstName, lastName, houseNumber, streetName, zipCode, city, 
-                    country, birthDay, birthMonth, birthYear);
-            formulaErrorTxt.setVisible(true);
-            formulaErrorTxt.setText("Bruger oprettet.");
+            if(validEmail) {
+                webshopDriver.createUser(email, password, phoneNumber, 
+                        firstName, lastName, houseNumber, streetName, zipCode, city, 
+                        country, birthDay, birthMonth, birthYear);
+                formulaErrorTxt.setText("Bruger oprettet.");
+                formulaErrorTxt.setTextFill(Color.web("#46cc2e"));
+            }
         }
     }
     
-    public void checkEmail() {
-        if(WebshopDriver.getInstance().isValidEmail(emailTxt.getText())) {
-            formulaErrorTxt.setVisible(false);
+    @FXML
+    private void checkEmail() {
+        if(webshopDriver.isValidEmail(emailTxt.getText())) {
+            emailAvailableTxt.setText("Emailen er ledig.");
+            emailAvailableTxt.setTextFill(Color.web("#46cc2e"));
             validEmail = true;
         }
         else {
-            formulaErrorTxt.setVisible(true);
-            formulaErrorTxt.setText("Emailen er allerede taget.");
+            emailAvailableTxt.setText("Emailen er ikke ledig.");
+            emailAvailableTxt.setTextFill(Color.web("#dc3847"));
             validEmail = false;
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        webshopDriver = WebshopDriver.getInstance();
     }
 
     @Override

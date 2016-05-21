@@ -22,10 +22,10 @@ public class Catalogue implements ProductManagable {
     
     public Catalogue() {
         products = new ArrayList<>();
+        loadProducts();
     }
     
-    @Override
-    public void loadProducts() {
+    private void loadProducts() {
         try(Scanner in = new Scanner(new File("data/Products.txt"))) {
             in.nextLine(); // kommentarlinje
             while(in.hasNextLine()) {

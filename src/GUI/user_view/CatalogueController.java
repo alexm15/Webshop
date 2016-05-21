@@ -2,6 +2,7 @@ package GUI.user_view;
 
 import GUI.ControlledScreen;
 import GUI.ScreensController;
+import domain.IWebshopDriver;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import javafx.scene.layout.VBox;
 public class CatalogueController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     private CheckBox[] genders, categories, manufacturers, colors;
     private final ObservableList SORTING_OPTIONS = FXCollections.observableArrayList(
             "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende");
@@ -42,8 +44,6 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private CheckBox menBox;
     @FXML
     private CheckBox unisexBox;
-    private CheckBox dressBox;
-    private CheckBox shirtBox;
     @FXML
     private CheckBox sBox;
     @FXML
@@ -64,38 +64,12 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private HBox loginContainer;
     @FXML
     private Label usernameTxt;
-    private CheckBox blackBox;
-    private CheckBox whiteBox;
-    private CheckBox redBox;
-    private CheckBox blueBox;
-    private CheckBox greenBox;
-    private CheckBox yellowBox;
-    private CheckBox blouseBox;
-    private CheckBox pantsBox;
-    private CheckBox shortsBox;
-    private CheckBox tshirtsBox;
-    private CheckBox trainingBox;
     @FXML
     private AnchorPane productButtonContainer;
     @FXML
     private Label errorTxt;
     @FXML
     private ComboBox<String> sortingOptionsBox;
-    private CheckBox missSelfridgeBox;
-    private CheckBox dryLakeBox;
-    private CheckBox onenessBox;
-    private CheckBox jdyBox;
-    private CheckBox vilaBox;
-    private CheckBox onlyBox;
-    private CheckBox prlBox;
-    private CheckBox jacksBox;
-    private CheckBox bertoniBox;
-    private CheckBox etonBox;
-    private CheckBox huzarBox;
-    private CheckBox signalBox;
-    private CheckBox wranglerBox;
-    private CheckBox adidasBox;
-    private CheckBox underArmourBox;
     @FXML
     private VBox categoryChoiceContainer;
     @FXML
@@ -107,54 +81,59 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * Loader og viser produktskærmen.
      * Sørger for at login- og logoutcontainerne følger med.
      */
-    public void showProductScreen() {
+    private void showProductScreen() {
         controller.loadScreen(PRODUCT_SCREEN, PRODUCT_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(PRODUCT_SCREEN);
+        controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
     @FXML
-    public void showMyPageScreen() {
+    private void showMyPageScreen() {
         controller.loadScreen(MYPAGE_SCREEN, MYPAGE_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(MYPAGE_SCREEN);
+        controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
     @FXML
-    public void showShoppingBasketScreen() {
+    private void showShoppingBasketScreen() {
         controller.loadScreen(SHOPPINGBASKET_SCREEN, SHOPPINGBASKET_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(SHOPPINGBASKET_SCREEN);
+        controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
     @FXML
-    public void showRegisterScreen() {
+    private void showRegisterScreen() {
         controller.loadScreen(REGISTER_SCREEN, REGISTER_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(REGISTER_SCREEN);
+        controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
     @FXML
-    public void showPIMScreen() {
+    private void showPIMScreen() {
         controller.loadScreen(PIM_SCREEN, PIM_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(PIM_SCREEN);
+        controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
-    public void handleLoginContainers() {
+    private void handleLoginContainers() {
         if(!controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
             controller.getChildren().addAll(loginContainer, logoutContainer);
         }
     }
     
     @FXML
-    public void login() {
-        if(WebshopDriver.getInstance().login(usernameField.getText(), passwordField.getText())) {
+    private void login() {
+        if(webshopDriver.login(usernameField.getText(), passwordField.getText())) {
             errorTxt.setVisible(false);
             loginContainer.setVisible(false);
             logoutContainer.setVisible(true);
             String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
-            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + WebshopDriver.getInstance().getFirstName());
+            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + webshopDriver.getFirstName());
         }
         else {
             errorTxt.setVisible(true);
@@ -162,13 +141,13 @@ public class CatalogueController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    public void logout() {
+    private void logout() {
         if(controller.unloadScreen(MYPAGE_SCREEN)) {
             controller.setScreen(CATALOGUE_SCREEN);
         }
         logoutContainer.setVisible(false);
         loginContainer.setVisible(true);
-        WebshopDriver.getInstance().logout();
+        webshopDriver.logout();
     }
     
     /**
@@ -178,7 +157,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * basseret på søgekriterierne.
      */
     @FXML
-    public void updateProductsShown() {
+    private void updateProductsShown() {
         productButtonContainer.getChildren().clear();
         boolean small = sBox.isSelected(), medium = mBox.isSelected(), large = lBox.isSelected();
         if(!small && !medium && !large) {
@@ -187,9 +166,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
             large = true;
             System.out.println("alle true");
         }
-        List<Product> searchedProducts = WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
+        List<Product> searchedProducts = webshopDriver.searchProducts(searchTxt.getText(), priceSlider.getValue(), 
             getSelectedText(genders), getSelectedText(categories), getSelectedText(manufacturers), getSelectedText(colors), small, medium, large);
-        List<Product> sortedProducts = WebshopDriver.getInstance().sortProducts(sortingOptionsBox.getValue(), searchedProducts);
+        List<Product> sortedProducts = webshopDriver.sortProducts(sortingOptionsBox.getValue(), searchedProducts);
         createProductButtons(sortedProducts);
     }
     
@@ -231,13 +210,13 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        webshopDriver = WebshopDriver.getInstance();
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
-        WebshopDriver.getInstance().loadProducts();
         createCategoryCheckBoxes();
         createManufacturerCheckBoxes();
         createColorCheckBoxes();
-        createProductButtons(WebshopDriver.getInstance().getProducts());
-        priceSlider.setMax(WebshopDriver.getInstance().getMaxPrice());
+        createProductButtons(webshopDriver.getProducts());
+        priceSlider.setMax(webshopDriver.getMaxPrice());
         priceSlider.setValue(priceSlider.getMax());
         priceTxt.setText(priceSlider.getMax() + "");
         priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -259,9 +238,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     private void createCategoryCheckBoxes() {
         categoryChoiceContainer.getChildren().clear();
-        categories = new CheckBox[WebshopDriver.getInstance().getAllCategories().size()];
+        categories = new CheckBox[webshopDriver.getAllCategories().size()];
         int i = 0;
-        for(String category : WebshopDriver.getInstance().getAllCategories()) {
+        for(String category : webshopDriver.getAllCategories()) {
             CheckBox categoryBox = new CheckBox(category);
             categoryBox.setOnAction((e) -> {
                 updateProductsShown();
@@ -274,9 +253,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     private void createManufacturerCheckBoxes() {
         manufacturerChoiceContainer.getChildren().clear();
-        manufacturers = new CheckBox[WebshopDriver.getInstance().getAllManufacturers().size()];
+        manufacturers = new CheckBox[webshopDriver.getAllManufacturers().size()];
         int i = 0;
-        for(String manufacturer : WebshopDriver.getInstance().getAllManufacturers()) {
+        for(String manufacturer : webshopDriver.getAllManufacturers()) {
             CheckBox manufacturerBox = new CheckBox(manufacturer);
             manufacturerBox.setOnAction((e) -> {
                 updateProductsShown();
@@ -289,9 +268,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     private void createColorCheckBoxes() {
         colorChoiceContainer.getChildren().clear();
-        colors = new CheckBox[WebshopDriver.getInstance().getAllColors().size()];
+        colors = new CheckBox[webshopDriver.getAllColors().size()];
         int i = 0;
-        for(String string : WebshopDriver.getInstance().getAllColors()) {
+        for(String string : webshopDriver.getAllColors()) {
             CheckBox checkBox = new CheckBox(string);
             checkBox.setOnAction((e) -> {
                 updateProductsShown();
@@ -321,7 +300,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
                 amount = 0;
             }
             pb.setOnMouseReleased((e) -> {
-                WebshopDriver.getInstance().setSelectedProduct(p);
+                webshopDriver.setSelectedProduct(p);
                 showProductScreen();
             });
             productButtonContainer.getChildren().add(pb);

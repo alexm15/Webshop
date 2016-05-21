@@ -2,6 +2,7 @@ package GUI.user_view;
 
 import GUI.ControlledScreen;
 import GUI.ScreensController;
+import domain.IWebshopDriver;
 import domain.WebshopDriver;
 import domain.products.Item;
 import java.net.URL;
@@ -22,21 +23,24 @@ import javafx.scene.layout.VBox;
 public class ShoppingBasketController implements Initializable, ControlledScreen {
 
     private ScreensController controller;
+    private IWebshopDriver webshopDriver;
     @FXML
     private VBox shoppingItemsContainer;
     private Map<Item, ShoppingBasketItem> shoppingItemMap;
 
     @FXML
-    public void showCatalogueScreen() {
+    private void showCatalogueScreen() {
+        controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(SHOPPINGBASKET_SCREEN);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        webshopDriver = WebshopDriver.getInstance();
         shoppingItemMap = new HashMap<>();
         try {
-            createShoppingBasketItems(WebshopDriver.getInstance().getShoppingBasket());
+            createShoppingBasketItems(webshopDriver.getShoppingBasket());
             checkIfEmptyBasket();
         } catch (NullPointerException e) {
             System.err.println(e);
@@ -47,7 +51,6 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     private void createShoppingBasketItems(List<Item> items) {
         int yOffset = 0;
         for (Item i : items) {
-            System.out.println(i.toString());
             ShoppingBasketItem sbi = new ShoppingBasketItem(i, 10, 10 + yOffset);
             yOffset += 120;
             Separator s = new Separator();
@@ -70,7 +73,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     }
 
     private void remove(Item item) {
-        WebshopDriver.getInstance().removeItem(item);
+        webshopDriver.removeItem(item);
         int i = shoppingItemsContainer.getChildren().indexOf(shoppingItemMap.get(item)) + 1;
         shoppingItemsContainer.getChildren().remove(i);
         shoppingItemsContainer.getChildren().remove(shoppingItemMap.get(item));
@@ -95,7 +98,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     }
 
     private void checkIfEmptyBasket() {
-        if(WebshopDriver.getInstance().getShoppingBasket().isEmpty()) {
+        if(webshopDriver.getShoppingBasket().isEmpty()) {
             Label l = new Label("Indkøbskurv tom");
             shoppingItemsContainer.getChildren().add(l);
         }
