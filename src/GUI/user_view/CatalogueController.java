@@ -1,5 +1,7 @@
-package GUI;
+package GUI.user_view;
 
+import GUI.ControlledScreen;
+import GUI.ScreensController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;

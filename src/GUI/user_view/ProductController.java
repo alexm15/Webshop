@@ -1,5 +1,7 @@
-package GUI;
+package GUI.user_view;
 
+import GUI.ControlledScreen;
+import GUI.ScreensController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -10,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import domain.products.Product;
 import domain.WebshopDriver;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 

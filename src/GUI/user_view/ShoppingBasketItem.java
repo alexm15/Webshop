@@ -1,4 +1,4 @@
-package GUI;
+package GUI.user_view;
 
 import domain.products.Item;
 import javafx.geometry.Pos;

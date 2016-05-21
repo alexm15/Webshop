@@ -1,5 +1,7 @@
-package GUI;
+package GUI.user_view;
 
+import GUI.ControlledScreen;
+import GUI.ScreensController;
 import domain.WebshopDriver;
 import domain.products.Item;
 import java.net.URL;
