@@ -213,8 +213,10 @@ public class WebshopDriver implements IWebshopDriver {
      */
     @Override
     public List<Product> searchProducts(String searchWord, double maxPrice, Set<String> genders,
-            Set<String> categories, Set<String> colors, boolean small, boolean medium, boolean large) {
-        return catalogue.searchProducts(searchWord, maxPrice, genders, categories, colors, small, medium, large);
+            Set<String> categories, Set<String> manufacturers, Set<String> colors, 
+            boolean small, boolean medium, boolean large) {
+        return catalogue.searchProducts(searchWord, maxPrice, genders, categories, 
+                manufacturers, colors, small, medium, large);
     }
 
     /**
@@ -411,13 +413,34 @@ public class WebshopDriver implements IWebshopDriver {
      */
     @Override
     public boolean isValidEmail(String email) {
-        System.out.println("y");
         return userManager.isValidEmail(email);
     }
     
     @Override
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
-        catalogue.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
+    public Set<String> getAllCategories() {
+        return catalogue.getAllCategories();
+    }
+    
+    @Override
+    public Set<String> getAllManufacturers() {
+        return catalogue.getAllManufacturers();
+    }
+    
+    @Override
+    public Set<String> getAllColors() {
+        return catalogue.getAllColors();
+    }
+    
+    @Override
+    public double getMaxPrice() {
+        return catalogue.getMaxPrice();
+    }
+    
+    @Override
+    public void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        catalogue.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
     
     @Override

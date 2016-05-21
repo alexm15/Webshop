@@ -45,10 +45,10 @@ public class ProductController implements Initializable, ControlledScreen {
     @FXML
     private void addItemToBasket() {   
         try {
-            WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()),sizeBox.getValue().toString());
+            WebshopDriver.getInstance().addItem(Integer.parseInt(amountField.getText()), sizeBox.getValue());
         }
         catch (NullPointerException e){
-            sizeErr.setText("Du skal vælge en størrelse!");
+            sizeErr.setText("Vælg venligst en størrelse.");
         }
     }
     

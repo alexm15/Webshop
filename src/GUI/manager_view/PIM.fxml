@@ -5,18 +5,20 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.user_view.CatalogueController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.manager_view.PIMController">
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
@@ -126,36 +128,105 @@
                   <HBox alignment="CENTER" layoutY="55.0" prefHeight="37.0" prefWidth="171.0" spacing="5.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
                      <children>
                         <Label text="Maks pris" />
-                        <TextField fx:id="priceTxt" editable="false" prefHeight="25.0" prefWidth="68.0" />
+                        <TextField fx:id="priceVTxt" editable="false" prefHeight="25.0" prefWidth="68.0" />
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <HBox fx:id="logoutContainer" alignment="CENTER_RIGHT" layoutX="566.0" layoutY="30.0" prefHeight="39.0" prefWidth="462.0" spacing="5.0" visible="false">
+      <Button layoutX="605.0" layoutY="721.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <ListView fx:id="productListView" layoutX="417.0" layoutY="103.0" prefHeight="593.0" prefWidth="445.0" />
+      <VBox alignment="CENTER" layoutX="918.0" layoutY="30.0" prefHeight="768.0" prefWidth="171.0" spacing="5.0">
          <children>
-            <Label fx:id="usernameTxt" text="Label" />
-            <Button mnemonicParsing="false" onAction="#logout" text="Log ud" />
-            <Button mnemonicParsing="false" onAction="#showMyPageScreen" text="Min side" />
+            <Label fx:id="errorTxt" textFill="#dc3847" />
+            <VBox alignment="CENTER" prefHeight="48.0" prefWidth="171.0" spacing="5.0">
+               <children>
+                  <Label text="Navn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameTxt" promptText="Indtast navn..." />
+               </children>
+            </VBox>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="51.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="73.0" layoutY="3.0" text="Køn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="womenRBtn" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" text="Dame">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="genderGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="menRBtn" layoutX="62.0" layoutY="26.0" mnemonicParsing="false" text="Herre" toggleGroup="$genderGroup" />
+                  <RadioButton fx:id="unisexRBtn" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" text="Unisex" toggleGroup="$genderGroup" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <Label text="Kategori">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="categoryCBox" editable="true" prefWidth="150.0" promptText="Vælg kategori..." />
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <Label text="Mærke">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="manufacturerCBox" editable="true" prefWidth="150.0" promptText="Vælg mærke..." />
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="76.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="70.0" layoutY="3.0" text="Farve">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="blackRBtn" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" text="Sort">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="colorGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="whiteRBtn" layoutX="57.0" layoutY="26.0" mnemonicParsing="false" text="Hvid" toggleGroup="$colorGroup" />
+                  <RadioButton fx:id="redRBtn" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" text="Rød" toggleGroup="$colorGroup" />
+                  <RadioButton fx:id="blueRBtn" layoutX="6.0" layoutY="52.0" mnemonicParsing="false" text="Blå" toggleGroup="$colorGroup" />
+                  <RadioButton fx:id="greenRBtn" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" text="Grøn" toggleGroup="$colorGroup" />
+                  <RadioButton fx:id="yellowRBtn" layoutX="116.0" layoutY="52.0" mnemonicParsing="false" text="Gul" toggleGroup="$colorGroup" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="161.0" />
+            <AnchorPane prefHeight="54.0" prefWidth="171.0">
+               <children>
+                  <Label layoutX="62.0" layoutY="3.0" text="Størrelse">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="sBoxNew" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" text="S" />
+                  <CheckBox fx:id="mBoxNew" layoutX="57.0" layoutY="26.0" mnemonicParsing="false" text="M" />
+                  <CheckBox fx:id="lBoxNew" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" text="L" />
+               </children>
+            </AnchorPane>
+            <Separator prefHeight="17.0" prefWidth="164.0" />
+            <VBox fx:id="priceContainer" alignment="CENTER" prefHeight="54.0" prefWidth="172.0" spacing="5.0">
+               <children>
+                  <Label text="Pris">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Separator prefHeight="17.0" prefWidth="164.0" />
+            <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#changeProductDetails" text="Opdater produkt" />
          </children>
-      </HBox>
-      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="447.0" layoutY="30.0" prefHeight="39.0" prefWidth="583.0" spacing="5.0">
-         <children>
-            <Label fx:id="errorTxt" text="Forkert brugernavn eller password" textFill="#dc3847" visible="false" />
-            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Email" />
-            <PasswordField fx:id="passwordField" prefWidth="100.0" promptText="Kodeord" />
-            <Button mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Log ind" />
-            <Button mnemonicParsing="false" onAction="#showRegisterScreen" prefHeight="25.0" prefWidth="87.0" text="Opret bruger" />
-         </children>
-      </HBox>
-      <ScrollPane layoutX="417.0" layoutY="103.0" prefHeight="593.0" prefWidth="643.0" style="-fx-focus-color: #F4F4F4;">
-        <content>
-          <AnchorPane fx:id="productButtonContainer" style="-fx-focus-color: #F4F4F4;" />
-        </content>
-      </ScrollPane>
-      <Label layoutX="714.0" layoutY="14.0" text="Log ind med &quot;email@email.dk&quot; og &quot;kode&quot;" />
-      <Button layoutX="588.0" layoutY="726.0" mnemonicParsing="false" onAction="#showShoppingBasketScreen" text="Gå til min indkøbskurv" />
-      <Button layoutX="753.0" layoutY="726.0" mnemonicParsing="false" onAction="#showPIMScreen" text="Gå til PIM" />
+      </VBox>
    </children>
 </AnchorPane>

@@ -30,6 +30,8 @@ public interface IDatabase {
             String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear);
     
-    void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);
+    void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price);
     
 }

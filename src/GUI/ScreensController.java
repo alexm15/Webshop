@@ -55,7 +55,7 @@ public class ScreensController extends AnchorPane {
             return true;
         }
         catch(Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
             return false;
         }
     }

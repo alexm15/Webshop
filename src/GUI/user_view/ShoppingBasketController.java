@@ -31,31 +31,24 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(SHOPPINGBASKET_SCREEN);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         shoppingItemMap = new HashMap<>();
         try {
-            createShoppingBasketItems(WebshopDriver.getInstance().getShoppingBasket());            
+            createShoppingBasketItems(WebshopDriver.getInstance().getShoppingBasket());
             checkIfEmptyBasket();
-
-        }
-        catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             System.err.println(e);
-            shoppingItemsContainer.getChildren().add(new Label("Tom indkøbskurv!"));
+            shoppingItemsContainer.getChildren().add(new Label("Tom indkøbskurv"));
         }
-
-    }    
+    }
 
     private void createShoppingBasketItems(List<Item> items) {
         int yOffset = 0;
-        for(Item i : items) {
+        for (Item i : items) {
             System.out.println(i.toString());
             ShoppingBasketItem sbi = new ShoppingBasketItem(i, 10, 10 + yOffset);
-            /*pb.setOnMouseReleased((e) -> {
-                WebshopDriver.getInstance().setSelectedProduct(p);
-                showProductScreen();
-            });*/
             yOffset += 120;
             Separator s = new Separator();
             s.setPrefWidth(628);
@@ -67,7 +60,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
                 update(i);
             });
             sbi.getPriceField().setOnKeyReleased(e -> {
-                if(e.getCode() == KeyCode.ENTER) {
+                if (e.getCode() == KeyCode.ENTER) {
                     update(i);
                 }
             });
@@ -75,7 +68,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
             shoppingItemsContainer.getChildren().addAll(sbi, s);
         }
     }
-    
+
     private void remove(Item item) {
         WebshopDriver.getInstance().removeItem(item);
         int i = shoppingItemsContainer.getChildren().indexOf(shoppingItemMap.get(item)) + 1;
@@ -83,36 +76,31 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         shoppingItemsContainer.getChildren().remove(shoppingItemMap.get(item));
         checkIfEmptyBasket();
     }
-    
-    private void update(Item item){        
-            try{
-               int i = Integer.parseInt(shoppingItemMap.get(item).getText());
-               
-               if(i == 0){
-                   this.remove(item);
-               }
-               else {
-                   item.setQuantity(i);
-                   shoppingItemMap.get(item).setPrice(item.getSumPrice());
-               }
-               
+
+    private void update(Item item) {
+        try {
+            int i = Integer.parseInt(shoppingItemMap.get(item).getText());
+            if(i == 0) {
+                this.remove(item);
             }
-            catch(NumberFormatException e){
-                e.printStackTrace();
+            else {
+                item.setQuantity(i);
+                shoppingItemMap.get(item).setPrice(item.getSumPrice());
             }
-            
-        
+
+        }
+        catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
-    
-    private void checkIfEmptyBasket(){
-        if(WebshopDriver.getInstance().getShoppingBasket().isEmpty()){
-            
-            Label l = new Label("Indkøbskurv tom!");
-            
+
+    private void checkIfEmptyBasket() {
+        if(WebshopDriver.getInstance().getShoppingBasket().isEmpty()) {
+            Label l = new Label("Indkøbskurv tom");
             shoppingItemsContainer.getChildren().add(l);
         }
     }
-    
+
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

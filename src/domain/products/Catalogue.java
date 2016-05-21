@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -44,16 +45,18 @@ public class Catalogue implements ProductManagable {
             Collections.sort(products);
         }
         catch(IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
     @Override
     public List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
-            Set<String> categories, Set<String> colors, boolean small, boolean medium, boolean large) {
+            Set<String> categories, Set<String> manufacturers, Set<String> colors, 
+            boolean small, boolean medium, boolean large) {
         List<Product> gender = searchGender(products, genders);
         List<Product> category = searchCategory(gender, categories);
-        List<Product> color = searchColor(category, colors);
+        List<Product> manufacturer = searchManufacturer(category, manufacturers);
+        List<Product> color = searchColor(manufacturer, colors);
         List<Product> size = searchSize(color, small, medium, large);
         return search(size, searchTerm, maxPrice);
         //return search(searchSize(searchColor(searchCategory(searchGender(products, genders), categories), colors), sizes), searchTerm, maxPrice); // alternativ måde (slet ikke forvirrende)
@@ -86,6 +89,18 @@ public class Catalogue implements ProductManagable {
         for(Product p : listToSearch) {
             for(String category : categories) {
                 if(p.getCategory().equals(category)) {
+                    results.add(p);
+                }
+            }
+        }
+        return results;
+    }
+    
+    private List<Product> searchManufacturer(List<Product> listToSearch, Set<String> manufacturers) {
+        List<Product> results = new ArrayList<>();
+        for(Product p : listToSearch) {
+            for(String manufacturer : manufacturers) {
+                if(p.getManufacturer().equals(manufacturer)) {
                     results.add(p);
                 }
             }
@@ -153,17 +168,70 @@ public class Catalogue implements ProductManagable {
         return selectedProduct;
     }
     
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath) {
-        products.add(new Product(id, name, category, small, medium, large, color, gender, description, "file:icons/PHshirtIcon.png", manufactor, price));
+    @Override
+    public Set<String> getAllCategories() {
+        Set<String> categories = new HashSet<>();
+        for(Product p : products) {
+            categories.add(p.getCategory());
+        }
+        return categories;
+    }
+    
+    @Override
+    public Set<String> getAllManufacturers() {
+        Set<String> manufacturers = new HashSet<>();
+        for(Product p : products) {
+            manufacturers.add(p.getManufacturer());
+        }
+        return manufacturers;
+    }
+    
+    @Override
+    public Set<String> getAllColors() {
+        Set<String> colors = new HashSet<>();
+        for(Product p : products) {
+            colors.add(p.getColor());
+        }
+        return colors;
+    }
+    
+    @Override
+    public double getMaxPrice() {
+        double max = 0;
+        for(Product p : products) {
+            if(p.getPrice() > max) {
+                max = p.getPrice();
+            }
+        }
+        return max;
+    }
+    
+    @Override
+    public void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        products.add(new Product(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price));
         
-        database.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
+        database.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
 
     @Override
     public void changeProductDetails(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
             String gender, String description, String imagePath, String manufacturer, double price) {
-        DatabaseDriver.getInstance().changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
+        //DatabaseDriver.getInstance().changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
         //loadProducts(); //genload products fra database
+        selectedProduct.setId(id);
+        selectedProduct.setName(name);
+        selectedProduct.setCategory(category);
+        selectedProduct.setSmall(small);
+        selectedProduct.setMedium(medium);
+        selectedProduct.setLarge(large);
+        selectedProduct.setColor(color);
+        selectedProduct.setGender(gender);
+        selectedProduct.setDescription(description);
+        selectedProduct.setImagePath(imagePath);
+        selectedProduct.setManufacturer(manufacturer);
+        selectedProduct.setPrice(price);
     }
 }

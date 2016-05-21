@@ -38,12 +38,13 @@ public class PIM extends AbstractDatabase {
     }
     
 
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium,
-            boolean large, String color, String gender, double price, String imagePath){
+    public void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price){
         
         String query = "INSERT INTO product (name, category, color, gender, description, image_path, manufacturer, price, large, medium, small) VALUES ('"+name+"',"
                 + " '"+category+"', '"+color+"', '"+gender+"', '"+description+"',"
-                + " '"+imagePath+"', '"+manufactor+"', "+price+", "+large+", "+medium+", "+small+")";
+                + " '"+imagePath+"', '"+manufacturer+"', "+price+", "+large+", "+medium+", "+small+")";
         
         try(PreparedStatement st = connection.prepareStatement(query))
         {

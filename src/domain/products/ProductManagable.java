@@ -20,7 +20,9 @@ public interface ProductManagable {
 
     void loadProducts();
 
-    List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders, Set<String> categories, Set<String> colors, boolean small, boolean medium, boolean large);
+    List<Product> searchProducts(String searchTerm, double maxPrice, 
+            Set<String> genders, Set<String> categories, Set<String> manufacturers,
+            Set<String> colors, boolean small, boolean medium, boolean large);
 
     void setSelectedProduct(Product product);
 
@@ -31,6 +33,14 @@ public interface ProductManagable {
     void sortPriceAscending(List listToSort);
 
     void sortPriceDescending(List listToSort);
+    
+    Set<String> getAllCategories();
+    
+    Set<String> getAllManufacturers();
+    
+    Set<String> getAllColors();
+    
+    double getMaxPrice();
 
     /**
      * Bruges til at opdatere et produkt
@@ -48,11 +58,11 @@ public interface ProductManagable {
      * @param manufactorer hvilket firma har lavet tøjet
      * @param price prisen
      */
-    
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufactorer, double price);
     
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);
+    void createProduct(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
+            String gender, String description, String imagePath, String manufactorer, double price);
     
     
 }

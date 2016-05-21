@@ -23,6 +23,7 @@ import domain.WebshopDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 
 /**
  * @author Niels
@@ -30,7 +31,7 @@ import javafx.scene.control.ComboBox;
 public class CatalogueController implements Initializable, ControlledScreen {
     
     private ScreensController controller;
-    private CheckBox[] genders, categories, colors, sizes;
+    private CheckBox[] genders, categories, manufacturers, colors;
     private final ObservableList SORTING_OPTIONS = FXCollections.observableArrayList(
             "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende");
     @FXML
@@ -41,9 +42,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private CheckBox menBox;
     @FXML
     private CheckBox unisexBox;
-    @FXML
     private CheckBox dressBox;
-    @FXML
     private CheckBox shirtBox;
     @FXML
     private CheckBox sBox;
@@ -65,34 +64,44 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private HBox loginContainer;
     @FXML
     private Label usernameTxt;
-    @FXML
     private CheckBox blackBox;
-    @FXML
     private CheckBox whiteBox;
-    @FXML
     private CheckBox redBox;
-    @FXML
     private CheckBox blueBox;
-    @FXML
     private CheckBox greenBox;
-    @FXML
     private CheckBox yellowBox;
-    @FXML
     private CheckBox blouseBox;
-    @FXML
     private CheckBox pantsBox;
-    @FXML
     private CheckBox shortsBox;
-    @FXML
-    private CheckBox sweatersBox;
-    @FXML
     private CheckBox tshirtsBox;
+    private CheckBox trainingBox;
     @FXML
     private AnchorPane productButtonContainer;
     @FXML
     private Label errorTxt;
     @FXML
     private ComboBox<String> sortingOptionsBox;
+    private CheckBox missSelfridgeBox;
+    private CheckBox dryLakeBox;
+    private CheckBox onenessBox;
+    private CheckBox jdyBox;
+    private CheckBox vilaBox;
+    private CheckBox onlyBox;
+    private CheckBox prlBox;
+    private CheckBox jacksBox;
+    private CheckBox bertoniBox;
+    private CheckBox etonBox;
+    private CheckBox huzarBox;
+    private CheckBox signalBox;
+    private CheckBox wranglerBox;
+    private CheckBox adidasBox;
+    private CheckBox underArmourBox;
+    @FXML
+    private VBox categoryChoiceContainer;
+    @FXML
+    private VBox manufacturerChoiceContainer;
+    @FXML
+    private VBox colorChoiceContainer;
     
     /**
      * Loader og viser produktskærmen.
@@ -118,10 +127,18 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.setScreen(SHOPPINGBASKET_SCREEN);
     }
     
+    @FXML
     public void showRegisterScreen() {
         controller.loadScreen(REGISTER_SCREEN, REGISTER_SCREEN_FXML);
         handleLoginContainers();
         controller.setScreen(REGISTER_SCREEN);
+    }
+    
+    @FXML
+    public void showPIMScreen() {
+        controller.loadScreen(PIM_SCREEN, PIM_SCREEN_FXML);
+        handleLoginContainers();
+        controller.setScreen(PIM_SCREEN);
     }
     
     public void handleLoginContainers() {
@@ -171,7 +188,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
             System.out.println("alle true");
         }
         List<Product> searchedProducts = WebshopDriver.getInstance().searchProducts(searchTxt.getText(), priceSlider.getValue(), 
-            getSelectedText(genders), getSelectedText(categories), getSelectedText(colors), small, medium, large);
+            getSelectedText(genders), getSelectedText(categories), getSelectedText(manufacturers), getSelectedText(colors), small, medium, large);
         List<Product> sortedProducts = WebshopDriver.getInstance().sortProducts(sortingOptionsBox.getValue(), searchedProducts);
         createProductButtons(sortedProducts);
     }
@@ -215,11 +232,14 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
-        categories = new CheckBox[] {dressBox, shirtBox, blouseBox, pantsBox, shortsBox, sweatersBox, tshirtsBox};
-        colors = new CheckBox[] {blackBox, whiteBox, redBox, blueBox, greenBox, yellowBox};
-        sizes = new CheckBox[] {sBox, mBox, lBox};
         WebshopDriver.getInstance().loadProducts();
+        createCategoryCheckBoxes();
+        createManufacturerCheckBoxes();
+        createColorCheckBoxes();
         createProductButtons(WebshopDriver.getInstance().getProducts());
+        priceSlider.setMax(WebshopDriver.getInstance().getMaxPrice());
+        priceSlider.setValue(priceSlider.getMax());
+        priceTxt.setText(priceSlider.getMax() + "");
         priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             priceTxt.setText(newValue.intValue() + "");
         });
@@ -235,6 +255,51 @@ public class CatalogueController implements Initializable, ControlledScreen {
         });
         sortingOptionsBox.setItems(SORTING_OPTIONS);
         sortingOptionsBox.setValue("Alfabetisk stigende");
+    }
+    
+    private void createCategoryCheckBoxes() {
+        categoryChoiceContainer.getChildren().clear();
+        categories = new CheckBox[WebshopDriver.getInstance().getAllCategories().size()];
+        int i = 0;
+        for(String category : WebshopDriver.getInstance().getAllCategories()) {
+            CheckBox categoryBox = new CheckBox(category);
+            categoryBox.setOnAction((e) -> {
+                updateProductsShown();
+            });
+            categoryChoiceContainer.getChildren().add(categoryBox);
+            categories[i] = categoryBox;
+            i++;
+        }
+    }
+    
+    private void createManufacturerCheckBoxes() {
+        manufacturerChoiceContainer.getChildren().clear();
+        manufacturers = new CheckBox[WebshopDriver.getInstance().getAllManufacturers().size()];
+        int i = 0;
+        for(String manufacturer : WebshopDriver.getInstance().getAllManufacturers()) {
+            CheckBox manufacturerBox = new CheckBox(manufacturer);
+            manufacturerBox.setOnAction((e) -> {
+                updateProductsShown();
+            });
+            manufacturerChoiceContainer.getChildren().add(manufacturerBox);
+            manufacturers[i] = manufacturerBox;
+            i++;
+        }
+    }
+    
+    private void createColorCheckBoxes() {
+        colorChoiceContainer.getChildren().clear();
+        colors = new CheckBox[WebshopDriver.getInstance().getAllColors().size()];
+        int i = 0;
+        for(String string : WebshopDriver.getInstance().getAllColors()) {
+            CheckBox checkBox = new CheckBox(string);
+            checkBox.setOnAction((e) -> {
+                updateProductsShown();
+            });
+            colorChoiceContainer.getChildren().add(checkBox);
+            colors[i] = checkBox;
+            i++;
+        }
     }
     
     /**

@@ -223,7 +223,9 @@ public interface IWebshopDriver {
      * @param sizes udvalgte størrelse fra checkboxene af størrelser
      * @return Domænelagets match af de udvalgte søgekriterier
      */
-    List<Product> searchProducts(String searchWord, double maxPrice, Set<String> genders, Set<String> categories, Set<String> colors, boolean small, boolean medium, boolean large);
+    List<Product> searchProducts(String searchWord, double maxPrice, Set<String> genders, 
+            Set<String> categories, Set<String> manufacturers, Set<String> colors, 
+            boolean small, boolean medium, boolean large);
 
     /**
      *
@@ -240,9 +242,18 @@ public interface IWebshopDriver {
      */
     List<Product> sortProducts(String sortTerm, List listToSort);
     
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);        
+    Set<String> getAllCategories();
     
-
+    Set<String> getAllManufacturers();
+    
+    Set<String> getAllColors();
+    
+    double getMaxPrice();
+    
+    void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price);
+    
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufacturer, double price);
 
