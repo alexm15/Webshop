@@ -239,6 +239,9 @@ public interface IWebshopDriver {
      * @return
      */
     List<Product> sortProducts(String sortTerm, List listToSort);
+    
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath);        
+    
 
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufacturer, double price);

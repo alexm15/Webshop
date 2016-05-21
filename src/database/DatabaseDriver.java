@@ -60,15 +60,17 @@ public class DatabaseDriver implements IDatabase {
             boolean medium, boolean large, String color, String gender, String description, 
             String imagePath, String manufacturer, double price) {
         pim.changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
-    }
-
-    
+    } 
     
     public static IDatabase getInstance() {
         if(instance == null) {
             instance = new DatabaseDriver();
         }
         return instance;
+    }
+    
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
+        pim.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
     }
 
     @Override
@@ -79,4 +81,5 @@ public class DatabaseDriver implements IDatabase {
         
         urm.storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
     }
+    
 }

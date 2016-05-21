@@ -414,7 +414,12 @@ public class WebshopDriver implements IWebshopDriver {
         System.out.println("y");
         return userManager.isValidEmail(email);
     }
-
+    
+    @Override
+    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
+        catalogue.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
+    }
+    
     @Override
     public void changeProductDetails(int id, String name, String category, boolean small, 
             boolean medium, boolean large, String color, String gender, String description, 
