@@ -140,7 +140,7 @@
             <Button mnemonicParsing="false" onAction="#showMyPageScreen" text="Min side" />
          </children>
       </HBox>
-      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="447.0" layoutY="30.0" prefHeight="39.0" prefWidth="583.0" spacing="5.0">
+      <HBox fx:id="loginContainer" alignment="CENTER_RIGHT" layoutX="414.0" layoutY="30.0" prefHeight="39.0" prefWidth="616.0" spacing="5.0">
          <children>
             <Label fx:id="errorTxt" text="Forkert brugernavn eller password" textFill="#dc3847" visible="false" />
             <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="100.0" promptText="Email" />
@@ -157,5 +157,6 @@
       <Label layoutX="714.0" layoutY="14.0" text="Log ind med &quot;email@email.dk&quot; og &quot;kode&quot;" />
       <Button layoutX="588.0" layoutY="726.0" mnemonicParsing="false" onAction="#showShoppingBasketScreen" text="Gå til min indkøbskurv" />
       <Button layoutX="753.0" layoutY="726.0" mnemonicParsing="false" onAction="#showPIMScreen" text="Gå til PIM" />
+      <HBox fx:id="shoppingBasketContainer" alignment="CENTER" layoutX="1038.0" layoutY="26.0" prefHeight="47.0" prefWidth="62.0" />
    </children>
 </AnchorPane>

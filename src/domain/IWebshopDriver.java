@@ -148,6 +148,8 @@ public interface IWebshopDriver {
      * @return informationerne om den specifikke shoppingBasket
      */
     List<Item> getShoppingBasket();
+    
+    int getShoppingBasketSize();
 
     /**
      * Identificerer vejnavn fra Address klassen {@link util.Address}

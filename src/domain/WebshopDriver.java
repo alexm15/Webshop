@@ -253,6 +253,11 @@ public class WebshopDriver implements IWebshopDriver {
     public List<Item> getShoppingBasket() {
         return userManager.getShoppingBasket();
     }
+    
+    @Override
+    public int getShoppingBasketSize() {
+        return userManager.getShoppingBasketSize();
+    }
 
     /**
      *
@@ -347,19 +352,10 @@ public class WebshopDriver implements IWebshopDriver {
         if (!userManager.hasBasket()) {
             makeNewBasket();
         }
-//        try {
-//            Item item = userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size);
-//            userManager.changeQuantity(item, quantity);
-//            System.err.println("Item");
-//        }
-//        catch(NullPointerException e) {
-//            userManager.addItem(getSelectedProduct(), quantity, size);
-//            System.err.println("Nullpointer - tilføjes normalt");
-//        }
         
         if(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size) != null){
             userManager.changeQuantity(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size), quantity);
-            System.err.println("niels");
+            System.err.println("Item findes allerede - øger antal");
         }
         else {          
             userManager.addItem(getSelectedProduct(), quantity, size);

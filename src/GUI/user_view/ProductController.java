@@ -49,6 +49,7 @@ public class ProductController implements Initializable, ControlledScreen {
     private void addItemToBasket() {   
         try {
             webshopDriver.addItem(Integer.parseInt(amountField.getText()), sizeBox.getValue().toString()); // toString for at kunne fange nullpointerexception
+            controller.getShoppingBasketIcon().updateBasket(webshopDriver.getShoppingBasketSize());
         }
         catch(NullPointerException e){
             sizeErr.setText("Vælg venligst en størrelse.");

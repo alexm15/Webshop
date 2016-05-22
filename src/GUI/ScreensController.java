@@ -1,11 +1,13 @@
 package GUI;
 
+import GUI.user_view.ShoppingBasketIcon;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * Klasse til at håndtere forskellige screens, der alle deler samme parent.
@@ -101,5 +103,10 @@ public class ScreensController extends AnchorPane {
             System.out.println(name + " successfully unloaded.");
             return true;
         }
+    }
+    
+    public ShoppingBasketIcon getShoppingBasketIcon() {
+        return ((ShoppingBasketIcon) ((HBox) getChildren().get(1)).getChildren().get(0));
+        //return (ShoppingBasketIcon) getChildren().get(1);
     }
 }

@@ -78,6 +78,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         shoppingItemsContainer.getChildren().remove(i);
         shoppingItemsContainer.getChildren().remove(shoppingItemMap.get(item));
         checkIfEmptyBasket();
+        controller.getShoppingBasketIcon().updateBasket(webshopDriver.getShoppingBasketSize());
     }
 
     private void update(Item item) {
@@ -90,7 +91,7 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
                 item.setQuantity(i);
                 shoppingItemMap.get(item).setPrice(item.getSumPrice());
             }
-
+            controller.getShoppingBasketIcon().updateBasket(webshopDriver.getShoppingBasketSize());
         }
         catch(NumberFormatException e) {
             e.printStackTrace();

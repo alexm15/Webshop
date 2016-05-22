@@ -76,6 +76,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private VBox manufacturerChoiceContainer;
     @FXML
     private VBox colorChoiceContainer;
+    @FXML
+    private HBox shoppingBasketContainer;
     
     /**
      * Loader og viser produktskærmen.
@@ -83,15 +85,15 @@ public class CatalogueController implements Initializable, ControlledScreen {
      */
     private void showProductScreen() {
         controller.loadScreen(PRODUCT_SCREEN, PRODUCT_SCREEN_FXML);
-        handleLoginContainers();
         controller.setScreen(PRODUCT_SCREEN);
+        handleMultiScreenContainers();
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
     @FXML
     private void showMyPageScreen() {
         controller.loadScreen(MYPAGE_SCREEN, MYPAGE_SCREEN_FXML);
-        handleLoginContainers();
+        handleMultiScreenContainers();
         controller.setScreen(MYPAGE_SCREEN);
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
@@ -99,7 +101,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     private void showShoppingBasketScreen() {
         controller.loadScreen(SHOPPINGBASKET_SCREEN, SHOPPINGBASKET_SCREEN_FXML);
-        handleLoginContainers();
+        handleMultiScreenContainers();
         controller.setScreen(SHOPPINGBASKET_SCREEN);
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
@@ -107,7 +109,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     private void showRegisterScreen() {
         controller.loadScreen(REGISTER_SCREEN, REGISTER_SCREEN_FXML);
-        handleLoginContainers();
+        handleMultiScreenContainers();
         controller.setScreen(REGISTER_SCREEN);
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
@@ -115,13 +117,17 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     private void showPIMScreen() {
         controller.loadScreen(PIM_SCREEN, PIM_SCREEN_FXML);
-        handleLoginContainers();
+        handleMultiScreenContainers();
         controller.setScreen(PIM_SCREEN);
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
-    private void handleLoginContainers() {
-        if(!controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
+    private void handleMultiScreenContainers() {
+        if(!controller.getChildren().contains(shoppingBasketContainer) && !controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
+            if(controller.getChildren().size() > 1) {
+                controller.getChildren().remove(1);
+            }
+            controller.getChildren().add(1, shoppingBasketContainer);
             controller.getChildren().addAll(loginContainer, logoutContainer);
         }
     }
@@ -133,7 +139,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
             loginContainer.setVisible(false);
             logoutContainer.setVisible(true);
             String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
-            usernameTxt.setText(welcomeMSg[new Random().nextInt(welcomeMSg.length)] + " " + webshopDriver.getFirstName());
+            usernameTxt.setText(welcomeMSg[(int) (Math.random() * welcomeMSg.length)] + " " + webshopDriver.getFirstName());
         }
         else {
             errorTxt.setVisible(true);
@@ -234,6 +240,11 @@ public class CatalogueController implements Initializable, ControlledScreen {
         });
         sortingOptionsBox.setItems(SORTING_OPTIONS);
         sortingOptionsBox.setValue("Alfabetisk stigende");
+        ShoppingBasketIcon sbi = new ShoppingBasketIcon();
+        sbi.setOnMouseReleased((e) -> {
+            showShoppingBasketScreen();
+        });
+        shoppingBasketContainer.getChildren().add(sbi);
     }
     
     private void createCategoryCheckBoxes() {

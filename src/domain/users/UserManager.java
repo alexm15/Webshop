@@ -153,6 +153,16 @@ public class UserManager implements UserManageable {
         return loggedInUser.getShoppingBasket();
     }
     
+    @Override
+    public int getShoppingBasketSize() {
+        int size = 0;
+        for(Item i : getShoppingBasket()) {
+            size += i.getQuantity();
+        }
+        return size;
+    }
+    
+    @Override
     public Order getShoppingBasketOrder() {
         return loggedInUser.getShoppingBasketOrder();
     }
@@ -162,6 +172,7 @@ public class UserManager implements UserManageable {
         loggedInUser.addItem(product, quantity, size);
     }
 
+    @Override
     public void changeQuantity(Item item, int quantity) {
         loggedInUser.changeQuantity(quantity, item);
 
