@@ -108,7 +108,7 @@ public class Catalogue implements ProductManagable {
     private List<Product> searchSize(List<Product> listToSearch, boolean small, boolean medium, boolean large) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
-            final boolean matchingSizeCriteria = (p.isSmall()) && small || p.isMedium() && medium || p.isLarge() && large;
+            final boolean matchingSizeCriteria = p.isSmall() && small || p.isMedium() && medium || p.isLarge() && large;
             if(matchingSizeCriteria) {
                 if(!results.contains(p)) {
                     results.add(p);
