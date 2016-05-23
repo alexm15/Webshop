@@ -4,8 +4,6 @@ import database.DatabaseDriver;
 import database.IDatabase;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.channels.ReadableByteChannel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,53 +50,11 @@ public class Catalogue implements ProductManagable {
         }
         catch(SQLException e) {
             e.printStackTrace();
+            loadProductsFromTxt();
         }
-        /*int id = Integer.parseInt(tokens.get(0));
-        String name = tokens.get(1);
-        String category = tokens.get(2);
-        boolean small = Boolean.parseBoolean(tokens.get(3));
-        boolean medium = Boolean.parseBoolean(tokens.get(4));
-        boolean large = Boolean.parseBoolean(tokens.get(5));
-        String color = tokens.get(6);
-        String gender = tokens.get(7);
-        String description = tokens.get(8);
-        String imagePath = tokens.get(9);
-        String manufacturer = tokens.get(10);
-        double price = Double.parseDouble(tokens.get(11));
-        products.add(new Product(id, name, category, small, medium, 
-                large, color, gender, description, imagePath, manufacturer, price));
-        if(!tokens.isEmpty()) {
-            loadProducts();
-        }*/
     }
     
-    /*private void loadProducts() {
-        Scanner in = null;
-        try {
-            in = new Scanner((ReadableByteChannel) DatabaseDriver.getInstance().getProducts());
-            while(in.hasNext()) {
-                int id = Integer.parseInt(in.next());
-                String name = in.next();
-                String category = in.next();
-                boolean small = Boolean.parseBoolean(in.next());
-                boolean medium = Boolean.parseBoolean(in.next());
-                boolean large = Boolean.parseBoolean(in.next());
-                String color = in.next();
-                String gender = in.next();
-                String description = in.next();
-                String imagePath = in.next();
-                String manufacturer = in.next();
-                double price = Double.parseDouble(in.next());
-                products.add(new Product(id, name, category, small, medium, 
-                        large, color, gender, description, imagePath, manufacturer, price));
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-    
-    /*private void loadProducts() {
+    private void loadProductsFromTxt() {
         try(Scanner in = new Scanner(new File("data/Products.txt"))) {
             in.nextLine(); // kommentarlinje
             while(in.hasNextLine()) {
@@ -120,7 +76,7 @@ public class Catalogue implements ProductManagable {
         catch(IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     @Override
     public List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
