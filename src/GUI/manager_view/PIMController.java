@@ -150,6 +150,7 @@ public class PIMController implements Initializable, ControlledScreen {
             createCategoryCheckBoxes();
             createManufacturerCheckBoxes();
             createColorCheckBoxes();
+            updatePriceSlider();
             updateProductsShown();
         }
     }
@@ -290,9 +291,7 @@ public class PIMController implements Initializable, ControlledScreen {
         createCategoryCheckBoxes();
         createManufacturerCheckBoxes();
         createColorCheckBoxes();
-        priceSlider.setMax(webshopDriver.getMaxPrice());
-        priceSlider.setValue(priceSlider.getMax());
-        priceVTxt.setText(priceSlider.getMax() + "");
+        updatePriceSlider();
         priceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             priceVTxt.setText(newValue.intValue() + "");
         });
@@ -338,6 +337,12 @@ public class PIMController implements Initializable, ControlledScreen {
         priceContainer.getChildren().add(priceTxt);
         updateProductsShown();
         showProductInfo();
+    }
+    
+    private void updatePriceSlider() {
+        priceSlider.setMax(webshopDriver.getMaxPrice());
+        priceSlider.setValue(priceSlider.getMax());
+        priceVTxt.setText(priceSlider.getMax() + "");
     }
     
     private void createCategoryCheckBoxes() {

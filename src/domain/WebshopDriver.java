@@ -1,6 +1,7 @@
 package domain;
 
 import database.DatabaseDriver;
+import database.IDatabase;
 import domain.products.Catalogue;
 import domain.products.Product;
 import domain.products.Item;
@@ -22,7 +23,7 @@ import util.Rights;
 public class WebshopDriver implements IWebshopDriver {
 
     private static IWebshopDriver instance = null;
-    //private DatabaseController database;
+    private IDatabase databaseDriver;
     private UserManageable userManager;
     private ProductManagable catalogue;
     private static int orderID;
@@ -32,13 +33,12 @@ public class WebshopDriver implements IWebshopDriver {
      * UserManager og Catalogue, der kan tilgå sig sine respektive klasser.
      */
     private WebshopDriver() {
-        //database = new DatabaseController();
+        databaseDriver = DatabaseDriver.getInstance();
+        databaseDriver.connectPIM();
+        databaseDriver.connectURM();
         userManager = new UserManager();
         catalogue = new Catalogue();
         orderID = 0;
-        //DatabaseDriver.getInstance().connectPIM();
-        //DatabaseDriver.getInstance().connectURM();
-        //DatabaseDriver.getInstance().pim();
     }
 
     /*public void connect() {

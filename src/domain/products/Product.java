@@ -20,8 +20,8 @@ public class Product implements Comparable<Product> {
         this.large = large;
         this.color = color;
         this.gender = gender;
-        this.description = "Placeholder beskrivelse: mew";
-        this.imagePath = imagePath;
+        this.description = description;
+        this.imagePath = imagePath; //"file:icons/PHShirtIcon.png";
         this.manufacturer = manufactorer;
         this.price = price;
     }

@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.fxml.FXML;
@@ -24,6 +23,7 @@ import domain.WebshopDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -300,13 +300,36 @@ public class CatalogueController implements Initializable, ControlledScreen {
      */
     private void createProductButtons(List<Product> products) {
         int xOffset = 0, yOffset = 0, amount = 0;
+        double yOffSet0 = 0, yOffSet1 = 0, yOffSet2 = 0, yOffSet3 = 0;
         for(Product p : products) {
-            System.out.println(p.toString());
-            ProductItem pb = new ProductItem(p, 10 + xOffset, 10 + yOffset);
+            ProductItem pb = null;
+            switch(amount) {
+                case 0:
+                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet0);
+                    yOffSet0 += pb.getImageHeight() / 1.5;
+                    System.out.println("række1 "+pb.getImageHeight());
+                    break;
+                case 1:
+                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet1);
+                    yOffSet1 += pb.getImageHeight() / 1.5;
+                    System.out.println("række2 "+pb.getImageHeight());
+                    break;
+                case 2:
+                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet2);
+                    yOffSet2 += pb.getImageHeight() / 1.5;
+                    break;
+                case 3:
+                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet3);
+                    yOffSet3 += pb.getImageHeight() / 1.5;
+                    break;
+                default:
+                    System.out.println("Amount over 3");
+                    break;
+            }
             xOffset += 160;
             amount++;
             if(amount > 3) {
-                yOffset += 190;
+                //yOffset += pb.getImageHeight(); //190
                 xOffset = 0;
                 amount = 0;
             }

@@ -1,6 +1,7 @@
 package database;
 
-import domain.products.Product;
+import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -48,8 +49,8 @@ public class DatabaseDriver implements IDatabase {
     }
     
     @Override
-    public void getProducts() {
-        //pim.getProducts();
+    public ResultSet getProducts() {
+        return pim.getProducts();
     }
 
     @Override

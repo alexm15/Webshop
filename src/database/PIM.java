@@ -13,28 +13,32 @@ public class PIM extends AbstractDatabase {
         super("pim");
     }
     
-    public void getProducts() {
+    public ResultSet getProducts() {
         List<String> results = new ArrayList<>();
-        try(PreparedStatement st = connection.prepareStatement("SELECT *"
-                    + "                 FROM product, product_size"
-                    + "                 WHERE product.id = product_size.id")) {
-            ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement("SELECT * FROM product");
+            rs = st.executeQuery();
+            /*while(rs.next()) {
                 results.add(Integer.toString(rs.getInt(1)));
                 results.add(rs.getString(2));
                 results.add(rs.getString(3));
-                results.add(rs.getString(4));
-                results.add(rs.getString(5));
-                results.add(rs.getString(6));
+                results.add(Boolean.toString(rs.getBoolean(4)));
+                results.add(Boolean.toString(rs.getBoolean(5)));
+                results.add(Boolean.toString(rs.getBoolean(6)));
                 results.add(rs.getString(7));
                 results.add(rs.getString(8));
-                results.add(Double.toString(rs.getDouble(9)));
-            }
+                results.add(rs.getString(9));
+                results.add(rs.getString(10));
+                results.add(rs.getString(11));
+                results.add(Double.toString(rs.getDouble(12)));
+            }*/
         }
         catch(SQLException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
-        System.out.println(results);
+        return rs;
     }
     
 

@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.util.List;
+
 /**
  *
  * @author Morten
@@ -18,7 +21,7 @@ public interface IDatabase {
 
     boolean isURMConnected();
     
-    void getProducts(); // skal have anden returtype
+    ResultSet getProducts(); // skal have anden returtype
     
     void getCustomers(); // skal have anden returtype
     
