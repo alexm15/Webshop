@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import domain.products.Product;
+import javafx.scene.Group;
 
 /**
  * @author Niels
@@ -38,6 +39,7 @@ public class ProductItem extends VBox {
      * @param y 
      */
     public ProductItem(Product product, double x, double y) {
+        Group root = new Group();
         setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
         setPrefWidth(130);
@@ -51,6 +53,7 @@ public class ProductItem extends VBox {
         setEffect(ds);
         setOnMouseEntered((MouseEvent t) -> {
             setBorder(hoverBorder);
+            System.out.println(getHeight());
         });
         setOnMouseExited((MouseEvent t) -> {
             setBorder(null);
@@ -62,9 +65,11 @@ public class ProductItem extends VBox {
         iv.setFitWidth(100);
         iv.setPreserveRatio(true);
         getChildren().addAll(iv, text);
+        root.getChildren().add(this);
+        root.layout();
     }
     
     public double getImageHeight() {
-        return iv.getImage().getHeight();
+        return getHeight();//iv.getImage().getHeight();
     }
 }

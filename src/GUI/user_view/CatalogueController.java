@@ -23,7 +23,6 @@ import domain.WebshopDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -36,6 +35,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private CheckBox[] genders, categories, manufacturers, colors;
     private final ObservableList SORTING_OPTIONS = FXCollections.observableArrayList(
             "Alfabetisk stigende", "Alfabetisk faldende", "Pris stigende", "Pris faldende");
+    private ProductItem[] pis;
     @FXML
     private TextField searchTxt;
     @FXML
@@ -170,7 +170,6 @@ public class CatalogueController implements Initializable, ControlledScreen {
             small = true;
             medium = true;
             large = true;
-            System.out.println("alle true");
         }
         List<Product> searchedProducts = webshopDriver.searchProducts(searchTxt.getText(), priceSlider.getValue(), 
             getSelectedText(genders), getSelectedText(categories), getSelectedText(manufacturers), getSelectedText(colors), small, medium, large);
@@ -299,45 +298,46 @@ public class CatalogueController implements Initializable, ControlledScreen {
      * @param products Det Set af produkter der skal vises.
      */
     private void createProductButtons(List<Product> products) {
+        pis = new ProductItem[products.size()];
         int xOffset = 0, yOffset = 0, amount = 0;
         double yOffSet0 = 0, yOffSet1 = 0, yOffSet2 = 0, yOffSet3 = 0;
+        int i = 0;
         for(Product p : products) {
-            ProductItem pb = null;
+            //ProductItem pb = null;
             switch(amount) {
                 case 0:
-                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet0);
-                    yOffSet0 += pb.getImageHeight() / 1.5;
-                    System.out.println("række1 "+pb.getImageHeight());
+                    pis[i] = new ProductItem(p, 10 + xOffset, 10 + yOffSet0);
+                    yOffSet0 += pis[i].getImageHeight() + 60;
                     break;
                 case 1:
-                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet1);
-                    yOffSet1 += pb.getImageHeight() / 1.5;
-                    System.out.println("række2 "+pb.getImageHeight());
+                    pis[i] = new ProductItem(p, 10 + xOffset, 10 + yOffSet1);
+                    yOffSet1 += pis[i].getImageHeight() + 60;
                     break;
                 case 2:
-                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet2);
-                    yOffSet2 += pb.getImageHeight() / 1.5;
+                    pis[i] = new ProductItem(p, 10 + xOffset, 10 + yOffSet2);
+                    yOffSet2 += pis[i].getImageHeight() + 60;
                     break;
                 case 3:
-                    pb = new ProductItem(p, 10 + xOffset, 10 + yOffSet3);
-                    yOffSet3 += pb.getImageHeight() / 1.5;
+                    pis[i] = new ProductItem(p, 10 + xOffset, 10 + yOffSet3);
+                    yOffSet3 += pis[i].getImageHeight() + 60;
                     break;
                 default:
                     System.out.println("Amount over 3");
                     break;
             }
+            pis[i].setOnMouseReleased((e) -> {
+                webshopDriver.setSelectedProduct(p);
+                showProductScreen();
+            });
+            productButtonContainer.getChildren().add(pis[i]);
             xOffset += 160;
             amount++;
+            i++;
             if(amount > 3) {
                 //yOffset += pb.getImageHeight(); //190
                 xOffset = 0;
                 amount = 0;
             }
-            pb.setOnMouseReleased((e) -> {
-                webshopDriver.setSelectedProduct(p);
-                showProductScreen();
-            });
-            productButtonContainer.getChildren().add(pb);
         }
     }
     
