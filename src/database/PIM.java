@@ -1,8 +1,6 @@
 package database;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Niels
@@ -14,26 +12,11 @@ public class PIM extends AbstractDatabase {
     }
     
     public ResultSet getProducts() {
-        List<String> results = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement st = null;
         try {
             st = connection.prepareStatement("SELECT * FROM product");
             rs = st.executeQuery();
-            /*while(rs.next()) {
-                results.add(Integer.toString(rs.getInt(1)));
-                results.add(rs.getString(2));
-                results.add(rs.getString(3));
-                results.add(Boolean.toString(rs.getBoolean(4)));
-                results.add(Boolean.toString(rs.getBoolean(5)));
-                results.add(Boolean.toString(rs.getBoolean(6)));
-                results.add(rs.getString(7));
-                results.add(rs.getString(8));
-                results.add(rs.getString(9));
-                results.add(rs.getString(10));
-                results.add(rs.getString(11));
-                results.add(Double.toString(rs.getDouble(12)));
-            }*/
         }
         catch(SQLException e) {
             e.printStackTrace();

@@ -149,6 +149,7 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @FXML
     private void logout() {
         if(controller.unloadScreen(MYPAGE_SCREEN)) {
+            controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
             controller.setScreen(CATALOGUE_SCREEN);
         }
         logoutContainer.setVisible(false);

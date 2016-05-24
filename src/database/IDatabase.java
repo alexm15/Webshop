@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.ResultSet;
-import java.util.List;
 
 /**
  *
@@ -23,7 +22,7 @@ public interface IDatabase {
     
     ResultSet getProducts(); // skal have anden returtype
     
-    void getCustomers(); // skal have anden returtype
+    ResultSet getUsers(); // skal have anden returtype
     
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufacturer, double price);

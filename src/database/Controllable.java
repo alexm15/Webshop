@@ -1,7 +1,5 @@
 package database;
 
-import java.util.List;
-
 /**
  *
  * @author Niels

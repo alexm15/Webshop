@@ -54,8 +54,8 @@ public class DatabaseDriver implements IDatabase {
     }
 
     @Override
-    public void getCustomers() {
-        //urm.getCustomers();
+    public ResultSet getUsers() {
+        return urm.getUsers();
     }
 
     @Override
@@ -72,6 +72,7 @@ public class DatabaseDriver implements IDatabase {
         return instance;
     }
     
+    @Override
     public void createProduct(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
             String gender, String description, String imagePath, String manufacturer, double price) {
@@ -83,7 +84,6 @@ public class DatabaseDriver implements IDatabase {
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear) {
-        
         urm.storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
     }
     
