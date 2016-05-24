@@ -46,7 +46,7 @@ public class Catalogue implements ProductManagable {
                 products.add(new Product(id, name, category, small, medium, 
                     large, color, gender, description, imagePath, manufacturer, price));
             }
-            Collections.sort(products);
+            sortNameAscending(products);
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class Catalogue implements ProductManagable {
                 int price = Integer.parseInt(tokens[9]);
                 products.add(new Product(id, name, category, small, medium, large, color, gender, "", "file:icons/PHshirtIcon.png", manufactorer, price));
             }
-            Collections.sort(products);
+            sortNameAscending(products);
         }
         catch(IOException e) {
             e.printStackTrace();
