@@ -1,7 +1,8 @@
 package database;
 
+import database.databasetypes.PIM;
+import database.databasetypes.URM;
 import java.sql.ResultSet;
-import java.util.List;
 
 /**
  *
