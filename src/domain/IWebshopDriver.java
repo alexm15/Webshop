@@ -55,6 +55,8 @@ public interface IWebshopDriver {
      */
     void createUser(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear);
 
+    boolean isUserLoggedIn();
+    
     /**
      * Finder brugerens fødselsdag (kun dato nummeret)
      *
@@ -103,6 +105,9 @@ public interface IWebshopDriver {
      *
      * @return fornavnet på den specifikke User.
      */
+    
+    String getPassword();
+    
     String getFirstName();
 
     /**

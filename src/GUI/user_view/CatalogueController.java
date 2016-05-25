@@ -123,13 +123,15 @@ public class CatalogueController implements Initializable, ControlledScreen {
     }
     
     private void handleMultiScreenContainers() {
-        if(!controller.getChildren().contains(shoppingBasketContainer) && !controller.getChildren().contains(loginContainer) && !controller.getChildren().contains(logoutContainer)) {
-            if(controller.getChildren().size() > 1) {
-                controller.getChildren().remove(1);
-            }
+        //if(!controller.getChildren().contains(shoppingBasketContainer) && 
+        //        !controller.getChildren().contains(loginContainer) && 
+        //        !controller.getChildren().contains(logoutContainer)) {
+            /*if(controller.getChildren().size() > 1) {
+                controller.getChildren().remove(1, controller.getChildren().size());
+            }*/
             controller.getChildren().add(1, shoppingBasketContainer);
             controller.getChildren().addAll(loginContainer, logoutContainer);
-        }
+        //}
     }
     
     @FXML
@@ -144,6 +146,15 @@ public class CatalogueController implements Initializable, ControlledScreen {
         else {
             errorTxt.setVisible(true);
         }
+    }
+    
+    private void loginAgain() {
+        webshopDriver.login(webshopDriver.getEmail(), webshopDriver.getPassword());
+        errorTxt.setVisible(false);
+        loginContainer.setVisible(false);
+        logoutContainer.setVisible(true);
+        String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
+        usernameTxt.setText(welcomeMSg[(int) (Math.random() * welcomeMSg.length)] + " " + webshopDriver.getFirstName());
     }
     
     @FXML
@@ -217,6 +228,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webshopDriver = WebshopDriver.getInstance();
+        if(webshopDriver.isUserLoggedIn()) {
+            loginAgain();
+        }
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
         createCategoryCheckBoxes();
         createManufacturerCheckBoxes();

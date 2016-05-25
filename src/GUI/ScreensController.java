@@ -54,7 +54,11 @@ public class ScreensController extends AnchorPane {
             screenController.setScreenParent(this);
             addScreen(name, loadScreen);
             System.out.println("Screen " + name + " loaded.");
+            if(getChildren().size() > 1) {
+                getChildren().remove(1, getChildren().size());
+            }
             return true;
+            
         }
         catch(Exception e) {
             e.printStackTrace();

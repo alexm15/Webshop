@@ -74,6 +74,11 @@ public class WebshopDriver implements IWebshopDriver {
     public void logout() {
         userManager.logout();
     }
+    
+    @Override
+    public boolean isUserLoggedIn() {
+        return userManager.isUserLoggedIn();
+    }
 
     /**
      * Benytter et oprette Name-klasse der opdeler et navn i fornavn og
@@ -152,6 +157,11 @@ public class WebshopDriver implements IWebshopDriver {
     @Override
     public String getEmail() {
         return userManager.getLoggedInUser().getEmail();
+    }
+    
+    @Override
+    public String getPassword() {
+        return userManager.getLoggedInUser().getPassword();
     }
 
     /**
