@@ -1,8 +1,12 @@
 package database;
 
+import static database.Controllable.CONFIG_PATH;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  * @author Niels
@@ -10,7 +14,21 @@ import java.sql.SQLException;
 public class URM extends AbstractDatabase {
 
     public URM() {
-        super("urm");
+        setLocation();
+    }
+    
+    private void setLocation() {
+        try(Scanner in = new Scanner(new File(CONFIG_PATH))) {
+            while(in.hasNextLine()) {
+                String line = in.nextLine();
+                if(line.contains("URM")) {
+                    location = line.substring(6);
+                }
+            }
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     
     public ResultSet getUsers() {

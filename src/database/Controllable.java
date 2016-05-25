@@ -6,9 +6,7 @@ package database;
  */
 public interface Controllable {
     
-    String URL = "jdbc:postgresql://127.0.0.1:5432/";
-    String USERNAME = "postgres";
-    String PASSWORD = "12345";
+    String CONFIG_PATH = "config/database.txt";
     
     void connect();
     void disconnect();

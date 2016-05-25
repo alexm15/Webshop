@@ -1,6 +1,9 @@
 package database;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.Scanner;
 
 /**
  * @author Niels
@@ -8,7 +11,21 @@ import java.sql.*;
 public class PIM extends AbstractDatabase {
 
     public PIM() {
-        super("pim");
+        setLocation();
+    }
+    
+    private void setLocation() {
+        try(Scanner in = new Scanner(new File(CONFIG_PATH))) {
+            while(in.hasNextLine()) {
+                String line = in.nextLine();
+                if(line.contains("PIM")) {
+                    location = line.substring(6);
+                }
+            }
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     
     public ResultSet getProducts() {
