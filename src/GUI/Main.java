@@ -1,5 +1,6 @@
 package GUI;
 
+import domain.IWebshopDriver;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -26,8 +27,8 @@ public class Main extends Application {
         stage.getIcons().add(new Image("file:icons/webshopIcon.png"));
         stage.setScene(scene);
         stage.setOnCloseRequest((e) -> {
-            WebshopDriver webshop = WebshopDriver.getInstance();
-            /*if(webshop.isConnected()) {
+            /*IWebshopDriver webshop = WebshopDriver.getInstance();
+            if(webshop.isConnected()) {
                 webshop.disconnect();
             }*/
         });

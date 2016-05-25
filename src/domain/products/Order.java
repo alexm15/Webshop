@@ -9,7 +9,7 @@ import util.*;
  *
  * @author Niels
  */
-public class Order {
+public class Order implements OrderManageable {
 
     private Date orderDate;
     private double shippingCharge;
@@ -28,14 +28,35 @@ public class Order {
         itemList = new ArrayList<>();
     }
 
-    public void addItem(Product product, int quantity) {
-        itemList.add(new Item(product, quantity));
+    @Override
+    public void addItem(Product product, int quantity, String size) {
+        itemList.add(new Item(product, quantity, size));
     }
 
+    @Override
     public void removeItem(Item item) {
         itemList.remove(item);
     }
+    
+    public Item containsProduct(Product product, String size) {
+        for(Item i : itemList) {
+            if(i.getProduct().equals(product) && i.getSize().equals(size)) {
+                return i;
+            }
+        }
+        return null;
+    }
 
+    public void setQuantity(Item item, int quantity) {
+        for(Item i : itemList) {
+            if (item.equals(i)) {
+                item.setQuantity(quantity);
+            }
+        }
+    }
+    
+
+    @Override
     public void changeQuantity(Item item, int quantity) {
         for(Item i : itemList) {
             if (item.equals(i)) {
@@ -44,26 +65,32 @@ public class Order {
         }
     }
 
+    @Override
     public List<Item> getItems() {
         return itemList;
     }
 
+    @Override
     public Date getOrderDate() {
         return orderDate;
     }
 
+    @Override
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
+    @Override
     public double getShippingCharge() {
         return shippingCharge;
     }
 
+    @Override
     public void setShippingCharge(double shippingCharge) {
         this.shippingCharge = shippingCharge;
     }
 
+    @Override
     public double getFinalPrice() {
         double sum = 0;
         for(Item item : itemList) {
@@ -72,26 +99,32 @@ public class Order {
         return sum * TAX;
     }
 
+    @Override
     public int getOrderID() {
         return orderID;
     }
 
+    @Override
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
+    @Override
     public int getStatus() {
         return status;
     }
 
+    @Override
     public void setStatus(int status) {
         this.status = status;
     }
 
+    @Override
     public Address getShippingAddress() {
         return shippingAddress;
     }
 
+    @Override
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.user_view.RegisterController">
+   <children>
+      <Region prefHeight="800.0" prefWidth="190.0" />
+      <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
+      <Button layoutX="605.0" layoutY="607.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <VBox alignment="CENTER" layoutX="532.0" layoutY="124.0" prefHeight="428.0" prefWidth="216.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="129.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="79.0" text="Opret bruger">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Email" />
+                  <TextField fx:id="emailTxt" onKeyReleased="#checkEmail" prefHeight="25.0" prefWidth="124.0" promptText="Email" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Password" />
+                  <PasswordField fx:id="passwordTxt" prefHeight="25.0" prefWidth="123.0" promptText="Password" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Navn" />
+                  <TextField fx:id="firstNameTxt" prefHeight="25.0" prefWidth="80.0" promptText="Fornavn" />
+                  <TextField fx:id="lastNameTxt" prefHeight="25.0" prefWidth="80.0" promptText="Efternavn" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Addresse" />
+                  <TextField fx:id="streetNameTxt" prefHeight="25.0" prefWidth="87.0" promptText="Vejnavn" />
+                  <TextField fx:id="houseNumberTxt" prefHeight="25.0" prefWidth="47.0" promptText="Husnr" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="By" />
+                  <TextField fx:id="cityTxt" prefHeight="25.0" prefWidth="94.0" promptText="Bynavn" />
+                  <TextField fx:id="zipCodeTxt" prefHeight="25.0" prefWidth="50.0" promptText="Postnr" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Land" />
+                  <TextField fx:id="countryTxt" prefHeight="25.0" prefWidth="94.0" promptText="Land" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Telefonnummer" />
+                  <TextField fx:id="phoneNumberTxt" prefHeight="25.0" prefWidth="108.0" promptText="Telefonnummer" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="129.0" spacing="5.0">
+               <children>
+                  <Label text="Fødselsdag" />
+                  <TextField fx:id="birthDayTxt" prefHeight="25.0" prefWidth="38.0" promptText="DD" />
+                  <TextField fx:id="birthMonthTxt" prefHeight="25.0" prefWidth="38.0" promptText="MM" />
+                  <TextField fx:id="birthYearTxt" prefHeight="25.0" prefWidth="52.0" promptText="ÅÅÅÅ" />
+               </children>
+            </HBox>
+            <Label fx:id="formulaErrorTxt" textFill="#dc3847" />
+            <Button mnemonicParsing="false" onAction="#register" text="Opret bruger" />
+         </children>
+      </VBox>
+      <Label fx:id="emailAvailableTxt" layoutX="757.0" layoutY="171.0" />
+   </children>
+   
+<!--
+                                         m$$@$@@$@@$@@@,                                           
+                                      n@@@%@#jC](x @@@@#@?                                         
+                                   x@@%@$@x          ;@@@@@                                        
+                                 $@#@@@_ .             @@@@@@.                                     
+                         -Q@$@@@$$@                      @@@$@@                                    
+                      ($@@@%$@@$@@?.                     -@#@@@                                    
+                     @@@#@@#@@@W1$@                       x@@@@+                                   
+                    >@@@@@@&$&@$ @@|                       @@#@n                                   
+                    $@@@@@@@@@@z !@@i                      <@@$]                                   
+                    @@@@@@@$@@@  ,$@f         x@@$@Y}       !@%r                                   
+                    @@@@@@@$@    n#@]#@<    v@@@@@@@@@$?    ]@@c                                   
+                    @@@@@@@B?i-_v#@@@#@    $@@@@#@@$$i@@#   1@@[                                   
+                    {@@@&@@@@$%@#@@f      v@@@@@@@$@@  @@@U j@$x                                   
+                    @@@     J@@@@  Jc    j@@@@@@@$@#@  t$#@.C@$1                                   
+                   @$@L    x@%@@   ]@p   #@#$@@@@@@##  !@@@ #@@+                                   
+                   @@8     _@@$@@@@@$@<  #@@@@@$@@@B.   $@iY$@@                                    
+                 @@@@@@@@*(l     .       ~@@@@mI       %@  @$#@                                    
+                !@@@$@@@@@@@@@@@}l         @@@@@@@@@@@#h   @@@#                                    
+               _@@@( .I!p$@@@@@@@@@$@kJ       1&@$#@@@x   )@@@8                                    
+               ##@$          (tB@@$@@##@#$@ti             B#@#J                                    
+              z@#@_                    ;!;t###@@@U1      }@@@#                                     
+             r@#@?                                       #@$@n                                     
+             @@@@                                        @$@@                                      
+            >@@@L.                                      z@@@@                                      
+           ~$@@!                                       ]@@#@n                                      
+           @$@#                                        ##@&Q                                       
+          x@@@u                                        $@$@                                        
+         I@@#U                                        |@@@$                                        
+         (@@@.                          |@#          |@@$;                                         
+         [@@@                           @@@   @@<    @@@@                                          
+         n@@@                          U@@]  @@@J    @&@x                               1aqU>      
+         j@@@                          @@$>  @@@|   (@@@                              J@$W#@@@t    
+         J@@m                          @@}  z@@1   1@@@                             q@@$     @@M   
+         J@@x                          @$. {@@@.   @@@@                            $@@@      @@@.  
+         J@#Z                         v@$  @#@Z    @#@,                          Z@@$%       @@C   
+         J@@Y                         k$Z  @##    {@&@,                         }@@@@        @%    
+         J@@C                        f@]  >@@    i@@#n                         @@#@        i#@J    
+         J@@U                        @@  X@@@    t##@                        o@@@x         @@i     
+         J@@Y                        @@  @@@     z@@@  -*@#@@@@@@@@@J       Z$@@n        ~@@@      
+         z@@{                        @0 {@#~     f#@@@@@$@$@@@$@@@@@$@@    @@@@ .        @@C       
+         )#@$                       ;8 c@@&      j$$@l    ~jI      1w@@$@M#$@          @@@C        
+         !@@#                      +@! @@@       1%@#      @@@-       >%@@@          Z@#@>         
+          @@#                      ##  @$)         ,;      @#@/        @@]          !#@@*          
+          W@@                      @$  @&                  uUW8@@BQx>m$@z          #@$@L           
+          [@@)                   @@;    X@h            @@@@@@@%@#@@##$@@I        @@@@@j            
+           @@b                 #Z        U@]            !1/_,;_(rx##@@#@#@u     i###@U_            
+           ###]               @      [@t  .@v.                      .|%@#@@x       #@@@@L          
+           a@@@               #@@@@  @@@$ .@?                          {@@@@@         _i@$@        
+           <@@@!                 @@Lj@@.;@@                  @@          ##@$@           @$f       
+            >@@@~                 o@@@I                     Y@@           t#@@@   nY(  _x@#        
+             @@%@                  1[ .                      cY            @@@$   .(@@@$h          
+             W@@@z                                                         @@@@      @@I           
+               @@@@                                    /@@r                ?@@@       _@@          
+               .@@@@o                                  @@@c                X#$@        @@          
+                 d#@@@)                                $@                  }$#@        $@          
+                   @$@@@I                                                  @@#@@@f{l|[#@#.         
+                   @@@@#@@#I                           >@@@               p@@+Ijm@@@@@}            
+      @@@)        C@#[ ;U$@@%01                         . .             ]@@@>. .                   
+     /@ }@#      @@@m    @@@@@@@@C<                                    @@@#                        
+     /@( i@#m   n@#I   x@@} }@@@@@@@#@t|,                 ~@d        @@@$~                         
+      0@   r@@[@@Z   }@@&     .  Xq@@@@@@@@@@n             YB     |&$$@                            
+      (@U    #@@@   ?@@              iz#@@@$@@|  @@@@@&&nr?    )@@@@$ .                            
+       $@     J;   @@@+                  C@$@;   $@@@@@@@@@@$@@#@@@                                
+       @#        {$@@            ?t%dzi  @@#u   Y@@   -X0@@@$@@Y                                   
+        o@-    Y@@@ .            @$#$@@@@@$    ;$@?                                                
+         @@  +#@@[               @@@v##@@@Z    @@r                                                 
+         i@@@@@@[                #@$#  n}      $@                                                  
+           @@#@                  z@#@         @@x                                                  
+                                  }@@@       @@]                                                   
+                                   @@#B     >@@                                                    
+                                   +@@@    }@@z                                                    
+                                     @$@-  @@(                                                     
+                                      L@$@@%;                                                      
+                                      .U@@@.                                                       
+-->
+</AnchorPane>

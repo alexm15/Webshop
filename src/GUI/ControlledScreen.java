@@ -9,16 +9,18 @@ public interface ControlledScreen {
     /**
      * String-konstanter der indeholde de forskellige screens navne.
      */
-    String CATALOGUE_SCREEN = "CatalogueController";
-    String CATALOGUE_SCREEN_FXML = "Catalogue.fxml";
-    String PRODUCT_SCREEN = "ProductController";
-    String PRODUCT_SCREEN_FXML = "Product.fxml";
-    String MYPAGE_SCREEN = "MyPageController";
-    String MYPAGE_SCREEN_FXML = "MyPage.fxml";
-    String SHOPPINGBASKET_SCREEN = "ShoppingBasketController";
-    String SHOPPINGBASKET_SCREEN_FXML = "ShoppingBasket.fxml";
-    String REGISTER_SCREEN = "RegisterController";
-    String REGISTER_SCREEN_FXML = "Register.fxml";
+    String CATALOGUE_SCREEN = "user_view/CatalogueController";
+    String CATALOGUE_SCREEN_FXML = "user_view/Catalogue.fxml";
+    String PRODUCT_SCREEN = "user_view/ProductController";
+    String PRODUCT_SCREEN_FXML = "user_view/Product.fxml";
+    String MYPAGE_SCREEN = "user_view/MyPageController";
+    String MYPAGE_SCREEN_FXML = "user_view/MyPage.fxml";
+    String SHOPPINGBASKET_SCREEN = "user_view/ShoppingBasketController";
+    String SHOPPINGBASKET_SCREEN_FXML = "user_view/ShoppingBasket.fxml";
+    String REGISTER_SCREEN = "user_view/RegisterController";
+    String REGISTER_SCREEN_FXML = "user_view/Register.fxml";
+    String PIM_SCREEN = "manager_view/PIMController";
+    String PIM_SCREEN_FXML = "manager_view/PIM.fxml";
     
     /**
      * Metode til at sætte den samme screen controller i forskellige filer.

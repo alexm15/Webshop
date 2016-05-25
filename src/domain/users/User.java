@@ -97,8 +97,7 @@ public class User {
     }
 
     public void changeQuantity(int quantity, Item item) {
-        Order shoppingBasket = this.findShoppingBasket();
-        shoppingBasket.changeQuantity(item, quantity);
+        findShoppingBasket().changeQuantity(item, quantity);
     }
 
     public void removeItem(Item item) {
@@ -116,7 +115,11 @@ public class User {
     }
     
     public List<Item> getShoppingBasket() {
-        return findShoppingBasket().getItems();
+        return getShoppingBasketOrder().getItems();
+    }
+    
+    public Order getShoppingBasketOrder() {
+        return findShoppingBasket();
     }
     
     public void recieveShoppingBasket(Order o){
@@ -128,7 +131,7 @@ public class User {
         orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, OrderStatus.SHOPPING_BASKET, address));
     }
 
-    public void addItem(Product product, int quantity) {
-        findShoppingBasket().addItem(product, quantity);
+    public void addItem(Product product, int quantity, String size) {
+        findShoppingBasket().addItem(product, quantity, size);
     }
 }
