@@ -1,4 +1,4 @@
-package GUI;
+package GUI.user_view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import domain.products.Product;
+import javafx.scene.Group;
 
 /**
  * @author Niels
@@ -28,17 +29,18 @@ public class ProductItem extends VBox {
     
     private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
     private final Border hoverBorder = new Border(hoverStroke);
+    
     /**
      * 
      * @param product
      * @param x
      * @param y 
      */
-    public ProductItem(Product product, int x, int y) {
+    public ProductItem(Product product, double x, double y) {
+        Group root = new Group();
         setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
         setPrefWidth(130);
-        setPrefHeight(160);
         setLayoutX(x);
         setLayoutY(y);
         setAlignment(Pos.TOP_CENTER);
@@ -58,5 +60,11 @@ public class ProductItem extends VBox {
         iv.setFitWidth(100);
         iv.setPreserveRatio(true);
         getChildren().addAll(iv, text);
+        root.getChildren().add(this);
+        root.layout();
+    }
+    
+    public double getImageHeight() {
+        return getHeight();//iv.getImage().getHeight();
     }
 }

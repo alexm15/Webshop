@@ -1,4 +1,4 @@
-package GUI;
+package GUI.user_view;
 
 import domain.products.Item;
 import javafx.geometry.Pos;
@@ -7,10 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
@@ -26,15 +22,11 @@ public class ShoppingBasketItem extends HBox {
     private final BackgroundFill defaultBackgroundFill = new BackgroundFill(new Color(225 / 255.0, 225 / 255.0, 225 / 255.0, 1), null, null);
     private final Background defaultBackground = new Background(defaultBackgroundFill);
     
-    private final BorderStroke hoverStroke = new BorderStroke(Color.GHOSTWHITE, BorderStrokeStyle.SOLID, null, new BorderWidths(2));
-    private final Border hoverBorder = new Border(hoverStroke);
-    
-    private TextField tf;
+    private TextField quantityTxt;
     private Label price;
     private Button removeBtn, updateBtn;
         
     public ShoppingBasketItem(Item item, int x, int y) {
-        //setPadding(new Insets(15, 0, 0, 0));
         setSpacing(20);
         setPadding(new Insets(10,0,10,10));
         setPrefWidth(800);
@@ -59,7 +51,7 @@ public class ShoppingBasketItem extends HBox {
         price.setTextAlignment(TextAlignment.LEFT);
         price.setMaxWidth(70);
         price.setMinWidth(70);
-        tf = new TextField(""+item.getQuantity()) {
+        quantityTxt = new TextField(item.getQuantity() + "") {
             @Override public void replaceText(int start, int end, String text) {
                 if(validate(text)) {
                     super.replaceText(start, end, text);
@@ -75,11 +67,11 @@ public class ShoppingBasketItem extends HBox {
             }
         };
         
-        tf.setMaxWidth(40);
+        quantityTxt.setMaxWidth(40);
         updateBtn = new Button("Opdater antal");
         removeBtn = new Button("Fjern");
         
-        getChildren().addAll(iv, name, details, price, tf, updateBtn, removeBtn);
+        getChildren().addAll(iv, name, details, price, quantityTxt, updateBtn, removeBtn);
     }
     
     public Button getRemoveBtn() {
@@ -91,18 +83,14 @@ public class ShoppingBasketItem extends HBox {
     }
     
     public TextField getPriceField() {
-        return tf;
+        return quantityTxt;
     }
     
     public String getText(){
-        return tf.getText();
+        return quantityTxt.getText();
     }
     
     public void setPrice(double i){
-        price.setText(i+"");
+        price.setText(i + "");
     }
-    
-
-    
-    
 }

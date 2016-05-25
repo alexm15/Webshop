@@ -1,6 +1,7 @@
 package domain;
 
 import database.DatabaseDriver;
+import database.IDatabase;
 import domain.products.Catalogue;
 import domain.products.Product;
 import domain.products.Item;
@@ -22,7 +23,7 @@ import util.Rights;
 public class WebshopDriver implements IWebshopDriver {
 
     private static IWebshopDriver instance = null;
-    //private DatabaseController database;
+    private IDatabase databaseDriver;
     private UserManageable userManager;
     private ProductManagable catalogue;
     private static int orderID;
@@ -32,13 +33,12 @@ public class WebshopDriver implements IWebshopDriver {
      * UserManager og Catalogue, der kan tilgå sig sine respektive klasser.
      */
     private WebshopDriver() {
-        //database = new DatabaseController();
+        databaseDriver = DatabaseDriver.getInstance();
+        databaseDriver.connectPIM();
+        databaseDriver.connectURM();
         userManager = new UserManager();
         catalogue = new Catalogue();
         orderID = 0;
-        //DatabaseDriver.getInstance().connectPIM();
-        //DatabaseDriver.getInstance().connectURM();
-        //DatabaseDriver.getInstance().pim();
     }
 
     /*public void connect() {
@@ -191,16 +191,6 @@ public class WebshopDriver implements IWebshopDriver {
     }
 
     /**
-     * Styrer indlæsning af produkter på GUI. 
-     * Indlæser objekterne af {@link Product} som {@link Catalogue} indeholder.
-     * 
-     */
-    @Override
-    public void loadProducts() {
-        catalogue.loadProducts();
-    }
-
-    /**
      * Styrer søgekriterier valg i GUI så de kommunikere med domæne-laget.
      * 
      * @param searchWord indtastet søgeord
@@ -213,8 +203,10 @@ public class WebshopDriver implements IWebshopDriver {
      */
     @Override
     public List<Product> searchProducts(String searchWord, double maxPrice, Set<String> genders,
-            Set<String> categories, Set<String> colors, boolean small, boolean medium, boolean large) {
-        return catalogue.searchProducts(searchWord, maxPrice, genders, categories, colors, small, medium, large);
+            Set<String> categories, Set<String> manufacturers, Set<String> colors, 
+            boolean small, boolean medium, boolean large) {
+        return catalogue.searchProducts(searchWord, maxPrice, genders, categories, 
+                manufacturers, colors, small, medium, large);
     }
 
     /**
@@ -260,6 +252,11 @@ public class WebshopDriver implements IWebshopDriver {
     @Override
     public List<Item> getShoppingBasket() {
         return userManager.getShoppingBasket();
+    }
+    
+    @Override
+    public int getShoppingBasketSize() {
+        return userManager.getShoppingBasketSize();
     }
 
     /**
@@ -355,19 +352,10 @@ public class WebshopDriver implements IWebshopDriver {
         if (!userManager.hasBasket()) {
             makeNewBasket();
         }
-//        try {
-//            Item item = userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size);
-//            userManager.changeQuantity(item, quantity);
-//            System.err.println("Item");
-//        }
-//        catch(NullPointerException e) {
-//            userManager.addItem(getSelectedProduct(), quantity, size);
-//            System.err.println("Nullpointer - tilføjes normalt");
-//        }
         
         if(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size) != null){
             userManager.changeQuantity(userManager.getShoppingBasketOrder().containsProduct(getSelectedProduct(), size), quantity);
-            System.err.println("niels");
+            System.err.println("Item findes allerede - øger antal");
         }
         else {          
             userManager.addItem(getSelectedProduct(), quantity, size);
@@ -411,13 +399,34 @@ public class WebshopDriver implements IWebshopDriver {
      */
     @Override
     public boolean isValidEmail(String email) {
-        System.out.println("y");
         return userManager.isValidEmail(email);
     }
     
     @Override
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
-        catalogue.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
+    public Set<String> getAllCategories() {
+        return catalogue.getAllCategories();
+    }
+    
+    @Override
+    public Set<String> getAllManufacturers() {
+        return catalogue.getAllManufacturers();
+    }
+    
+    @Override
+    public Set<String> getAllColors() {
+        return catalogue.getAllColors();
+    }
+    
+    @Override
+    public double getMaxPrice() {
+        return catalogue.getMaxPrice();
+    }
+    
+    @Override
+    public void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        catalogue.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
     
     @Override

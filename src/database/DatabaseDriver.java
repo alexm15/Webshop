@@ -1,5 +1,8 @@
 package database;
 
+import java.sql.ResultSet;
+import java.util.List;
+
 /**
  *
  * @author Niels
@@ -46,13 +49,13 @@ public class DatabaseDriver implements IDatabase {
     }
     
     @Override
-    public void getProducts() {
-        //pim.getProducts();
+    public ResultSet getProducts() {
+        return pim.getProducts();
     }
 
     @Override
-    public void getCustomers() {
-        //urm.getCustomers();
+    public ResultSet getUsers() {
+        return urm.getUsers();
     }
 
     @Override
@@ -69,8 +72,11 @@ public class DatabaseDriver implements IDatabase {
         return instance;
     }
     
-    public void createProduct(int id, String name, String manufactor, String description, String category, boolean small, boolean medium, boolean large, String color, String gender, double price, String imagePath){
-        pim.createProduct(id, name, manufactor, description, category, small, medium, large, color, gender, price, imagePath);
+    @Override
+    public void createProduct(int id, String name, String category, 
+            boolean small, boolean medium, boolean large, String color, 
+            String gender, String description, String imagePath, String manufacturer, double price) {
+        pim.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
 
     @Override
@@ -78,7 +84,6 @@ public class DatabaseDriver implements IDatabase {
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, int right, 
             String birthDay, String birthMonth, String birthYear) {
-        
         urm.storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
     }
     

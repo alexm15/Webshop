@@ -30,6 +30,8 @@ public interface UserManageable {
 
     List<Item> getShoppingBasket();
     
+    int getShoppingBasketSize();
+    
     Order getShoppingBasketOrder();
 
     boolean hasBasket();

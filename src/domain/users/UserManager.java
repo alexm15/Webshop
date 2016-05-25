@@ -1,5 +1,6 @@
 package domain.users;
 
+import database.DatabaseDriver;
 import domain.products.Item;
 import domain.products.Order;
 import domain.products.Product;
@@ -7,6 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +26,38 @@ public class UserManager implements UserManageable {
 
     public UserManager() {
         usersMap = new HashMap<>();
-        createUser("email@email.dk", "kode", "12345678", "Test", "Bruger", "55", 
-                "Campusvej", "5000", "Odense", "Danmark", Rights.CUSTOMER, "01", "27", "1990");
+        loadUsers();
+        //createUser("email@email.dk", "kode", "12345678", "Test", "Bruger", "55", 
+        //        "Campusvej", "5000", "Odense", "Danmark", Rights.CUSTOMER, "01", "27", "1990");
+    }
+    
+    private void loadUsers() {
+        ResultSet rs = DatabaseDriver.getInstance().getUsers();
+        try {
+            while(rs.next()) {
+                String email = rs.getString(1);
+                String password = rs.getString(2);
+                byte[] salt = rs.getBytes(3);
+                String phoneNumber = rs.getString(4);
+                String firstName = rs.getString(5);
+                String lastName = rs.getString(6);
+                int right = rs.getInt(7);
+                String birthDay = rs.getString(8);
+                String birthMonth = rs.getString(9);
+                String birthYear = rs.getString(10);
+                String houseNumber = rs.getString(11);
+                String zipCode = rs.getString(12);
+                String streetName = rs.getString(13);
+                String city = rs.getString(14);
+                String country = rs.getString(15);
+                usersMap.put(email, new User(email, password, salt, phoneNumber, 
+                        firstName, lastName, houseNumber, streetName, zipCode, 
+                        city, country, right, birthDay, birthMonth, birthYear));
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -36,7 +69,6 @@ public class UserManager implements UserManageable {
         else {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
             if(validated) {
-             
                 if(this.hasBasket()){
                     user.recieveShoppingBasket(loggedInUser.findShoppingBasket());
                 }
@@ -76,7 +108,7 @@ public class UserManager implements UserManageable {
             usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber, 
                     firstName, lastName, houseNumber, streetName, zipCode, city, country, 
                     right, birthDay, birthMonth, birthYear));
-            database.DatabaseDriver.getInstance().storeUser(email, password, salt, phoneNumber, firstName, lastName, houseNumber, 
+            DatabaseDriver.getInstance().storeUser(email, hashedPassword, salt, phoneNumber, firstName, lastName, houseNumber, 
                     streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
         }
     }
@@ -153,6 +185,16 @@ public class UserManager implements UserManageable {
         return loggedInUser.getShoppingBasket();
     }
     
+    @Override
+    public int getShoppingBasketSize() {
+        int size = 0;
+        for(Item i : getShoppingBasket()) {
+            size += i.getQuantity();
+        }
+        return size;
+    }
+    
+    @Override
     public Order getShoppingBasketOrder() {
         return loggedInUser.getShoppingBasketOrder();
     }
@@ -162,6 +204,7 @@ public class UserManager implements UserManageable {
         loggedInUser.addItem(product, quantity, size);
     }
 
+    @Override
     public void changeQuantity(Item item, int quantity) {
         loggedInUser.changeQuantity(quantity, item);
 
