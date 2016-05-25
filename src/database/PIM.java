@@ -30,7 +30,7 @@ public class PIM extends AbstractDatabase {
     
     public ResultSet getProducts() {
         ResultSet rs = null;
-        PreparedStatement st = null;
+        PreparedStatement st;
         try {
             st = connection.prepareStatement("SELECT * FROM product");
             rs = st.executeQuery();

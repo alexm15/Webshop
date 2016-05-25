@@ -33,7 +33,7 @@ public class URM extends AbstractDatabase {
     
     public ResultSet getUsers() {
         ResultSet rs = null;
-        PreparedStatement st = null;
+        PreparedStatement st;
         try {
             st = connection.prepareStatement("SELECT * FROM users, address "
                     + "WHERE users.email = address.email");
