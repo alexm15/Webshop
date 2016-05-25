@@ -12,16 +12,14 @@ import util.*;
 public class Order implements OrderManageable {
 
     private Date orderDate;
-    private double shippingCharge;
     private int orderID;
     private int status;
     private Address shippingAddress;
     private List<Item> itemList;
-    private final double TAX = 1.2;
+    private final double TAX = 1.2, shippingCharge = 25.0;
 
-    public Order(Date orderDate, double shippingCharge, int orderID, int status, Address shippingAddress) {
+    public Order(Date orderDate, int orderID, int status, Address shippingAddress) {
         this.orderDate = orderDate;
-        this.shippingCharge = shippingCharge;
         this.orderID = orderID;
         this.status = status;
         this.shippingAddress = shippingAddress;
@@ -86,17 +84,12 @@ public class Order implements OrderManageable {
     }
 
     @Override
-    public void setShippingCharge(double shippingCharge) {
-        this.shippingCharge = shippingCharge;
-    }
-
-    @Override
     public double getFinalPrice() {
         double sum = 0;
         for(Item item : itemList) {
             sum += item.getSumPrice();
         }
-        return sum * TAX;
+        return sum * TAX + shippingCharge;
     }
 
     @Override

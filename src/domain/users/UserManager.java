@@ -109,7 +109,7 @@ public class UserManager implements UserManageable {
                     firstName, lastName, houseNumber, streetName, zipCode, city, country, 
                     right, birthDay, birthMonth, birthYear));
             DatabaseDriver.getInstance().storeUser(email, hashedPassword, salt, phoneNumber, firstName, lastName, houseNumber, 
-                    streetName, zipCode, city, country, 0, birthDay, birthMonth, birthYear);
+                    streetName, zipCode, city, country, right, birthDay, birthMonth, birthYear);
         }
     }
     

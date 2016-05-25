@@ -41,8 +41,6 @@ public interface OrderManageable {
 
     void setShippingAddress(Address shippingAddress);
 
-    void setShippingCharge(double shippingCharge);
-
     void setStatus(int status);
     
 }

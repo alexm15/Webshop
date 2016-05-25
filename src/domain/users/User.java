@@ -127,8 +127,7 @@ public class User {
     }
 
     public void createOrder(int orderID) {
-        double shippingCharge = 25.0;
-        orderMap.put(orderID, new Order(new Date(), shippingCharge, orderID, OrderStatus.SHOPPING_BASKET, address));
+        orderMap.put(orderID, new Order(new Date(), orderID, OrderStatus.SHOPPING_BASKET, address));
     }
 
     public void addItem(Product product, int quantity, String size) {
