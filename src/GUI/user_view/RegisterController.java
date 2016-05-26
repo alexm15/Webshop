@@ -86,7 +86,7 @@ public class RegisterController implements Initializable, ControlledScreen {
             formulaErrorTxt.setText("Indtast venligst både bynavn og postnr.");
         }
         else if(country.isEmpty()) {
-            formulaErrorTxt.setText("Indtast venligst land.");
+            formulaErrorTxt.setText("Indtast venligst et land.");
         }
         else if(phoneNumber.isEmpty()) {
             formulaErrorTxt.setText("Indtast venligst et telefonnummer.");
