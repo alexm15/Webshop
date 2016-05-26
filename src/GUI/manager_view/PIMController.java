@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
@@ -73,20 +74,6 @@ public class PIMController implements Initializable, ControlledScreen {
     @FXML
     private ComboBox<String> manufacturerCBox;
     @FXML
-    private RadioButton blackRBtn;
-    @FXML
-    private ToggleGroup colorGroup;
-    @FXML
-    private RadioButton whiteRBtn;
-    @FXML
-    private RadioButton redRBtn;
-    @FXML
-    private RadioButton blueRBtn;
-    @FXML
-    private RadioButton greenRBtn;
-    @FXML
-    private RadioButton yellowRBtn;
-    @FXML
     private ListView<Product> productListView;
     @FXML
     private CheckBox sBoxNew;
@@ -108,6 +95,10 @@ public class PIMController implements Initializable, ControlledScreen {
     private Label errorTxt;
     @FXML
     private VBox priceContainer;
+    @FXML
+    private ComboBox<String> colorCBox;
+    @FXML
+    private TextArea descriptionArea;
     
     @FXML
     public void showCatalogueScreen() {
@@ -122,6 +113,8 @@ public class PIMController implements Initializable, ControlledScreen {
         String name = nameTxt.getText();
         String category = categoryCBox.getEditor().getText();
         String manufacturer = manufacturerCBox.getEditor().getText();
+        String color = colorCBox.getEditor().getText();
+        String description = descriptionArea.getText();
         boolean small = sBoxNew.isSelected(), medium = mBoxNew.isSelected(), large = lBoxNew.isSelected();
         double price = Double.parseDouble(priceTxt.getText());
         if(name.isEmpty()) {
@@ -133,18 +126,23 @@ public class PIMController implements Initializable, ControlledScreen {
         else if(manufacturer.isEmpty()) {
             errorTxt.setText("Indtast eller vælg mærke.");
         }
+        else if(color.isEmpty()) {
+            errorTxt.setText("Indtast eller vælg farve.");
+        }
         else if(!small && !medium && !large) {
             errorTxt.setText("Vælg mindst én størrelse.");
+        }
+        else if(description.isEmpty()) {
+            errorTxt.setText("Indtast en beskrivelse.");
         }
         else if(priceTxt.getText().isEmpty()) {
             errorTxt.setText("Indtast en pris.");
         }
         else {
             webshopDriver.changeProductDetails(webshopDriver.getSelectedProduct().getId(), 
-                name, category, small, medium, large, ((RadioButton) colorGroup.getSelectedToggle()).getText(), 
+                name, category, small, medium, large, color, 
                 ((RadioButton) genderGroup.getSelectedToggle()).getText(), 
-                webshopDriver.getSelectedProduct().getDescription(), 
-                webshopDriver.getSelectedProduct().getImagePath(), 
+                description, webshopDriver.getSelectedProduct().getImagePath(), 
                 manufacturer, price);
             System.out.println("Produkt opdateret");
             createCategoryCheckBoxes();
@@ -188,15 +186,11 @@ public class PIMController implements Initializable, ControlledScreen {
             unisexRBtn.setDisable(true);
             categoryCBox.setDisable(true);
             manufacturerCBox.setDisable(true);
-            blackRBtn.setDisable(true);
-            whiteRBtn.setDisable(true);
-            redRBtn.setDisable(true);
-            blueRBtn.setDisable(true);
-            greenRBtn.setDisable(true);
-            yellowRBtn.setDisable(true);
+            colorCBox.setDisable(true);
             sBoxNew.setDisable(true);
             mBoxNew.setDisable(true);
             lBoxNew.setDisable(true);
+            descriptionArea.setDisable(true);
             priceTxt.setDisable(true);
             updateBtn.setDisable(true);
         }
@@ -216,17 +210,8 @@ public class PIMController implements Initializable, ControlledScreen {
             categoryCBox.setValue(selectedProduct.getCategory());
             manufacturerCBox.setDisable(false);
             manufacturerCBox.setValue(selectedProduct.getManufacturer());
-            for(RadioButton rBtn : colorsRBtn) {
-                if(selectedProduct.getColor().equals(rBtn.getText())) {
-                    colorGroup.selectToggle(rBtn);
-                }
-            }
-            blackRBtn.setDisable(false);
-            whiteRBtn.setDisable(false);
-            redRBtn.setDisable(false);
-            blueRBtn.setDisable(false);
-            greenRBtn.setDisable(false);
-            yellowRBtn.setDisable(false);
+            colorCBox.setDisable(false);
+            colorCBox.setValue(selectedProduct.getColor());
             if(selectedProduct.isSmall()) {
                 sBoxNew.setSelected(true);
             }
@@ -239,6 +224,8 @@ public class PIMController implements Initializable, ControlledScreen {
             sBoxNew.setDisable(false);
             mBoxNew.setDisable(false);
             lBoxNew.setDisable(false);
+            descriptionArea.setDisable(false);
+            descriptionArea.setText(selectedProduct.getDescription());
             priceTxt.setDisable(false);
             priceTxt.setText(selectedProduct.getPrice() + "");
             updateBtn.setDisable(false);
@@ -286,8 +273,6 @@ public class PIMController implements Initializable, ControlledScreen {
         webshopDriver = WebshopDriver.getInstance();
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
         gendersRBtn = new RadioButton[] {womenRBtn, menRBtn, unisexRBtn};
-        colorsRBtn = new RadioButton[] {blackRBtn, whiteRBtn, redRBtn, blueRBtn,
-            greenRBtn, yellowRBtn};
         createCategoryCheckBoxes();
         createManufacturerCheckBoxes();
         createColorCheckBoxes();
@@ -299,6 +284,7 @@ public class PIMController implements Initializable, ControlledScreen {
         sortingOptionsBox.setValue("Alfabetisk stigende");
         categoryCBox.setItems(FXCollections.observableArrayList(webshopDriver.getAllCategories()));
         manufacturerCBox.setItems(FXCollections.observableArrayList(webshopDriver.getAllManufacturers()));
+        colorCBox.setItems(FXCollections.observableArrayList(webshopDriver.getAllColors()));
         productListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Product> observable, Product oldValue, Product newValue) -> {
             if(newValue != null) {
                 webshopDriver.setSelectedProduct(newValue);

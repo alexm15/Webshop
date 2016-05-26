@@ -140,6 +140,11 @@ public class WebshopDriver implements IWebshopDriver {
     public String getZipCode() {
         return userManager.getLoggedInUser().getAddress().getZipCode();
     }
+    
+    @Override
+    public int getRights() {
+        return userManager.getLoggedInUser().getRight();
+    }
 
     /**
      * Identificerer land fra Address klassen {@link util.Address}

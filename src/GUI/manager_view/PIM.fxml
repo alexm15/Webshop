@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -182,25 +183,12 @@
             </Label>
             <ComboBox fx:id="manufacturerCBox" editable="true" prefWidth="150.0" promptText="Vælg mærke..." />
             <Separator prefHeight="17.0" prefWidth="161.0" />
-            <AnchorPane prefHeight="76.0" prefWidth="171.0">
-               <children>
-                  <Label layoutX="70.0" layoutY="3.0" text="Farve">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <RadioButton fx:id="blackRBtn" layoutX="6.0" layoutY="26.0" mnemonicParsing="false" text="Sort">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="colorGroup" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="whiteRBtn" layoutX="57.0" layoutY="26.0" mnemonicParsing="false" text="Hvid" toggleGroup="$colorGroup" />
-                  <RadioButton fx:id="redRBtn" layoutX="116.0" layoutY="26.0" mnemonicParsing="false" text="Rød" toggleGroup="$colorGroup" />
-                  <RadioButton fx:id="blueRBtn" layoutX="6.0" layoutY="52.0" mnemonicParsing="false" text="Blå" toggleGroup="$colorGroup" />
-                  <RadioButton fx:id="greenRBtn" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" text="Grøn" toggleGroup="$colorGroup" />
-                  <RadioButton fx:id="yellowRBtn" layoutX="116.0" layoutY="52.0" mnemonicParsing="false" text="Gul" toggleGroup="$colorGroup" />
-               </children>
-            </AnchorPane>
+            <Label text="Farve">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="colorCBox" editable="true" prefWidth="150.0" promptText="Vælg farve..." />
             <Separator prefHeight="17.0" prefWidth="161.0" />
             <AnchorPane prefHeight="54.0" prefWidth="171.0">
                <children>
@@ -215,6 +203,12 @@
                </children>
             </AnchorPane>
             <Separator prefHeight="17.0" prefWidth="164.0" />
+            <Label text="Beskrivelse">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="descriptionArea" prefHeight="86.0" prefWidth="172.0" promptText="Indtast beskrivelse..." wrapText="true" />
             <VBox fx:id="priceContainer" alignment="CENTER" prefHeight="54.0" prefWidth="172.0" spacing="5.0">
                <children>
                   <Label text="Pris">

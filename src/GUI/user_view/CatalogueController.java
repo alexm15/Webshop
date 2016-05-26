@@ -22,6 +22,7 @@ import domain.products.Product;
 import domain.WebshopDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 
@@ -78,6 +79,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     private VBox colorChoiceContainer;
     @FXML
     private HBox shoppingBasketContainer;
+    @FXML
+    private Button pimBtn;
     
     /**
      * Loader og viser produktskærmen.
@@ -98,7 +101,6 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
-    @FXML
     private void showShoppingBasketScreen() {
         controller.loadScreen(SHOPPINGBASKET_SCREEN, SHOPPINGBASKET_SCREEN_FXML);
         handleMultiScreenContainers();
@@ -142,6 +144,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
             logoutContainer.setVisible(true);
             String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
             usernameTxt.setText(welcomeMSg[(int) (Math.random() * welcomeMSg.length)] + " " + webshopDriver.getFirstName());
+            if(webshopDriver.getRights() > 2) {
+                pimBtn.setVisible(true);
+            }
         }
         else {
             errorTxt.setVisible(true);
@@ -155,17 +160,21 @@ public class CatalogueController implements Initializable, ControlledScreen {
         logoutContainer.setVisible(true);
         String[] welcomeMSg = {"Hej", "Goddag", "Velkommen"};
         usernameTxt.setText(welcomeMSg[(int) (Math.random() * welcomeMSg.length)] + " " + webshopDriver.getFirstName());
+        if(webshopDriver.getRights() > 2) {
+            pimBtn.setVisible(true);
+        }
     }
     
     @FXML
     private void logout() {
+        webshopDriver.logout();
         if(controller.unloadScreen(MYPAGE_SCREEN)) {
             controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
             controller.setScreen(CATALOGUE_SCREEN);
         }
         logoutContainer.setVisible(false);
         loginContainer.setVisible(true);
-        webshopDriver.logout();
+        pimBtn.setVisible(false);
     }
     
     /**

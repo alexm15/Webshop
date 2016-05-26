@@ -170,6 +170,7 @@ public interface IWebshopDriver {
      */
     String getZipCode();
 
+    int getRights();
     /**
      * Styrer valideringen af om en email eksisterer i GUI så den kommunikerer
      * med domæne-laget.

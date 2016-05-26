@@ -27,8 +27,6 @@ public class UserManager implements UserManageable {
     public UserManager() {
         usersMap = new HashMap<>();
         loadUsers();
-        //createUser("email@email.dk", "kode", "12345678", "Test", "Bruger", "55", 
-        //        "Campusvej", "5000", "Odense", "Danmark", Rights.CUSTOMER, "01", "27", "1990");
     }
     
     private void loadUsers() {

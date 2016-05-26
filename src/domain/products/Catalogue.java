@@ -249,7 +249,7 @@ public class Catalogue implements ProductManagable {
     public void changeProductDetails(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
             String gender, String description, String imagePath, String manufacturer, double price) {
-        //DatabaseDriver.getInstance().changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
+        DatabaseDriver.getInstance().changeProductDetails(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
         //loadProducts(); //genload products fra database
         selectedProduct.setId(id);
         selectedProduct.setName(name);
