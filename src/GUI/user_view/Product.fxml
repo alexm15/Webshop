@@ -16,7 +16,7 @@
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
-      <Button layoutX="592.0" layoutY="459.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <Button layoutX="585.0" layoutY="610.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Tilbage til katalog" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1e1e1" height="238.0" layoutX="308.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" width="255.0" />
       <ImageView fx:id="imageView" fitHeight="198.0" fitWidth="215.0" layoutX="308.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="328.0" AnchorPane.topAnchor="113.0" />
       <VBox alignment="CENTER_LEFT" layoutX="657.0" layoutY="93.0" prefHeight="326.0" prefWidth="364.0" spacing="10.0">

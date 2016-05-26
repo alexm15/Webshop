@@ -23,8 +23,16 @@ public interface UserManageable {
     void createGuestUser();
 
     void createOrder(int orderID);
+    
+    void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear);
 
-    void createUser(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, int right, String birthDay, String birthMonth, String birthYear);
+    void createUser(String email, String password, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, int right, String birthDay, 
+            String birthMonth, String birthYear);
 
     User getLoggedInUser();
 

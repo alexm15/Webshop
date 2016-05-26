@@ -96,6 +96,50 @@ public class User {
         return right;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
+    }
+
+    public void setOrderMap(Map<Integer, Order> orderMap) {
+        this.orderMap = orderMap;
+    }
+
     public void changeQuantity(int quantity, Item item) {
         findShoppingBasket().changeQuantity(item, quantity);
     }

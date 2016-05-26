@@ -43,11 +43,11 @@ public class UserManager implements UserManageable {
                 String birthDay = rs.getString(8);
                 String birthMonth = rs.getString(9);
                 String birthYear = rs.getString(10);
-                String houseNumber = rs.getString(11);
-                String zipCode = rs.getString(12);
-                String streetName = rs.getString(13);
-                String city = rs.getString(14);
-                String country = rs.getString(15);
+                String houseNumber = rs.getString(12);
+                String zipCode = rs.getString(13);
+                String streetName = rs.getString(14);
+                String city = rs.getString(15);
+                String country = rs.getString(16);
                 usersMap.put(email, new User(email, password, salt, phoneNumber, 
                         firstName, lastName, houseNumber, streetName, zipCode, 
                         city, country, right, birthDay, birthMonth, birthYear));
@@ -93,6 +93,33 @@ public class UserManager implements UserManageable {
     @Override
     public void logout() {
         setLoggedInUser(null);
+    }
+    
+    @Override
+    public void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear) {
+        User user = usersMap.get(email);
+        if(passwordChanged) {
+            password = getHashedPassword(password, user.getSalt());
+        }
+        DatabaseDriver.getInstance().changeUserDetails(email, password, phoneNumber, 
+                firstName, lastName, houseNumber, streetName, zipCode, city, country, 
+                birthDay, birthMonth, birthYear);
+        user.setPassword(password);
+        user.setPassword(phoneNumber);
+        user.getName().setFirstName(firstName);
+        user.getName().setLastName(lastName);
+        user.getAddress().setHouseNumber(houseNumber);
+        user.getAddress().setStreetName(streetName);
+        user.getAddress().setZipCode(zipCode);
+        user.getAddress().setCity(city);
+        user.getAddress().setCountry(country);
+        user.setBirthDay(birthDay);
+        user.setBirthMonth(birthMonth);
+        user.setBirthYear(birthYear);
+        setLoggedInUser(user);
     }
     
     @Override

@@ -40,18 +40,28 @@ public class WebshopDriver implements IWebshopDriver {
         catalogue = new Catalogue();
         orderID = 0;
     }
-
-    /*public void connect() {
-        database.connect();
+    
+    @Override
+    public boolean isPIMConnected() {
+        return databaseDriver.isPIMConnected();
     }
     
-    public void disconnect() {
-        database.disconnect();
+    @Override
+    public boolean isURMConnected() {
+        return databaseDriver.isURMConnected();
     }
     
-    public boolean isConnected() {
-        return database.isConnected();
-    }*/
+    @Override
+    public void disconnectPIM() {
+        databaseDriver.disconnectPIM();
+    }
+    
+    @Override
+    public void disconnectURM() {
+        databaseDriver.disconnectURM();
+    }
+    
+    
     /**
      * Logger den en indtastet bruger ind i systemet. Beder det aktive objekt af
      * UserManageren om at validere at den indtastet email og kode passer på en
@@ -376,6 +386,16 @@ public class WebshopDriver implements IWebshopDriver {
             userManager.addItem(getSelectedProduct(), quantity, size);
             System.err.println("Nullpointer - tilføjes normalt");
         }
+    }
+    
+    @Override
+    public void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear) {
+        userManager.changeUserDetails(email, password, passwordChanged, phoneNumber, firstName, 
+                lastName, houseNumber, streetName, zipCode, city, country, 
+                birthDay, birthMonth, birthYear);
     }
 
     /**

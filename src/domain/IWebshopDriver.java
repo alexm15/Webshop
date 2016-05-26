@@ -15,6 +15,14 @@ import java.util.Set;
  * @author Morten
  */
 public interface IWebshopDriver {
+    
+    boolean isPIMConnected();
+    
+    boolean isURMConnected();
+    
+    void disconnectPIM();
+    
+    void disconnectURM();
 
     /**
      * Styrer tilføjelsen af items i GUI så den kommunikerer med domæne-laget.
@@ -35,6 +43,11 @@ public interface IWebshopDriver {
      */
     void changeQuantity(int quantity, Item item);
 
+    void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear);
+    
     /**
      * Styrer oprettelsen af en bruger i GUI så den kommunikerer med
      * domæne-laget.
@@ -53,7 +66,10 @@ public interface IWebshopDriver {
      * @param birthMonth det indtastet månedsnummer
      * @param birthYear det indtastet år
      */
-    void createUser(String email, String password, String phoneNumber, String firstName, String lastName, String houseNumber, String streetName, String zipCode, String city, String country, String birthDay, String birthMonth, String birthYear);
+    void createUser(String email, String password, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear);
 
     boolean isUserLoggedIn();
     

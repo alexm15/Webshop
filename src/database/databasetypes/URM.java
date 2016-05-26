@@ -45,6 +45,26 @@ public class URM extends AbstractDatabase {
         return rs;
     }
     
+    public void changeUserDetails(String email, String password, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear) {
+        try(PreparedStatement st = connection.prepareStatement("UPDATE users "
+                    + "SET password='" + password + "', phonenumber='" + phoneNumber + "',"
+                    + "firstname='" + firstName + "', lastname='" + lastName + "', birthday='" + birthDay + "',"
+                    + "birthmonth='" + birthMonth + "', birthYear='" + birthYear + "' "
+                    + "WHERE email = '" + email + "';"
+                    + "UPDATE address SET housenumber='" + houseNumber + "', "
+                    + "streetname='" + streetName + "', zipcode ='" + zipCode + "', "
+                    + "city='" + city + "', country='" + country + "';")) {
+            st.executeUpdate();
+            System.out.println(password);
+        }
+        catch(SQLException e) {
+            System.err.println(e);
+        }
+    }
+    
     public void storeUser(String email, String password, byte[] salt, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, int right, 

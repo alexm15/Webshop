@@ -58,6 +58,16 @@ public class DatabaseDriver implements IDatabase {
     public ResultSet getUsers() {
         return urm.getUsers();
     }
+    
+    @Override
+    public void changeUserDetails(String email, String password, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear) {
+        urm.changeUserDetails(email, password, phoneNumber, firstName, lastName, 
+                houseNumber, streetName, zipCode, city, country, birthDay, 
+                birthMonth, birthYear);
+    }
 
     @Override
     public void changeProductDetails(int id, String name, String category, boolean small, 
