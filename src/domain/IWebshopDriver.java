@@ -16,18 +16,31 @@ import java.util.Set;
  */
 public interface IWebshopDriver {
     
+    /**
+     * @return Om der er oprettet forbindelse til PIM eller ej.
+     */
     boolean isPIMConnected();
     
+    /**
+     * @return Om der er oprettet forbindelse til URM eller ej.
+    */
     boolean isURMConnected();
     
+    /**
+     * Afslutter forbindelsen til PIM.
+     */
     void disconnectPIM();
     
+    /**
+     * Afslutter forbindelsen til URM.
+     */
     void disconnectURM();
 
     /**
      * Styrer tilføjelsen af items i GUI så den kommunikerer med domæne-laget.
      *
-     * @param quantity antallet valgt af den specifikke item
+     * @param quantity antallet af produktet
+     * @param size størrelsen på produktet
      */
     void addItem(int quantity, String size);
 
@@ -35,14 +48,29 @@ public interface IWebshopDriver {
      * Styrer ændringen af kvantiteten på et item i shoppingBasket, i GUI så de
      * kommunikerer med domæne-laget.
      *
-     * @param email emailen på den specifikke bruger som ændringen skal
-     * foretages på.
      * @param quantity det oplyste nummer som kvantiteten af en specifik item
      * skal ændres til.
      * @param item den specifikke item det drejer sig om.
      */
     void changeQuantity(int quantity, Item item);
 
+    /**
+     * Ændrer bruger-attributterne i databasen.
+     * @param email Den nye email
+     * @param password Det nye password
+     * @param passwordChanged Om passwordet er blevet ændret eller ej
+     * @param phoneNumber Det nye telefonnummer
+     * @param firstName Det nye fornavn
+     * @param lastName Det nye efternavn
+     * @param houseNumber Det nye husnummer
+     * @param streetName Det nye streetname
+     * @param zipCode Det nye postnummer
+     * @param city Den nye by
+     * @param country Det nye land
+     * @param birthDay Den nye fødselsdag
+     * @param birthMonth Det nye fødselsmåned
+     * @param birthYear Det nye fødselsår.
+     */
     void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
             String firstName, String lastName, String houseNumber, String streetName, 
             String zipCode, String city, String country, String birthDay, 
@@ -71,6 +99,9 @@ public interface IWebshopDriver {
             String zipCode, String city, String country, String birthDay, 
             String birthMonth, String birthYear);
 
+    /**
+     * @return om der er en bruger logget ind.
+     */
     boolean isUserLoggedIn();
     
     /**
@@ -114,6 +145,11 @@ public interface IWebshopDriver {
      * @return den specifikke Users email-adresse
      */
     String getEmail();
+    
+    /**
+     * @return brugerens krypterede password
+     */
+    String getPassword();
 
     /**
      * Benytter et oprette Name-klasse der opdeler et navn i fornavn og
@@ -121,9 +157,6 @@ public interface IWebshopDriver {
      *
      * @return fornavnet på den specifikke User.
      */
-    
-    String getPassword();
-    
     String getFirstName();
 
     /**
@@ -150,7 +183,7 @@ public interface IWebshopDriver {
 
     /**
      *
-     * @return
+     * @return listen af produkter i systemet.
      */
     List<Product> getProducts();
 
@@ -170,6 +203,9 @@ public interface IWebshopDriver {
      */
     List<Item> getShoppingBasket();
     
+    /**
+     * @return størrelsen på indkøbskurven
+     */
     int getShoppingBasketSize();
 
     /**
@@ -186,6 +222,10 @@ public interface IWebshopDriver {
      */
     String getZipCode();
 
+    /**
+     * 
+     * @return brugerens rettigheder
+     */
     int getRights();
     /**
      * Styrer valideringen af om en email eksisterer i GUI så den kommunikerer
@@ -236,8 +276,12 @@ public interface IWebshopDriver {
      * @param maxPrice udvalgte maks pris på pris-slideren
      * @param genders udvalgte checkbox for køn
      * @param categories udvalgte kategori fra checkboxene for kategorier
+     * @param manufacturers udvalgte mærke fra checkboxene for mærker
      * @param colors udvalgte farve fra checkboxene af farver
-     * @param sizes udvalgte størrelse fra checkboxene af størrelser
+     * @param small om produktet skal være i small
+     * @param medium om produktet skal være i medium
+     * @param large om produktet skal være i large
+     * 
      * @return Domænelagets match af de udvalgte søgekriterier
      */
     List<Product> searchProducts(String searchWord, double maxPrice, Set<String> genders, 
@@ -245,32 +289,79 @@ public interface IWebshopDriver {
             boolean small, boolean medium, boolean large);
 
     /**
-     *
-     * @param product
+     * Sætter et produkt til det nuværende produkt. Bruges når der klikkes ind
+     * på et produkt, fra kataloget.
+     * @param product det produkt der skal sættes som det nuværende
      */
     void setSelectedProduct(Product product);
 
     /**
      * Styrer søgekriterier valg i GUI så de kommunikerer med domæne-laget.
      *
-     * @param sortTerm
-     * @param listToSort
-     * @return
+     * @param sortTerm hvordan listen skal sorteres
+     * @param listToSort listen der skal sorteres
+     * @return den nu sorterede liste
      */
     List<Product> sortProducts(String sortTerm, List listToSort);
     
+    /**
+     * 
+     * @return Alle kategorier der er i systemet
+     */
     Set<String> getAllCategories();
     
+    /**
+     * 
+     * @return alle mærker i systemet
+     */
     Set<String> getAllManufacturers();
     
+    /**
+     * 
+     * @return alle farver i systemet
+     */
     Set<String> getAllColors();
     
+    /**
+     * 
+     * @return den højeste produktpris i systemet
+     */
     double getMaxPrice();
     
+    /**
+     * Opretter et nyt produkt i databasen.
+     * @param id produktets id
+     * @param name produktets navn
+     * @param category produktets kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color produktets farve
+     * @param gender produktets køn
+     * @param description produktets beskrivelse
+     * @param imagePath produktets filsti
+     * @param manufacturer produktets mærke
+     * @param price produktets pris
+     */
     void createProduct(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
             String gender, String description, String imagePath, String manufacturer, double price);
     
+    /**
+     * Ændrer produkt-attributterne i databasen.
+     * @param id produktets id
+     * @param name det nye navn
+     * @param category den nye kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color den nye farve
+     * @param gender det nye køn
+     * @param description den nye beskrivelse
+     * @param imagePath den nye filsti
+     * @param manufacturer det nye mærke
+     * @param price den nye pris
+     */
     void changeProductDetails(int id, String name, String category, boolean small, boolean medium, boolean large, String color,
             String gender, String description, String imagePath, String manufacturer, double price);
 

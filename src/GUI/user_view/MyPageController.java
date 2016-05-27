@@ -49,6 +49,9 @@ public class MyPageController implements Initializable, ControlledScreen {
     @FXML
     private Label formulaErrorTxt;
     
+    /**
+     * Loader og viser katalogskærmen.
+     */
     @FXML
     private void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
@@ -56,6 +59,10 @@ public class MyPageController implements Initializable, ControlledScreen {
         controller.unloadScreen(MYPAGE_SCREEN);
     }
     
+    /**
+     * Opdaterer bruger informationen, baseret på hvad der er indtastet i
+     * tekstfelterne. Er nogle af dem tomme, vises en fejlmeddelelse.
+     */
     @FXML
     private void changeUserDetails() {
         String password = passwordTxt.getText(), firstName = firstNameTxt.getText(), 
@@ -117,6 +124,10 @@ public class MyPageController implements Initializable, ControlledScreen {
         birthYearTxt.setText(webshopDriver.getBirthYear());
     }
     
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

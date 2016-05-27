@@ -15,6 +15,9 @@ public abstract class AbstractDatabase implements Controllable {
     protected String location;
     protected Connection connection = null;
 
+    /**
+     * Opretter forbindelse til databasen, med den url, location, username og password fra configfilen.
+     */
     @Override
     public void connect() {
         String url = "", username = "", password = "";
@@ -37,6 +40,9 @@ public abstract class AbstractDatabase implements Controllable {
         }
     }
 
+    /**
+     * Afslutter forbindelsen til databasen med den angivne location.
+     */
     @Override
     public void disconnect() {
         System.out.println("Disconnecting from " + location + " database...");
@@ -49,6 +55,9 @@ public abstract class AbstractDatabase implements Controllable {
         }
     }
 
+    /**
+     * @return Om forbindelsen er oprettet eller ej.
+     */
     @Override
     public boolean isConnected() {
         return connection != null;

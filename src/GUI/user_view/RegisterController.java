@@ -53,6 +53,9 @@ public class RegisterController implements Initializable, ControlledScreen {
     @FXML
     private Label emailAvailableTxt;
     
+    /**
+     * Loader og viser katalogskærmen.
+     */
     @FXML
     private void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
@@ -60,6 +63,10 @@ public class RegisterController implements Initializable, ControlledScreen {
         controller.unloadScreen(REGISTER_SCREEN);
     }
     
+    /**
+     * Opretter en ny bruger, baseret på det der er indtastet i tekstfelterne.
+     * Hvis en af felterne af tomme, vises en fejlmeddelelse.
+     */
     @FXML
     private void register() {
         String email = emailTxt.getText(), password = passwordTxt.getText(), 
@@ -105,6 +112,9 @@ public class RegisterController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Tjekker om den indtastede email er ledig.
+     */
     @FXML
     private void checkEmail() {
         if(webshopDriver.isValidEmail(emailTxt.getText())) {
@@ -124,6 +134,10 @@ public class RegisterController implements Initializable, ControlledScreen {
         webshopDriver = WebshopDriver.getInstance();
     }
 
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

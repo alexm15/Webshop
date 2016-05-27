@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author Niels
  */
-public class Catalogue implements ProductManagable {
+public class Catalogue implements ProductManageable {
     
     private List<Product> products;
     private Product selectedProduct;
@@ -27,6 +27,9 @@ public class Catalogue implements ProductManagable {
         loadProducts();
     }
     
+    /**
+     * Indlæser produkterne fra databasen, og placerer dem i Listen products.
+     */
     private void loadProducts() {
         ResultSet rs = DatabaseDriver.getInstance().getProducts();
         try {
@@ -54,6 +57,9 @@ public class Catalogue implements ProductManagable {
         }
     }
     
+    /**
+     * Back-up metode, der loader produkter fra et tekstdokument.
+     */
     private void loadProductsFromTxt() {
         try(Scanner in = new Scanner(new File("data/Products.txt"))) {
             in.nextLine(); // kommentarlinje
@@ -78,6 +84,19 @@ public class Catalogue implements ProductManagable {
         }
     }
 
+    /**
+     * Søger gennem alle produkterne, med de givne søgekriterier.
+     * @param searchTerm navnet der skal søges på
+     * @param maxPrice den højeste pris produktet må have
+     * @param genders hvilke køn produkterne må have
+     * @param categories hvilke kategorier produkterne må tilhøre
+     * @param manufacturers hvilke mærker produkterne må tilhøre
+     * @param colors hvilke farver produkterne må have
+     * @param small om produkterne skal være i small
+     * @param medium om produkterne skal være i medium
+     * @param large om produkterne skal være i large
+     * @return 
+     */
     @Override
     public List<Product> searchProducts(String searchTerm, double maxPrice, Set<String> genders,
             Set<String> categories, Set<String> manufacturers, Set<String> colors, 
@@ -91,6 +110,13 @@ public class Catalogue implements ProductManagable {
         //return search(searchSize(searchColor(searchCategory(searchGender(products, genders), categories), colors), sizes), searchTerm, maxPrice); // alternativ måde (slet ikke forvirrende)
     }
 
+    /**
+     * Søger efter navn og pris
+     * @param listToSearch listen der skal søges i 
+     * @param searchTerm navn der skal søges efter
+     * @param maxPrice maks pris produktet må have
+     * @return Liste af produkter med de angivne søgekriterier
+     */
     private List<Product> search(List<Product> listToSearch, String searchTerm, double maxPrice) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -101,6 +127,12 @@ public class Catalogue implements ProductManagable {
         return results;
     }
 
+    /**
+     * Søger efter køn
+     * @param listToSearch listen der skal søges i
+     * @param genders køn der skal søges efter
+     * @return listen af produkter med de givne søgekriterier
+     */
     private List<Product> searchGender(List<Product> listToSearch, Set<String> genders) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -113,6 +145,12 @@ public class Catalogue implements ProductManagable {
         return results;
     }
 
+    /**
+     * søger efter kategori
+     * @param listToSearch listen der skal søges i
+     * @param categories kategorier der skal søges i
+     * @return listen af produkter der opfylder søgekriterierne
+     */
     private List<Product> searchCategory(List<Product> listToSearch, Set<String> categories) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -125,6 +163,12 @@ public class Catalogue implements ProductManagable {
         return results;
     }
     
+    /**
+     * søger efter mærke
+     * @param listToSearch listen der skal søges i
+     * @param manufacturers mærker der skal søges efter
+     * @return liste af kriterier der opfylder søgekriterierne
+     */
     private List<Product> searchManufacturer(List<Product> listToSearch, Set<String> manufacturers) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -137,6 +181,12 @@ public class Catalogue implements ProductManagable {
         return results;
     }
 
+    /**
+     * søger efter farve
+     * @param listToSearch listen der skal søges i
+     * @param colors farver der skal søges efter
+     * @return liste af kriterier der opfylder søgekriterierne
+     */
     private List<Product> searchColor(List<Product> listToSearch, Set<String> colors) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -149,6 +199,14 @@ public class Catalogue implements ProductManagable {
         return results;
     }
 
+    /**
+     * søger efter størrelser
+     * @param listToSearch listen der skal søges i
+     * @param small om der skal søges efter small
+     * @param medium om der skal søges efter medium
+     * @param large om der skal søges efter large
+     * @return liste af kriterier der opfylder søgekriterierne
+     */
     private List<Product> searchSize(List<Product> listToSearch, boolean small, boolean medium, boolean large) {
         List<Product> results = new ArrayList<>();
         for(Product p : listToSearch) {
@@ -162,42 +220,74 @@ public class Catalogue implements ProductManagable {
         return results;
     }
     
+    /**
+     * Sorterer listen alfabetisk stigende
+     * @param listToSort listen der skal sorteres
+     */
     @Override
     public void sortNameAscending(List listToSort) {
         Collections.sort(listToSort);
     }
     
+    /**
+     * sorterer listen alfabetisk faldende
+     * @param listToSort listen der skal sorteres
+     */
     @Override
     public void sortNameDescending(List listToSort) {
         sortNameAscending(listToSort);
         Collections.reverse(listToSort);
     }
     
+    /**
+     * sorterer listen efter pris, stigende
+     * @param listToSort listen der skal sorteres
+     */
     @Override
     public void sortPriceAscending(List listToSort) {
         Collections.sort(listToSort, new ProductPriceComparator());
     }
     
+    /**
+     * sorterer listen efter pris, faldende
+     * @param listToSort listen der skal sorteres
+     */
     @Override
     public void sortPriceDescending(List listToSort) {
         Collections.sort(listToSort, Collections.reverseOrder(new ProductPriceComparator()));
     }
 
+    /**
+     * 
+     * @return alle produkterne i systemet
+     */
     @Override
     public List<Product> getProducts() {
         return products;
     }
 
+    /**
+     * Sætter det valgte produkt
+     * @param product det produkt der skal sættes som det nuværende
+     */
     @Override
     public void setSelectedProduct(Product product) {
         selectedProduct = product;
     }
 
+    /**
+     * 
+     * @return det nuværende selectedProduct
+     */
     @Override
     public Product getSelectedProduct() {
         return selectedProduct;
     }
     
+    /**
+     * 
+     * @return alle kategorier i systemet
+     */
     @Override
     public Set<String> getAllCategories() {
         Set<String> categories = new HashSet<>();
@@ -207,6 +297,10 @@ public class Catalogue implements ProductManagable {
         return categories;
     }
     
+    /**
+     * 
+     * @return alle mærker i systemet
+     */
     @Override
     public Set<String> getAllManufacturers() {
         Set<String> manufacturers = new HashSet<>();
@@ -216,6 +310,10 @@ public class Catalogue implements ProductManagable {
         return manufacturers;
     }
     
+    /**
+     * 
+     * @return alle farver i systemet
+     */
     @Override
     public Set<String> getAllColors() {
         Set<String> colors = new HashSet<>();
@@ -225,6 +323,10 @@ public class Catalogue implements ProductManagable {
         return colors;
     }
     
+    /**
+     * 
+     * @return den højeste produktpris i systemet
+     */
     @Override
     public double getMaxPrice() {
         double max = 0;
@@ -236,6 +338,21 @@ public class Catalogue implements ProductManagable {
         return max;
     }
     
+    /**
+     * Opretter et nyt produkt i databasen.
+     * @param id produktets id
+     * @param name produktets navn
+     * @param category produktets kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color produktets farve
+     * @param gender produktets køn
+     * @param description produktets beskrivelse
+     * @param imagePath produktets filsti
+     * @param manufacturer produktets mærke
+     * @param price produktets pris
+     */
     @Override
     public void createProduct(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
@@ -245,6 +362,21 @@ public class Catalogue implements ProductManagable {
         database.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
 
+    /**
+     * Ændrer produkt-attributterne i databasen.
+     * @param id produktets id
+     * @param name det nye navn
+     * @param category den nye kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color den nye farve
+     * @param gender det nye køn
+     * @param description den nye beskrivelse
+     * @param imagePath den nye filsti
+     * @param manufacturer det nye mærke
+     * @param price den nye pris
+     */
     @Override
     public void changeProductDetails(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 

@@ -16,11 +16,12 @@ import javafx.scene.shape.Circle;
  */
 public class ShoppingBasketIcon extends Pane {
     
-    private static boolean isLoaded;
     private Label size;
-        
+    
+    /**
+     * Opretter et nyt shoppingbasket ikon, der kan bruges til at gå til indkøbskurven.
+     */
     public ShoppingBasketIcon() {
-        isLoaded = true;
         ImageView iv = new ImageView(new Image("file:icons/shoppingBasketIcon.png"));
         iv.setFitWidth(50);
         iv.setPreserveRatio(true);
@@ -57,11 +58,11 @@ public class ShoppingBasketIcon extends Pane {
         getChildren().addAll(iv, c, labelContainer);
     }
     
+    /**
+     * Opdaterer det viste antal på indkøbskurven.
+     * @param amount Det nye antal der skal vises.
+     */
     public void updateBasket(int amount) {
         size.setText(amount + "");
-    }
-    
-    public static boolean isLoaded() {
-        return isLoaded;
     }
 }
