@@ -7,7 +7,7 @@ package GUI;
 public interface ControlledScreen {
     
     /**
-     * String-konstanter der indeholde de forskellige screens navne.
+     * String-konstanter der indeholde de forskellige screens navne, samt FXML filer.
      */
     String CATALOGUE_SCREEN = "user_view/CatalogueController";
     String CATALOGUE_SCREEN_FXML = "user_view/Catalogue.fxml";

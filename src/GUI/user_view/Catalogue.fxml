@@ -154,7 +154,7 @@
           <AnchorPane fx:id="productButtonContainer" style="-fx-focus-color: #F4F4F4;" />
         </content>
       </ScrollPane>
-      <Label layoutX="714.0" layoutY="14.0" text="Log ind med &quot;email@email.dk&quot; og &quot;kode&quot;" />
+      <Label layoutX="714.0" layoutY="14.0" text="Log ind med &quot;admin&quot; og &quot;kode&quot;" />
       <Button fx:id="pimBtn" layoutX="606.0" layoutY="727.0" mnemonicParsing="false" onAction="#showPIMScreen" text="Gå til PIM" visible="false" />
       <HBox fx:id="shoppingBasketContainer" alignment="CENTER" layoutX="1038.0" layoutY="26.0" prefHeight="47.0" prefWidth="62.0" />
    </children>

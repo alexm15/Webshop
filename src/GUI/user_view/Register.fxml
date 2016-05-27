@@ -15,7 +15,7 @@
    <children>
       <Region prefHeight="800.0" prefWidth="190.0" />
       <Region layoutX="1090.0" prefHeight="800.0" prefWidth="190.0" />
-      <Button layoutX="605.0" layoutY="607.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <Button layoutX="585.0" layoutY="610.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Tilbage til katalog" />
       <VBox alignment="CENTER" layoutX="532.0" layoutY="124.0" prefHeight="428.0" prefWidth="216.0" spacing="10.0">
          <children>
             <HBox alignment="CENTER" prefHeight="20.0" prefWidth="129.0">

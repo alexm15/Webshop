@@ -27,6 +27,6 @@
             </Label>
          </children>
       </HBox>
-      <Button layoutX="611.0" layoutY="714.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Catalogue" />
+      <Button layoutX="585.0" layoutY="720.0" mnemonicParsing="false" onAction="#showCatalogueScreen" text="Tilbage til katalog" />
    </children>
 </AnchorPane>

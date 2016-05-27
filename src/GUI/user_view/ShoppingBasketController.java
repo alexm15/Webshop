@@ -28,6 +28,9 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
     private VBox shoppingItemsContainer;
     private Map<Item, ShoppingBasketItem> shoppingItemMap;
 
+    /**
+     * Loader og viser katalogskærmen.
+     */
     @FXML
     private void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
@@ -48,6 +51,10 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         }
     }
 
+    /**
+     * Opretter felter der viser det items, i ens indkøbskurv.
+     * @param items Det items, felterne skal oprettes ud fra.
+     */
     private void createShoppingBasketItems(List<Item> items) {
         int yOffset = 0;
         for (Item i : items) {
@@ -72,6 +79,10 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         }
     }
 
+    /**
+     * Fjerner et felt fra indkøbskurven.
+     * @param item Det item der skal fjernes.
+     */
     private void remove(Item item) {
         webshopDriver.removeItem(item);
         int i = shoppingItemsContainer.getChildren().indexOf(shoppingItemMap.get(item)) + 1;
@@ -81,6 +92,10 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         controller.getShoppingBasketIcon().updateBasket(webshopDriver.getShoppingBasketSize());
     }
 
+    /**
+     * Opdaterer antallet af en item.
+     * @param item Det item der skal opdateres antallet af.
+     */
     private void update(Item item) {
         try {
             int i = Integer.parseInt(shoppingItemMap.get(item).getText());
@@ -98,6 +113,9 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         }
     }
 
+    /**
+     * Tjekker om indkøbskurven er tom, og viser i det tilfælde en besked.
+     */
     private void checkIfEmptyBasket() {
         if(webshopDriver.getShoppingBasket().isEmpty()) {
             Label l = new Label("Indkøbskurv tom");
@@ -105,6 +123,10 @@ public class ShoppingBasketController implements Initializable, ControlledScreen
         }
     }
 
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

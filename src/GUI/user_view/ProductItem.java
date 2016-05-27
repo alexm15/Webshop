@@ -31,10 +31,10 @@ public class ProductItem extends VBox {
     private final Border hoverBorder = new Border(hoverStroke);
     
     /**
-     * 
-     * @param product
-     * @param x
-     * @param y 
+     * Opretter en ny firkant, der skal vises i kataloget.
+     * @param product Det produkt, firkanten skal bestå af
+     * @param x X-koordinaten
+     * @param y Y-koordinaten.
      */
     public ProductItem(Product product, double x, double y) {
         Group root = new Group();
@@ -64,7 +64,10 @@ public class ProductItem extends VBox {
         root.layout();
     }
     
+    /**
+     * @return Højden af firkanten.
+     */
     public double getImageHeight() {
-        return getHeight();//iv.getImage().getHeight();
+        return getHeight();
     }
 }

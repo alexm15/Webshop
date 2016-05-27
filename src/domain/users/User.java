@@ -96,15 +96,71 @@ public class User {
         return right;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
+    }
+
+    public void setOrderMap(Map<Integer, Order> orderMap) {
+        this.orderMap = orderMap;
+    }
+
+    /**
+     * ændrer antallet på en item
+     * @param quantity det nye antal
+     * @param item itemmen der skal ændres
+     */
     public void changeQuantity(int quantity, Item item) {
         findShoppingBasket().changeQuantity(item, quantity);
     }
 
+    /**
+     * fjerner en item fra ordren
+     * @param item det item der skal fjernes
+     */
     public void removeItem(Item item) {
-        Order shoppingBasket = this.findShoppingBasket();
-        shoppingBasket.removeItem(item);
+        findShoppingBasket().removeItem(item);
     }
 
+    /**
+     * finder den ordrer der har status som shoppingbasket
+     * @return den fundne ordrer, eller null
+     */
     public Order findShoppingBasket() {
         for(Order order : orderMap.values()) {
             if(order.getStatus() == OrderStatus.SHOPPING_BASKET) {
@@ -114,22 +170,44 @@ public class User {
         return null;
     }
     
+    /**
+     * 
+     * @return shoppingbasket som liste af items
+     */
     public List<Item> getShoppingBasket() {
         return getShoppingBasketOrder().getItems();
     }
     
+    /**
+     * 
+     * @return shoppingbasket som order objekt
+     */
     public Order getShoppingBasketOrder() {
         return findShoppingBasket();
     }
     
+    /**
+     * Modtager en ordrer, når brugeren logger ind, fra en gæstebruger.
+     * @param o 
+     */
     public void recieveShoppingBasket(Order o){
         orderMap.put(o.getOrderID(), o);
     }
 
+    /**
+     * opretter en ny ordre
+     * @param orderID den nye ordres ordre ID
+     */
     public void createOrder(int orderID) {
         orderMap.put(orderID, new Order(new Date(), orderID, OrderStatus.SHOPPING_BASKET, address));
     }
 
+    /**
+     * tilføjer en item til den nuværende ordre
+     * @param product produktet der skal tilføjes
+     * @param quantity mængden der skal tilføjes
+     * @param size størrelsen valgt
+     */
     public void addItem(Product product, int quantity, String size) {
         findShoppingBasket().addItem(product, quantity, size);
     }

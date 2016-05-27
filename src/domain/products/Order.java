@@ -26,16 +26,33 @@ public class Order implements OrderManageable {
         itemList = new ArrayList<>();
     }
 
+    /**
+     * tilføjer en ny item til ordren
+     * @param product produktet der skal tilføjes
+     * @param quantity antallet af produkter der skal tilføjes
+     * @param size størrelsen valgt
+     */
     @Override
     public void addItem(Product product, int quantity, String size) {
         itemList.add(new Item(product, quantity, size));
     }
 
+    /**
+     * fjerner en item fra ordren
+     * @param item item'en der skal fjernes
+     */
     @Override
     public void removeItem(Item item) {
         itemList.remove(item);
     }
     
+    /**
+     * finder ud af om ordren indeholder et bestemt produkt
+     * @param product produktet der skal søges efter
+     * @param size størrelsen der skal søges efter
+     * @return den fundne item, eller null
+     */
+    @Override
     public Item containsProduct(Product product, String size) {
         for(Item i : itemList) {
             if(i.getProduct().equals(product) && i.getSize().equals(size)) {
@@ -45,6 +62,12 @@ public class Order implements OrderManageable {
         return null;
     }
 
+    /**
+     * sætter antallet af en item
+     * @param item den item der skal opdateres
+     * @param quantity det nye antal
+     */
+    @Override
     public void setQuantity(Item item, int quantity) {
         for(Item i : itemList) {
             if (item.equals(i)) {
@@ -53,7 +76,11 @@ public class Order implements OrderManageable {
         }
     }
     
-
+    /**
+     * opdaterer antallet af en item
+     * @param item den item der skal opdateres
+     * @param quantity det antal der skal opdateres med
+     */
     @Override
     public void changeQuantity(Item item, int quantity) {
         for(Item i : itemList) {
@@ -83,6 +110,10 @@ public class Order implements OrderManageable {
         return shippingCharge;
     }
 
+    /**
+     * 
+     * @return den endelige pris
+     */
     @Override
     public double getFinalPrice() {
         double sum = 0;
