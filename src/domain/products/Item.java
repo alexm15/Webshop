@@ -13,7 +13,8 @@ public class Item {
     /**
      * 
      * @param product det produkt item'et skal knyttes til
-     * @param quantity mængden af item'et
+     * @param quantity mængden af produkter
+     * @param size størrelsen af produktet
      */
     public Item(Product product, int quantity, String size) {
         this.product = product;
@@ -23,7 +24,7 @@ public class Item {
 
     /**
      * 
-     * @param quantity den nye mængde af item'et
+     * @param quantity den nye mængde af produkter
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -39,9 +40,7 @@ public class Item {
      */
 
     public double getSumPrice() {
-
         return product.getPrice() * quantity;
-
     }
    
     /**
@@ -52,15 +51,17 @@ public class Item {
         return quantity;
     }
     
-    
     /**
      * @return produktet knyttet til item'et
      */
-
     public Product getProduct() {
         return product;
     }
     
+    /**
+     * 
+     * @return størrelsen på det indkapslede produkt
+     */
     public String getSize(){
         return size;
     }

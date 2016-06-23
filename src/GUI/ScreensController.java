@@ -109,6 +109,10 @@ public class ScreensController extends AnchorPane {
         }
     }
     
+    /**
+     * 
+     * @return ShoppingBasketIconet, der bruges til at gå til shoppingbasket.
+     */
     public ShoppingBasketIcon getShoppingBasketIcon() {
         return ((ShoppingBasketIcon) ((HBox) getChildren().get(1)).getChildren().get(0));
         //return (ShoppingBasketIcon) getChildren().get(1);

@@ -13,6 +13,11 @@ import domain.WebshopDriver;
  */
 public class Main extends Application {
     
+    /**
+     * Starter applikationen. Opretter først en ny screencontroller, der fungerer
+     * som parent node. Herefter loades catalogue_screen, og den sættes som den aktive screen.
+     * 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         ScreensController mainContainer = new ScreensController();
@@ -27,10 +32,13 @@ public class Main extends Application {
         stage.getIcons().add(new Image("file:icons/webshopIcon.png"));
         stage.setScene(scene);
         stage.setOnCloseRequest((e) -> {
-            /*IWebshopDriver webshop = WebshopDriver.getInstance();
-            if(webshop.isConnected()) {
-                webshop.disconnect();
-            }*/
+            IWebshopDriver webshopDriver = WebshopDriver.getInstance();
+            if(webshopDriver.isPIMConnected()) {
+                webshopDriver.disconnectPIM();
+            }
+            if(webshopDriver.isURMConnected()) {
+                webshopDriver.disconnectURM();
+            }
         });
         stage.show();
         

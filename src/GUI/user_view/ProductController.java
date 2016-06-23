@@ -38,6 +38,9 @@ public class ProductController implements Initializable, ControlledScreen {
     @FXML
     private Label sizeErr;
     
+    /**
+     * Loader og viser katalogskærmen.
+     */
     @FXML
     private void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
@@ -45,17 +48,24 @@ public class ProductController implements Initializable, ControlledScreen {
         controller.unloadScreen(PRODUCT_SCREEN);
     }
     
+    /**
+     * Tilføjer produktet til indkøbskurven.
+     */
     @FXML
     private void addItemToBasket() {   
         try {
             webshopDriver.addItem(Integer.parseInt(amountField.getText()), sizeBox.getValue().toString()); // toString for at kunne fange nullpointerexception
             controller.getShoppingBasketIcon().updateBasket(webshopDriver.getShoppingBasketSize());
         }
-        catch(NullPointerException e){
+        catch(NullPointerException e) {
+            e.printStackTrace();
             sizeErr.setText("Vælg venligst en størrelse.");
         }
     }
     
+    /**
+     * Sætter fejlmeddelelsen til en tom string.
+     */
     @FXML
     private void unsetSizeError(){
         sizeErr.setText("");
@@ -100,6 +110,10 @@ public class ProductController implements Initializable, ControlledScreen {
         descriptionTxt.setText(selectedProduct.getDescription());
     }
     
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

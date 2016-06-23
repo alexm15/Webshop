@@ -5,12 +5,12 @@ import database.IDatabase;
 import domain.products.Catalogue;
 import domain.products.Product;
 import domain.products.Item;
-import domain.products.ProductManagable;
 import domain.users.UserManageable;
 import domain.users.UserManager;
 import java.util.List;
 import java.util.Set;
 import util.Rights;
+import domain.products.ProductManageable;
 
 /**
  * Fungerer som facade-klasse imellem GUI og Domæne laget, hvor denne klasse
@@ -25,7 +25,7 @@ public class WebshopDriver implements IWebshopDriver {
     private static IWebshopDriver instance = null;
     private IDatabase databaseDriver;
     private UserManageable userManager;
-    private ProductManagable catalogue;
+    private ProductManageable catalogue;
     private static int orderID;
 
     /**
@@ -40,18 +40,39 @@ public class WebshopDriver implements IWebshopDriver {
         catalogue = new Catalogue();
         orderID = 0;
     }
-
-    /*public void connect() {
-        database.connect();
+    
+    /**
+     * @return Om der er oprettet forbindelse til PIM eller ej.
+     */
+    @Override
+    public boolean isPIMConnected() {
+        return databaseDriver.isPIMConnected();
     }
     
-    public void disconnect() {
-        database.disconnect();
+    /**
+     * @return Om der er oprettet forbindelse til URM eller ej.
+    */
+    @Override
+    public boolean isURMConnected() {
+        return databaseDriver.isURMConnected();
     }
     
-    public boolean isConnected() {
-        return database.isConnected();
-    }*/
+    /**
+     * Afslutter forbindelsen til PIM.
+     */
+    @Override
+    public void disconnectPIM() {
+        databaseDriver.disconnectPIM();
+    }
+    
+    /**
+     * Afslutter forbindelsen til URM.
+     */
+    @Override
+    public void disconnectURM() {
+        databaseDriver.disconnectURM();
+    }
+    
     /**
      * Logger den en indtastet bruger ind i systemet. Beder det aktive objekt af
      * UserManageren om at validere at den indtastet email og kode passer på en
@@ -75,6 +96,9 @@ public class WebshopDriver implements IWebshopDriver {
         userManager.logout();
     }
     
+    /**
+     * @return om der er en bruger logget ind.
+     */
     @Override
     public boolean isUserLoggedIn() {
         return userManager.isUserLoggedIn();
@@ -141,6 +165,10 @@ public class WebshopDriver implements IWebshopDriver {
         return userManager.getLoggedInUser().getAddress().getZipCode();
     }
     
+    /**
+     * 
+     * @return brugerens rettigheder
+     */
     @Override
     public int getRights() {
         return userManager.getLoggedInUser().getRight();
@@ -164,6 +192,9 @@ public class WebshopDriver implements IWebshopDriver {
         return userManager.getLoggedInUser().getEmail();
     }
     
+    /**
+     * @return brugerens krypterede password
+     */
     @Override
     public String getPassword() {
         return userManager.getLoggedInUser().getPassword();
@@ -207,13 +238,17 @@ public class WebshopDriver implements IWebshopDriver {
 
     /**
      * Styrer søgekriterier valg i GUI så de kommunikere med domæne-laget.
-     * 
+     *
      * @param searchWord indtastet søgeord
      * @param maxPrice udvalgte maks pris på pris-slideren
      * @param genders udvalgte checkbox for køn
      * @param categories udvalgte kategori fra checkboxene for kategorier
+     * @param manufacturers udvalgte mærke fra checkboxene for mærker
      * @param colors udvalgte farve fra checkboxene af farver
-     * @param sizes udvalgte størrelse fra checkboxene af størrelser
+     * @param small om produktet skal være i small
+     * @param medium om produktet skal være i medium
+     * @param large om produktet skal være i large
+     * 
      * @return Domænelagets match af de udvalgte søgekriterier
      */
     @Override
@@ -226,9 +261,10 @@ public class WebshopDriver implements IWebshopDriver {
 
     /**
      * Styrer søgekriterier valg i GUI så de kommunikerer med domæne-laget.
-     * @param sortTerm 
-     * @param listToSort
-     * @return
+     *
+     * @param sortTerm hvordan listen skal sorteres
+     * @param listToSort listen der skal sorteres
+     * @return den nu sorterede liste
      */
     @Override
     public List<Product> sortProducts(String sortTerm, List listToSort) {
@@ -252,8 +288,8 @@ public class WebshopDriver implements IWebshopDriver {
     }
 
     /**
-     * 
-     * @return
+     *
+     * @return listen af produkter i systemet.
      */
     @Override
     public List<Product> getProducts() {
@@ -269,14 +305,18 @@ public class WebshopDriver implements IWebshopDriver {
         return userManager.getShoppingBasket();
     }
     
+    /**
+     * @return størrelsen på indkøbskurven
+     */
     @Override
     public int getShoppingBasketSize() {
         return userManager.getShoppingBasketSize();
     }
 
     /**
-     *
-     * @param product
+     * Sætter et produkt til det nuværende produkt. Bruges når der klikkes ind
+     * på et produkt, fra kataloget.
+     * @param product det produkt der skal sættes som det nuværende
      */
     @Override
     public void setSelectedProduct(Product product) {
@@ -309,12 +349,10 @@ public class WebshopDriver implements IWebshopDriver {
     }
 
     /**
-     * Styrer ændringen af kvantiteten på et item i shoppingBasket, i GUI
-     * så de kommunikerer med domæne-laget.
-     * 
-     * @param email emailen på den specifikke bruger som ændringen skal 
-     * foretages på.
-     * @param quantity det oplyste nummer som kvantiteten af en specifik item 
+     * Styrer ændringen af kvantiteten på et item i shoppingBasket, i GUI så de
+     * kommunikerer med domæne-laget.
+     *
+     * @param quantity det oplyste nummer som kvantiteten af en specifik item
      * skal ændres til.
      * @param item den specifikke item det drejer sig om.
      */
@@ -329,9 +367,7 @@ public class WebshopDriver implements IWebshopDriver {
      */
     @Override
     public void removeItem(Item item) {
-        String email = getInstance().getEmail();
-        userManager.removeItem(email, item);
-
+        userManager.removeItem(getEmail(), item);
     }
 
     /**
@@ -377,6 +413,33 @@ public class WebshopDriver implements IWebshopDriver {
             System.err.println("Nullpointer - tilføjes normalt");
         }
     }
+    
+    /**
+     * Ændrer bruger-attributterne i databasen.
+     * @param email Den nye email
+     * @param password Det nye password
+     * @param passwordChanged Om passwordet er blevet ændret eller ej
+     * @param phoneNumber Det nye telefonnummer
+     * @param firstName Det nye fornavn
+     * @param lastName Det nye efternavn
+     * @param houseNumber Det nye husnummer
+     * @param streetName Det nye streetname
+     * @param zipCode Det nye postnummer
+     * @param city Den nye by
+     * @param country Det nye land
+     * @param birthDay Den nye fødselsdag
+     * @param birthMonth Det nye fødselsmåned
+     * @param birthYear Det nye fødselsår.
+     */
+    @Override
+    public void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
+            String firstName, String lastName, String houseNumber, String streetName, 
+            String zipCode, String city, String country, String birthDay, 
+            String birthMonth, String birthYear) {
+        userManager.changeUserDetails(email, password, passwordChanged, phoneNumber, firstName, 
+                lastName, houseNumber, streetName, zipCode, city, country, 
+                birthDay, birthMonth, birthYear);
+    }
 
     /**
      * Styrer oprettelsen af en bruger i GUI
@@ -417,26 +480,57 @@ public class WebshopDriver implements IWebshopDriver {
         return userManager.isValidEmail(email);
     }
     
+    /**
+     * 
+     * @return Alle kategorier der er i systemet
+     */
     @Override
     public Set<String> getAllCategories() {
         return catalogue.getAllCategories();
     }
     
+    /**
+     * 
+     * @return alle mærker i systemet
+     */
     @Override
     public Set<String> getAllManufacturers() {
         return catalogue.getAllManufacturers();
     }
     
+    /**
+     * 
+     * @return alle farver i systemet
+     */
     @Override
     public Set<String> getAllColors() {
         return catalogue.getAllColors();
     }
     
+    /**
+     * 
+     * @return den højeste produktpris i systemet
+     */
     @Override
     public double getMaxPrice() {
         return catalogue.getMaxPrice();
     }
     
+    /**
+     * Opretter et nyt produkt i databasen.
+     * @param id produktets id
+     * @param name produktets navn
+     * @param category produktets kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color produktets farve
+     * @param gender produktets køn
+     * @param description produktets beskrivelse
+     * @param imagePath produktets filsti
+     * @param manufacturer produktets mærke
+     * @param price produktets pris
+     */
     @Override
     public void createProduct(int id, String name, String category, 
             boolean small, boolean medium, boolean large, String color, 
@@ -444,6 +538,21 @@ public class WebshopDriver implements IWebshopDriver {
         catalogue.createProduct(id, name, category, small, medium, large, color, gender, description, imagePath, manufacturer, price);
     }
     
+    /**
+     * Ændrer produkt-attributterne i databasen.
+     * @param id produktets id
+     * @param name det nye navn
+     * @param category den nye kategori
+     * @param small om den er tilgængelig i small
+     * @param medium om den er tilgængelig i medium
+     * @param large om den er tilgængelig i large
+     * @param color den nye farve
+     * @param gender det nye køn
+     * @param description den nye beskrivelse
+     * @param imagePath den nye filsti
+     * @param manufacturer det nye mærke
+     * @param price den nye pris
+     */
     @Override
     public void changeProductDetails(int id, String name, String category, boolean small, 
             boolean medium, boolean large, String color, String gender, String description, 

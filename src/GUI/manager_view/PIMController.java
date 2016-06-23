@@ -100,6 +100,9 @@ public class PIMController implements Initializable, ControlledScreen {
     @FXML
     private TextArea descriptionArea;
     
+    /**
+     * Loader katalog skærmen, sætter den som vist, og unloader den nuværende skærm.
+     */
     @FXML
     public void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
@@ -107,6 +110,9 @@ public class PIMController implements Initializable, ControlledScreen {
         controller.unloadScreen(PIM_SCREEN);
     }
     
+    /**
+     * Ændrer produktdetaljerne, baseret på det der er indtastet i tekstfelterne.
+     */
     @FXML
     private void changeProductDetails() {
         errorTxt.setText("");
@@ -177,6 +183,9 @@ public class PIMController implements Initializable, ControlledScreen {
         showProductInfo();
     }
     
+    /**
+     * Viser produktinfo omkring det valgte produkt.
+     */
     private void showProductInfo() {
         errorTxt.setText("");
         if(webshopDriver.getSelectedProduct() == null) {
@@ -325,12 +334,19 @@ public class PIMController implements Initializable, ControlledScreen {
         showProductInfo();
     }
     
+    /**
+     * Opdaterer priceslideren, til den højeste pris der findes i systemet.
+     */
     private void updatePriceSlider() {
         priceSlider.setMax(webshopDriver.getMaxPrice());
         priceSlider.setValue(priceSlider.getMax());
         priceVTxt.setText(priceSlider.getMax() + "");
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke kategorier
+     * der findes i systemet.
+     */
     private void createCategoryCheckBoxes() {
         categoryChoiceContainer.getChildren().clear();
         categories = new CheckBox[webshopDriver.getAllCategories().size()];
@@ -346,6 +362,10 @@ public class PIMController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke mærker
+     * der findes i systemet.
+     */
     private void createManufacturerCheckBoxes() {
         manufacturerChoiceContainer.getChildren().clear();
         manufacturers = new CheckBox[webshopDriver.getAllManufacturers().size()];
@@ -361,6 +381,10 @@ public class PIMController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke farver
+     * der findes i systemet.
+     */
     private void createColorCheckBoxes() {
         colorChoiceContainer.getChildren().clear();
         colors = new CheckBox[webshopDriver.getAllColors().size()];
@@ -376,6 +400,10 @@ public class PIMController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

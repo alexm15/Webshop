@@ -84,7 +84,6 @@ public class CatalogueController implements Initializable, ControlledScreen {
     
     /**
      * Loader og viser produktskærmen.
-     * Sørger for at login- og logoutcontainerne følger med.
      */
     private void showProductScreen() {
         controller.loadScreen(PRODUCT_SCREEN, PRODUCT_SCREEN_FXML);
@@ -93,6 +92,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
+    /**
+     * Loader og viser min side-skærmen.
+     */
     @FXML
     private void showMyPageScreen() {
         controller.loadScreen(MYPAGE_SCREEN, MYPAGE_SCREEN_FXML);
@@ -101,6 +103,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
+    /**
+     * Loader og viser shoppingbasket-skærmen.
+     */
     private void showShoppingBasketScreen() {
         controller.loadScreen(SHOPPINGBASKET_SCREEN, SHOPPINGBASKET_SCREEN_FXML);
         handleMultiScreenContainers();
@@ -108,6 +113,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
+    /**
+     * Loader og viser registrer bruger-skærmen.
+     */
     @FXML
     private void showRegisterScreen() {
         controller.loadScreen(REGISTER_SCREEN, REGISTER_SCREEN_FXML);
@@ -116,6 +124,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
+    /**
+     * Loader og viser PIM-skærmen.
+     */
     @FXML
     private void showPIMScreen() {
         controller.loadScreen(PIM_SCREEN, PIM_SCREEN_FXML);
@@ -124,18 +135,18 @@ public class CatalogueController implements Initializable, ControlledScreen {
         controller.unloadScreen(CATALOGUE_SCREEN);
     }
     
+    /**
+     * Sørger for at logincontaineren, logoutcontaineren samt shoppingbasketikonet
+     * altid følger med skærmskift.
+     */
     private void handleMultiScreenContainers() {
-        //if(!controller.getChildren().contains(shoppingBasketContainer) && 
-        //        !controller.getChildren().contains(loginContainer) && 
-        //        !controller.getChildren().contains(logoutContainer)) {
-            /*if(controller.getChildren().size() > 1) {
-                controller.getChildren().remove(1, controller.getChildren().size());
-            }*/
-            controller.getChildren().add(1, shoppingBasketContainer);
-            controller.getChildren().addAll(loginContainer, logoutContainer);
-        //}
+        controller.getChildren().add(1, shoppingBasketContainer);
+        controller.getChildren().addAll(loginContainer, logoutContainer);
     }
     
+    /**
+     * Logger brugeren ind. Hvis brugeren ikke kan valideres, vises en fejlmeddelelse.
+     */
     @FXML
     private void login() {
         if(webshopDriver.login(usernameField.getText(), passwordField.getText())) {
@@ -153,6 +164,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sørger for at brugeren forbliver logget ind, når skærmen skifter.
+     */
     private void loginAgain() {
         webshopDriver.login(webshopDriver.getEmail(), webshopDriver.getPassword());
         errorTxt.setVisible(false);
@@ -165,6 +179,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Logger brugeren ud.
+     * Hvis brugeren er på Min Side-skærmen, bliver katalog skærmen vist i stedet.
+     */
     @FXML
     private void logout() {
         webshopDriver.logout();
@@ -271,6 +289,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
         shoppingBasketContainer.getChildren().add(sbi);
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke kategorier
+     * der findes i systemet.
+     */
     private void createCategoryCheckBoxes() {
         categoryChoiceContainer.getChildren().clear();
         categories = new CheckBox[webshopDriver.getAllCategories().size()];
@@ -286,6 +308,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke mærker
+     * der findes i systemet.
+     */
     private void createManufacturerCheckBoxes() {
         manufacturerChoiceContainer.getChildren().clear();
         manufacturers = new CheckBox[webshopDriver.getAllManufacturers().size()];
@@ -301,6 +327,10 @@ public class CatalogueController implements Initializable, ControlledScreen {
         }
     }
     
+    /**
+     * Sletter eksisterende checkboxes, og opretter nye, baseret på hvilke farver
+     * der findes i systemet.
+     */
     private void createColorCheckBoxes() {
         colorChoiceContainer.getChildren().clear();
         colors = new CheckBox[webshopDriver.getAllColors().size()];
@@ -324,11 +354,9 @@ public class CatalogueController implements Initializable, ControlledScreen {
      */
     private void createProductButtons(List<Product> products) {
         pis = new ProductItem[products.size()];
-        int xOffset = 0, yOffset = 0, amount = 0;
+        int xOffset = 0, amount = 0, i = 0;
         double yOffSet0 = 0, yOffSet1 = 0, yOffSet2 = 0, yOffSet3 = 0;
-        int i = 0;
         for(Product p : products) {
-            //ProductItem pb = null;
             switch(amount) {
                 case 0:
                     pis[i] = new ProductItem(p, 10 + xOffset, 10 + yOffSet0);
@@ -359,13 +387,16 @@ public class CatalogueController implements Initializable, ControlledScreen {
             amount++;
             i++;
             if(amount > 3) {
-                //yOffset += pb.getImageHeight(); //190
                 xOffset = 0;
                 amount = 0;
             }
         }
     }
     
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;

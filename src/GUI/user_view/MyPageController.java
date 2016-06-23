@@ -8,7 +8,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * @author Niels
@@ -41,12 +44,67 @@ public class MyPageController implements Initializable, ControlledScreen {
     private TextField birthYearTxt;
     @FXML
     private TextField zipCodeTxt;
+    @FXML
+    private PasswordField passwordTxt;
+    @FXML
+    private Label formulaErrorTxt;
     
+    /**
+     * Loader og viser katalogskærmen.
+     */
     @FXML
     private void showCatalogueScreen() {
         controller.loadScreen(CATALOGUE_SCREEN, CATALOGUE_SCREEN_FXML);
         controller.setScreen(CATALOGUE_SCREEN);
         controller.unloadScreen(MYPAGE_SCREEN);
+    }
+    
+    /**
+     * Opdaterer bruger informationen, baseret på hvad der er indtastet i
+     * tekstfelterne. Er nogle af dem tomme, vises en fejlmeddelelse.
+     */
+    @FXML
+    private void changeUserDetails() {
+        String password = passwordTxt.getText(), firstName = firstNameTxt.getText(), 
+                lastName = lastNameTxt.getText(), streetName = streetNameTxt.getText(), 
+                houseNumber = houseNumberTxt.getText(), city = cityTxt.getText(), 
+                zipCode = zipCodeTxt.getText(), country = countryTxt.getText(), 
+                phoneNumber = phoneNumberTxt.getText(), birthDay = birthDayTxt.getText(), 
+                birthMonth = birthMonthTxt.getText(), birthYear = birthYearTxt.getText();
+        formulaErrorTxt.setText("");
+        if(firstName.isEmpty() || lastName.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst både for- og efternavn.");
+        }
+        else if(streetName.isEmpty() || houseNumber.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst både vejnavn og husnr.");
+        }
+        else if(city.isEmpty() || zipCode.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst både bynavn og postnr.");
+        }
+        else if(country.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst et land.");
+        }
+        else if(phoneNumber.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst et telefonnummer.");
+        }
+        else if(birthDay.isEmpty() || birthMonth.isEmpty() || birthYear.isEmpty()) {
+            formulaErrorTxt.setText("Indtast venligst en fødselsdag.");
+        }
+        else {
+            boolean passwordChanged = true;
+            if(password.isEmpty()) {
+                password = webshopDriver.getPassword();
+                passwordChanged = false;
+                System.out.println("old pass");
+            }
+            webshopDriver.changeUserDetails(webshopDriver.getEmail(), password, 
+                    passwordChanged, phoneNumber, firstName, lastName, houseNumber, 
+                    streetName, zipCode, city, country, birthDay, birthMonth, birthYear);
+            System.out.println(password);
+            formulaErrorTxt.setText("Bruger opdateret.");
+            formulaErrorTxt.setTextFill(Color.web("#46cc2e"));
+        }
+        
     }
     
     @Override
@@ -66,8 +124,13 @@ public class MyPageController implements Initializable, ControlledScreen {
         birthYearTxt.setText(webshopDriver.getBirthYear());
     }
     
+    /**
+     * Sætter parent noden, så der nemt kan skiftes skærm.
+     * @param screenParent Parent noden.
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }
+
 }
