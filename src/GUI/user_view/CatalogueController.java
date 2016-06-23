@@ -237,7 +237,8 @@ public class CatalogueController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webshopDriver = WebshopDriver.getInstance();
-        if(webshopDriver.isUserLoggedIn()) {
+        System.out.println(webshopDriver.isUserLoggedIn());
+        if(webshopDriver.isUserLoggedIn() && webshopDriver.getRights() > 0) {
             loginAgain();
         }
         genders = new CheckBox[] {womenBox, menBox, unisexBox};
