@@ -1,6 +1,8 @@
 package domain.users;
 
 import database.DatabaseDriver;
+import database.OldImplUserRepository;
+import database.Repository;
 import domain.products.Item;
 import domain.products.Order;
 import domain.products.Product;
@@ -14,70 +16,71 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.Rights;
 
 /**
  * @author Niels
  */
-public class UserManager implements UserManageable {
+public class UserManager implements UserManageable
+{
 
     private Map<String, User> usersMap;
     private User loggedInUser;
+    private Repository<User> repository;
 
-    public UserManager() {
+    public UserManager()
+    {
+        this(new OldImplUserRepository());
+    }
+
+    public UserManager(Repository<User> repository)
+    {
+        this.repository = repository;
         usersMap = new HashMap<>();
         loadUsers();
     }
-    
+
     /**
      * Indlæser brugerne fra databasen, ind i usersMap.
      */
-    private void loadUsers() {
-        ResultSet rs = DatabaseDriver.getInstance().getUsers();
-        try {
-            while(rs.next()) {
-                String email = rs.getString(1);
-                String password = rs.getString(2);
-                byte[] salt = rs.getBytes(3);
-                String phoneNumber = rs.getString(4);
-                String firstName = rs.getString(5);
-                String lastName = rs.getString(6);
-                int right = rs.getInt(7);
-                String birthDay = rs.getString(8);
-                String birthMonth = rs.getString(9);
-                String birthYear = rs.getString(10);
-                String houseNumber = rs.getString(12);
-                String zipCode = rs.getString(13);
-                String streetName = rs.getString(14);
-                String city = rs.getString(15);
-                String country = rs.getString(16);
-                usersMap.put(email, new User(email, password, salt, phoneNumber, 
-                        firstName, lastName, houseNumber, streetName, zipCode, 
-                        city, country, right, birthDay, birthMonth, birthYear));
-            }
+    private void loadUsers()
+    {
+        try
+        {
+            List<User> users = repository.getAll();
+            users.forEach(user -> usersMap.put(user.getEmail(), user));
         }
-        catch(SQLException e) {
-            e.printStackTrace();
+        catch (SQLException ex)
+        {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Validerer om passwordet er rigtigt, og sørger for at modtage kurven, hvis
      * gæstebrugeren har puttet noget i den
+     *
      * @param email den indtastede email
      * @param password det indtastede password
      * @return om passwordet passede eller ej
      */
     @Override
-    public boolean validate(String email, String password) {
+    public boolean validate(String email, String password)
+    {
         User user = findUser(email);
-        if(user == null) {
+        if (user == null)
+        {
             return false;
         }
-        else {
+        else
+        {
             boolean validated = user.getPassword().equals(getHashedPassword(password, user.getSalt()));
-            if(validated) {
-                if(this.hasBasket()){
+            if (validated)
+            {
+                if (this.hasBasket())
+                {
                     user.recieveShoppingBasket(loggedInUser.findShoppingBasket());
                 }
                 setLoggedInUser(user);
@@ -85,30 +88,34 @@ public class UserManager implements UserManageable {
             return validated;
         }
     }
-    
+
     /**
      * Sætter loggedInUser til et user objekt
+     *
      * @param user user objektet der er logget ind
      */
-    private void setLoggedInUser(User user){
+    private void setLoggedInUser(User user)
+    {
         loggedInUser = user;
     }
-    
+
     /**
-     * 
+     *
      * @return den bruger der er logget ind
      */
     @Override
-    public User getLoggedInUser() {
+    public User getLoggedInUser()
+    {
         return loggedInUser;
     }
-    
+
     /**
-     * 
+     *
      * @return om brugeren er logget ind eller ej
      */
     @Override
-    public boolean isUserLoggedIn() {
+    public boolean isUserLoggedIn()
+    {
         return loggedInUser != null;
     }
 
@@ -116,12 +123,14 @@ public class UserManager implements UserManageable {
      * logger brugeren ud
      */
     @Override
-    public void logout() {
+    public void logout()
+    {
         setLoggedInUser(null);
     }
-    
+
     /**
      * Ændrer bruger-attributterne i databasen.
+     *
      * @param email Den nye email
      * @param password Det nye password
      * @param passwordChanged Om passwordet er blevet ændret eller ej
@@ -138,17 +147,19 @@ public class UserManager implements UserManageable {
      * @param birthYear Det nye fødselsår.
      */
     @Override
-    public void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber, 
-            String firstName, String lastName, String houseNumber, String streetName, 
-            String zipCode, String city, String country, String birthDay, 
-            String birthMonth, String birthYear) {
+    public void changeUserDetails(String email, String password, boolean passwordChanged, String phoneNumber,
+            String firstName, String lastName, String houseNumber, String streetName,
+            String zipCode, String city, String country, String birthDay,
+            String birthMonth, String birthYear)
+    {
         User user = usersMap.get(email);
-        if(passwordChanged) {
+        if (passwordChanged)
+        {
             password = getHashedPassword(password, user.getSalt());
         }
-        DatabaseDriver.getInstance().changeUserDetails(email, password, phoneNumber, 
-                firstName, lastName, houseNumber, streetName, zipCode, city, country, 
-                birthDay, birthMonth, birthYear);
+//        DatabaseDriver.getInstance().changeUserDetails(email, password, phoneNumber, 
+//                firstName, lastName, houseNumber, streetName, zipCode, city, country, 
+//                birthDay, birthMonth, birthYear);
         user.setPassword(password);
         user.setPassword(phoneNumber);
         user.getName().setFirstName(firstName);
@@ -162,8 +173,10 @@ public class UserManager implements UserManageable {
         user.setBirthMonth(birthMonth);
         user.setBirthYear(birthYear);
         setLoggedInUser(user);
+        repository.update(user);
+
     }
-    
+
     /**
      * Styrer oprettelsen af en bruger i GUI så den kommunikerer med
      * domæne-laget.
@@ -183,75 +196,89 @@ public class UserManager implements UserManageable {
      * @param birthYear det indtastet år
      */
     @Override
-    public void createUser(String email, String password, String phoneNumber, 
-            String firstName, String lastName, String houseNumber, String streetName, 
-            String zipCode, String city, String country, int right, 
-            String birthDay, String birthMonth, String birthYear) {
-        if(isValidEmail(email)) {
+    public void createUser(String email, String password, String phoneNumber,
+            String firstName, String lastName, String houseNumber, String streetName,
+            String zipCode, String city, String country, int right,
+            String birthDay, String birthMonth, String birthYear)
+    {
+        if (isValidEmail(email))
+        {
             byte[] salt = getSalt();
             String hashedPassword = getHashedPassword(password, salt);
-            usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber, 
-                    firstName, lastName, houseNumber, streetName, zipCode, city, country, 
+            usersMap.put(email, new User(email, hashedPassword, salt, phoneNumber,
+                    firstName, lastName, houseNumber, streetName, zipCode, city, country,
                     right, birthDay, birthMonth, birthYear));
-            DatabaseDriver.getInstance().storeUser(email, hashedPassword, salt, phoneNumber, firstName, lastName, houseNumber, 
-                    streetName, zipCode, city, country, right, birthDay, birthMonth, birthYear);
+//            DatabaseDriver.getInstance().storeUser(email, hashedPassword, salt, phoneNumber, firstName, lastName, houseNumber,
+//                    streetName, zipCode, city, country, right, birthDay, birthMonth, birthYear);
+            repository.add(usersMap.get(email));
         }
     }
-    
+
     /**
      * tjekker om en email allerede er optaget
+     *
      * @param email den email der skal tjekkes
      * @return om emailen er taget eller ej
      */
     @Override
-    public boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email)
+    {
         return !usersMap.containsKey(email);
     }
-    
+
     /**
-     * Henter først en instans af MessageDigest med MD5 algoritmen, en cryptografisk hash funktion,
-     * der laver 128-bit hash værdier.
-     * Derefter tilføjes salt-værdien til hash funktionen.
-     * Derefter bliver passwordet hashet (digestet) til decimaler.
-     * Så bliver det i et loop lavet om til hexadecimaler ved at ANDe alle bits
-     * med 0xff.
+     * Henter først en instans af MessageDigest med MD5 algoritmen, en
+     * cryptografisk hash funktion, der laver 128-bit hash værdier. Derefter
+     * tilføjes salt-værdien til hash funktionen. Derefter bliver passwordet
+     * hashet (digestet) til decimaler. Så bliver det i et loop lavet om til
+     * hexadecimaler ved at ANDe alle bits med 0xff.
+     *
      * @param passwordToHash Det password der skal hashes
-     * @param salt Den salt-værdi der skal bruges til at hashe passwordToHash med
+     * @param salt Den salt-værdi der skal bruges til at hashe passwordToHash
+     * med
      * @return Det hashede password
      */
-    private String getHashedPassword(String passwordToHash, byte[] salt) {
+    private String getHashedPassword(String passwordToHash, byte[] salt)
+    {
         String generatedPassword = null;
-        try {
+        try
+        {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
             StringBuilder builder = new StringBuilder();
-            for(int i = 0; i < bytes.length; i++) {
+            for (int i = 0; i < bytes.length; i++)
+            {
                 builder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             generatedPassword = builder.toString();
         }
-        catch(NoSuchAlgorithmException e) {
+        catch (NoSuchAlgorithmException e)
+        {
             System.err.println(e);
         }
         return generatedPassword;
     }
-    
+
     /**
-     * Henter instansen af SecureRandom, med algoritmen SHA1PRNG, fra provideren SUN, 
-     * en pseudo random number generator algoritme.
-     * Herefter laves et nyt byte array med 16 pladser. Dette array bliver
-     * fyldt ud med et pseudo random byte array fra SecureRandom generatoren.
+     * Henter instansen af SecureRandom, med algoritmen SHA1PRNG, fra provideren
+     * SUN, en pseudo random number generator algoritme. Herefter laves et nyt
+     * byte array med 16 pladser. Dette array bliver fyldt ud med et pseudo
+     * random byte array fra SecureRandom generatoren.
+     *
      * @return Den tilfældigt genererede salt-værdi.
      */
-    private byte[] getSalt() {
+    private byte[] getSalt()
+    {
         byte[] salt = null;
-        try {
+        try
+        {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
             salt = new byte[16];
             sr.nextBytes(salt);
         }
-        catch(NoSuchAlgorithmException | NoSuchProviderException e) {
+        catch (NoSuchAlgorithmException | NoSuchProviderException e)
+        {
             System.err.println(e);
         }
         return salt;
@@ -259,25 +286,29 @@ public class UserManager implements UserManageable {
 
     /**
      * opretter en ny ordre, med orderIDet
+     *
      * @param orderID det orderID der skal oprettes en ny order med
      */
     @Override
-    public void createOrder(int orderID) {
+    public void createOrder(int orderID)
+    {
         loggedInUser.createOrder(orderID);
     }
 
     /**
-     * 
-     * @return om den nuværende bruger har en shoppingbasket eller ej 
+     *
+     * @return om den nuværende bruger har en shoppingbasket eller ej
      */
     @Override
-    public boolean hasBasket() {
-        if(!isUserLoggedIn()) {
+    public boolean hasBasket()
+    {
+        if (!isUserLoggedIn())
+        {
             return false;
         }
         return findUser(loggedInUser.getEmail()).findShoppingBasket() != null;
     }
-    
+
     /**
      * Styrer valget af shoppingBasket siden i GUI så den kommunikerer med
      * domæne-laget.
@@ -285,80 +316,95 @@ public class UserManager implements UserManageable {
      * @return informationerne om den specifikke shoppingBasket
      */
     @Override
-    public List<Item> getShoppingBasket() {
+    public List<Item> getShoppingBasket()
+    {
         return loggedInUser.getShoppingBasket();
     }
-    
+
     /**
      * @return størrelsen på indkøbskurven
      */
     @Override
-    public int getShoppingBasketSize() {
+    public int getShoppingBasketSize()
+    {
         int size = 0;
-        for(Item i : getShoppingBasket()) {
+        for (Item i : getShoppingBasket())
+        {
             size += i.getQuantity();
         }
         return size;
     }
-    
+
     /**
-     * 
+     *
      * @return shoppingbasket som order objekt
      */
     @Override
-    public Order getShoppingBasketOrder() {
+    public Order getShoppingBasketOrder()
+    {
         return loggedInUser.getShoppingBasketOrder();
     }
 
     /**
      * tilføjer en item til den nuværende ordre
+     *
      * @param product produktet der skal tilføjes
      * @param quantity mængden der skal tilføjes
      * @param size størrelsen valgt
      */
     @Override
-    public void addItem(Product product, int quantity, String size) {
+    public void addItem(Product product, int quantity, String size)
+    {
         loggedInUser.addItem(product, quantity, size);
     }
 
     /**
      * ændrer antallet på en item
+     *
      * @param quantity det nye antal
      * @param item itemmen der skal ændres
      */
     @Override
-    public void changeQuantity(Item item, int quantity) {
+    public void changeQuantity(Item item, int quantity)
+    {
         loggedInUser.changeQuantity(quantity, item);
 
     }
 
     /**
      * fjerner en item fra ordren
+     *
      * @param item det item der skal fjernes
      */
     @Override
-    public void removeItem(String email, Item item) {
+    public void removeItem(String email, Item item)
+    {
         findUser(email).removeItem(item);
     }
 
     /**
      * finder brugeren med den givne email, i usersMap
+     *
      * @param email emailen der skal søges på
      * @return brugeren med den givne email
      */
-    private User findUser(String email) {
+    protected User findUser(String email)
+    {
         return usersMap.get(email);
     }
 
     /**
      * opretter en tilfældig email, til en gæstebruger
+     *
      * @param numChars længden af emailen
      * @return den tilfældige email
      */
-    private String randomEmail(int numChars) {
+    private String randomEmail(int numChars)
+    {
         Random generator = new Random();
         StringBuilder builder = new StringBuilder();
-        for(int i = 0; i < numChars; i++) {
+        for (int i = 0; i < numChars; i++)
+        {
             builder.append((char) ('a' + generator.nextInt(26)));
         }
         builder.append("@fashioneshop.com");
@@ -366,18 +412,21 @@ public class UserManager implements UserManageable {
     }
 
     /**
-     * opretter en gæstebruger med en tilfældig email, og rettigheder som en gæst.
-     * er lavet rekursivt, hvis emailen skulle være taget.
+     * opretter en gæstebruger med en tilfældig email, og rettigheder som en
+     * gæst. er lavet rekursivt, hvis emailen skulle være taget.
      */
     @Override
-    public void createGuestUser() {
+    public void createGuestUser()
+    {
         String email = randomEmail(5);
-        if(!usersMap.containsKey(email)) {
+        if (!usersMap.containsKey(email))
+        {
             User guestUser = new User(email, Rights.GUEST);
             usersMap.put(email, guestUser);
             setLoggedInUser(guestUser);
         }
-        else {
+        else
+        {
             createGuestUser();
         }
     }
